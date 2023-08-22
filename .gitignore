@@ -1,0 +1,51 @@
+# Ignore project files
+/ArcweaveDemo/.vs/
+/ArcweaveDemo/.vscode/
+/ArcweaveDemo/.idea/
+/ArcweaveDemo/ArcweaveDemo.sln
+/ArcweaveDemo/ArcweaveDemo.sln.DotSettings.user
+/ArcweaveDemo/.vsconfig
+
+# Ignore developers folder
+/ArcweaveDemo/Content/Developers/*
+
+# Ignore generated folders
+/ArcweaveDemo/Binaries/*
+/ArcweaveDemo/Build/*
+/ArcweaveDemo/Intermediate/*
+/ArcweaveDemo/DerivedDataCache/*
+/ArcweaveDemo/Saved/*
+/ArcweaveDemo/enc_temp_folder/*
+
+# Ignore the same things for plugins
+/ArcweaveDemo/Plugins/**/Binaries/*
+/ArcweaveDemo/Plugins/**/Build/*
+/ArcweaveDemo/Plugins/**/Intermediate/*
+/ArcweaveDemo/Plugins/**/DerivedDataCache/*
+/ArcweaveDemo/Plugins/**/Saved/*
+/ArcweaveDemo/Plugins/**/enc_temp_folder/*
+
+# Ignore Rider plugin
+/ArcweaveDemo/Plugins/Developer/*
+
+# Ignore some node.js related things
+/WebServers/**/node_modules/*
+/WebServers/**/*.git
+node_modules/
+
+# Ignore web server logs
+/WebServers/**/logs/*
+
+# ignore cooked and build oreder log
+/ArcweaveDemo/Build/Windows/FileOpenOrder
+
+# ignore packaged builds
+/ArcweaveDemo/PackagedBuilds/*
+
+#ignore python cache
+/ArcweaveDemo/Scripts/py_scripts/__pycache__/*
+
+#ignore generated pixelstraming stuff
+/ArcweaveDemo/Samples/**/*
+
+
