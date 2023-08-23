@@ -26,6 +26,9 @@ public class arcweave : ModuleRules
 			new string[]
 			{
 				"Core",
+				"arcweaveLibrary",
+				"antlr4",
+				"Projects"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -34,10 +37,6 @@ public class arcweave : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
-				"Engine",
-				"Slate",
-				"SlateCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
