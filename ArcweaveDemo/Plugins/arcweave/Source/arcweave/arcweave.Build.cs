@@ -7,6 +7,12 @@ public class arcweave : ModuleRules
 	public arcweave(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+		// for windows only? check this afterwards?
+		bUseRTTI = true;
+		// we are using exceptions so we have to enable that
+		bEnableExceptions = true;
+		// enable this to 1 if we have memory issues
+		PublicDefinitions.Add("ANTLR4_USE_THREAD_LOCAL_CACHE=0");
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
@@ -26,9 +32,10 @@ public class arcweave : ModuleRules
 			new string[]
 			{
 				"Core",
-				"arcweaveLibrary",
 				"antlr4",
-				"Projects"
+				"Projects",
+				"Json",
+				"JsonUtilities"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -40,8 +47,6 @@ public class arcweave : ModuleRules
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
-		
-		
 		DynamicallyLoadedModuleNames.AddRange(
 			new string[]
 			{

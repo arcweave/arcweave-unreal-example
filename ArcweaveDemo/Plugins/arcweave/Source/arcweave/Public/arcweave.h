@@ -4,6 +4,8 @@
 
 #include "Modules/ModuleManager.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogArcwarePlugin, Log, All);
+
 class FarcweaveModule : public IModuleInterface
 {
 public:
@@ -12,10 +14,10 @@ public:
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
 
-private:
-	/** Handle to the test dll we will load */
-	void*	ExampleLibraryHandle;
+	bool TestJsonFile();
 
+private:
 	/** Handle to the test antlr dll we will load */
-	void*	Antlr4LibraryHandle;
+	void*	Antlr4LibraryHandle;	
+
 };
