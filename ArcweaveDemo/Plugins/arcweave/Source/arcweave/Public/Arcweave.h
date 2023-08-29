@@ -2,6 +2,11 @@
 
 #pragma once
 
+// Check if ARCWEAVE_API is not defined, then define it as DLL_IMPORT
+#ifndef ARCWEAVE_API
+#define ARCWEAVE_API DLL_IMPORT
+#endif
+
 #include <map>
 #include <string>
 

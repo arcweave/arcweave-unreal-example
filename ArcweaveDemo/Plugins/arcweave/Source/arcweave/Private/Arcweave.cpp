@@ -87,8 +87,13 @@ bool FArcweaveModule::TestJsonFile()
 				UE_LOG(LogArcwarePlugin, Log, TEXT("---- Case object ----"));
 
             	TSharedPtr<FJsonObject> CaseObject = CaseValue->AsObject();
-				std::string code = TCHAR_TO_UTF8(*CaseObject->GetStringField("code"));					
-				UE_LOG(LogArcwarePlugin, Log, TEXT("code %s"), *CaseObject->GetStringField("code"));
+				std::string code = TCHAR_TO_UTF8(*CaseObject->GetStringField("code"));
+            	if (code.empty())
+            	{
+            		UE_LOG(LogArcwarePlugin, Error, TEXT("//// code field is empty, exiting ///// "));
+            		return false;
+            	}
+            	UE_LOG(LogArcwarePlugin, Log, TEXT("Code: %s"), UTF8_TO_TCHAR(code.c_str()));
 				std::map<std::string, int> currentVisits;
 				std::string currentElement = "";
 
@@ -107,6 +112,7 @@ bool FArcweaveModule::TestJsonFile()
 						FString Key = VisitPair.Key;
 						int32 Value = 0; // Initialize with a default value
 						Value = VisitPair.Value->AsNumber();
+						currentVisits[TCHAR_TO_UTF8(*Key)] = Value;
 						UE_LOG(LogTemp, Warning, TEXT("Key: %s, Value: %d"), *Key, Value);
 					}
 				}

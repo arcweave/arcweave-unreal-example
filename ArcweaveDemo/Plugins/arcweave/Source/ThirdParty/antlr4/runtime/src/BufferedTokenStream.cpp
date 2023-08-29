@@ -398,14 +398,14 @@ std::string BufferedTokenStream::getText(Token *start, Token *stop) {
 }
 
 void BufferedTokenStream::fill() {
-  lazyInit();
+  /*lazyInit();
   const size_t blockSize = 1000;
   while (true) {
     size_t fetched = fetch(blockSize);
     if (fetched < blockSize) {
       return;
     }
-  }
+  }*/
 }
 
 void BufferedTokenStream::InitializeInstanceFields() {

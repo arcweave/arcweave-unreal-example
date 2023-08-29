@@ -18,24 +18,25 @@ public class arcweave : ModuleRules
 			new string[] {
 				// ... add public include paths required here ...
 			}
-			);
+		);
 				
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				// ... add other private include paths required here ...
 			}
-			);
+		);
 			
 		
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
 				"Core",
+				"CoreUObject",
 				"antlr4",
 				"Projects",
 				"Json",
-				"JsonUtilities"
+				"JsonUtilities", "Engine"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
