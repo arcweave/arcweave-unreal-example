@@ -17,6 +17,9 @@
 /ArcweaveDemo/Saved/*
 /ArcweaveDemo/enc_temp_folder/*
 
+# Leave the antlr4-runtime.dll file
+!/ArcweaveDemo/Plugins/arcweave/Binaries/ThirdParty/antlr4/Win64/antlr4-runtime.dll
+
 # Ignore the same things for plugins
 /ArcweaveDemo/Plugins/**/Binaries/*
 /ArcweaveDemo/Plugins/**/Build/*
@@ -28,8 +31,6 @@
 # Ignore Rider plugin
 /ArcweaveDemo/Plugins/Developer/*
 
-# Leave the antlr4-runtime.dll file
-!/ArcweaveDemo/Plugins/arcweave/Binaries/ThirdParty/antlr4/Win64/antlr4-runtime.dll
 
 # Ignore some node.js related things
 /WebServers/**/node_modules/*
