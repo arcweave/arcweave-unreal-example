@@ -37,7 +37,7 @@ void FArcweaveModule::StartupModule()
 
 	if (Antlr4LibraryHandle)
 	{
-		TestJsonFile();
+		//TestJsonFile();
 		// Call the test function in the third party library that opens a message box
 		//Antlr4LibraryFunction();
 	}
