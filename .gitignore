@@ -29,7 +29,7 @@
 /ArcweaveDemo/Plugins/Developer/*
 
 # Leave the antlr4-runtime.dll file
-ArcweaveDemo/Plugins/arcweave/Binaries/ThirdParty/antlr4/Win64/antlr4-runtime.dll
+/ArcweaveDemo/Plugins/arcweave/Binaries/ThirdParty/antlr4/Win64/antlr4-runtime.dll
 
 # Ignore some node.js related things
 /WebServers/**/node_modules/*
