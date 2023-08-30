@@ -7,10 +7,19 @@ using namespace Arcweave;
 using namespace antlr4;
 
 TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
+
+  std::cout << "Running script with code: " << code << std::endl;
+
   ANTLRInputStream input(code);
   ArcscriptLexer lexer(&input);
+  TranspilerOutput result; 
 
-  TranspilerOutput result;
+  //return if code is NULL or empty
+  if (code.empty() || code.c_str() == nullptr) {
+    TranspilerOutput emptyOutput;
+    std::cout << "Code is empty, aborting: " << std::endl;
+    return emptyOutput;
+  }
 
   ErrorListener lexerErrorListener;
   lexer.removeErrorListeners();
@@ -18,6 +27,7 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
   
   CommonTokenStream tokens(&lexer);
 
+  std::cout << "Token size " << tokens.size() << std::endl; 
   // Run the lexer
   tokens.fill();
 

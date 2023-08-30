@@ -57,5 +57,6 @@ namespace Arcweave
      * @return The result of the ran script
     */
     TranspilerOutput runScript(std::string code);
+    void  runScript2(std::string code);
   };
 };

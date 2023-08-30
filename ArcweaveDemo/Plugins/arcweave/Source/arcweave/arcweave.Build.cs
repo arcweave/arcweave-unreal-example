@@ -36,7 +36,9 @@ public class arcweave : ModuleRules
 				"antlr4",
 				"Projects",
 				"Json",
-				"JsonUtilities", "Engine"
+				"JsonUtilities", 
+				"Engine",
+				"DeveloperSettings"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

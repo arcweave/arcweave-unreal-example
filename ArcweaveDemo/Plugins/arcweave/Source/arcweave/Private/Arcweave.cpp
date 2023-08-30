@@ -5,6 +5,8 @@
 #include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
 #include "ArcscriptTranspiler.h"
+#include "ArcweaveSettings.h"
+#include "ISettingsModule.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 
@@ -43,7 +45,18 @@ void FArcweaveModule::StartupModule()
 	{
 		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("Antlr4LibraryError", "Failed to load antlr library"));
 	}
+#if WITH_EDITOR
 
+	//Project settings arcware
+	if (ISettingsModule* SettingModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
+	{
+		SettingModule->RegisterSettings("Project", "Plugins", "Arcweave",
+			LOCTEXT("ArcweaveSettingsName", "Arcweave"),
+			LOCTEXT("ArcweaveSettingsDescription", "Settings for the Arcweave plugin"),
+			GetMutableDefault<UArcweaveSettings>()
+		);
+	}
+#endif
 }
 
 void FArcweaveModule::ShutdownModule()
@@ -54,6 +67,12 @@ void FArcweaveModule::ShutdownModule()
 	// Free the dll handle
 	FPlatformProcess::FreeDllHandle(Antlr4LibraryHandle);
 	Antlr4LibraryHandle = nullptr;
+#if WITH_EDITOR
+	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
+	{
+		SettingsModule->UnregisterSettings("Project", "Plugins", "Arcweave");
+	}
+#endif
 }
 
 bool FArcweaveModule::TestJsonFile()
