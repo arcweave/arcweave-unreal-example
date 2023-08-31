@@ -111,7 +111,6 @@ void AArcweaveDemoPlayerController::OnSetDestinationReleased()
 	FollowTime = 0.f;
 	InteractionActor = nullptr;
 
-	AAIController
 }
 
 // Triggered every frame when the input is held down
