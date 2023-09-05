@@ -13,7 +13,16 @@ void UArcweaveSubsystem::FetchData()
 	// Check if the settings are valid
 	if (ArcweaveSettings->APIToken.IsEmpty() || ArcweaveSettings->Hash.IsEmpty())
 	{
+		//log also to screen
 		UE_LOG(LogTemp, Error, TEXT("Arcweave settings are not valid!"));
+		if (GEngine)
+		{
+			const float TimeToDisplay = 5.0f; 
+			const FColor TextColor = FColor::Red; 
+			const FString Message = TEXT("Arcweave settings are not valid!"); 
+
+			GEngine->AddOnScreenDebugMessage(-1, TimeToDisplay, TextColor, Message);
+		}
 		return;
 	}
 	FString AuthToken = ArcweaveSettings->APIToken;

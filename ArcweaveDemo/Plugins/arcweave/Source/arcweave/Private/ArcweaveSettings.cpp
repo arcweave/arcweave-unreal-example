@@ -6,3 +6,9 @@
 UArcweaveSettings::UArcweaveSettings()
 {
 }
+
+void UArcweaveSettings::PostInitProperties()
+{
+	UObject::PostInitProperties();
+	TryUpdateDefaultConfigFile(TEXT(""), false);
+}

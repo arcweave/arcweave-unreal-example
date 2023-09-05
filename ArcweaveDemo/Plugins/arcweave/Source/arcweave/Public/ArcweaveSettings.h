@@ -8,7 +8,7 @@
 /**
  * 
  */
-UCLASS(config = Engine)
+UCLASS(config = Engine, DefaultConfig)
 class ARCWEAVE_API UArcweaveSettings : public UObject
 {
 	GENERATED_BODY()
@@ -27,4 +27,7 @@ public:
 	 */
 	UPROPERTY(Config, EditAnywhere, Category = Settings)
 	FString Hash = FString("");
+
+	//override post init properties to check if the settings are valid
+	virtual void PostInitProperties() override;
 };

@@ -38,7 +38,6 @@ public class arcweave : ModuleRules
 				"Json",
 				"JsonUtilities", 
 				"Engine",
-				"DeveloperSettings",
 				"HTTP"
 				// ... add other public dependencies that you statically link with here ...
 			}
@@ -57,5 +56,10 @@ public class arcweave : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
+		
+		PrivateIncludePathModuleNames.AddRange(
+			new string[] {
+				"Settings" 
+			});
 	}
 }
