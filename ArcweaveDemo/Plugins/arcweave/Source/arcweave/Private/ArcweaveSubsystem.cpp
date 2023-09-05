@@ -3,13 +3,21 @@
 
 #include "..\Public\ArcweaveSubsystem.h"
 
+#include "ArcweaveSettings.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 
 void UArcweaveSubsystem::FetchData()
 {
-	FString ApiUrl = TEXT("https://arcweave.com/api/POlqqO3laz/json");
-	FString AuthToken = TEXT("vsvIOEPSAorYs8qTlPvsHeKQ4MksRyAVOC6m09DB1xwgqEaMpV3ppmLnCNOs");  // replace with your actual token
+	UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
+	// Check if the settings are valid
+	if (ArcweaveSettings->APIToken.IsEmpty() || ArcweaveSettings->Hash.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Arcweave settings are not valid!"));
+		return;
+	}
+	FString AuthToken = ArcweaveSettings->APIToken;
+	FString ApiUrl = FString::Printf(TEXT("https://arcweave.com/api/%s/json"), *ArcweaveSettings->Hash);
 
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
 	Request->SetVerb("GET");
