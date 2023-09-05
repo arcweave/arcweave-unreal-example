@@ -6,6 +6,6 @@
 
 bool UArcweave_BP::ArcweaveTest()
 {
-	FArcweaveModule& ArcweaveModule = FModuleManager::LoadModuleChecked<FArcweaveModule>("Arcweave");
+	FarcweaveModule& ArcweaveModule = FModuleManager::LoadModuleChecked<FarcweaveModule>("Arcweave");
 	return ArcweaveModule.TestJsonFile();
 }

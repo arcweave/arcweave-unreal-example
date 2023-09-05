@@ -14,13 +14,16 @@ DEFINE_LOG_CATEGORY(LogArcwarePlugin);
 
 #define LOCTEXT_NAMESPACE "FarcweaveModule"
 
-void FArcweaveModule::StartupModule()
+void FarcweaveModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 
 	// Get the base directory of this plugin
 	//FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	UE_LOG(LogArcwarePlugin, Warning, TEXT("Arcware plugin module started!"));
+
+	// Initialize the UArcscriptTranspilerWrapper instance
+	ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
 
 	// Add on the relative location of the third party dll and load it
 	FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
@@ -40,6 +43,11 @@ void FArcweaveModule::StartupModule()
 		//TestJsonFile();
 		// Call the test function in the third party library that opens a message box
 		//Antlr4LibraryFunction();
+		if(ArcscriptWrapper)
+		{
+			//FString Result = ArcscriptWrapper->RunScript("<pre><code>x=5</code></pre>");
+			// Do something with the Result...
+		}
 	}
 	else
 	{
@@ -59,7 +67,7 @@ void FArcweaveModule::StartupModule()
 #endif
 }
 
-void FArcweaveModule::ShutdownModule()
+void FarcweaveModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
@@ -75,7 +83,9 @@ void FArcweaveModule::ShutdownModule()
 #endif
 }
 
-bool FArcweaveModule::TestJsonFile()
+
+
+/*bool FarcweaveModule::TestJsonFile()
 {
 	FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	FString JsonFilePath = FPaths::Combine(*BaseDir, TEXT("Source/arcweave/test/valid.json"));
@@ -201,22 +211,62 @@ bool FArcweaveModule::TestJsonFile()
 
 	UE_LOG(LogArcwarePlugin, Warning, TEXT("Test failed!"));
 	return false;
-}
-
-void FArcweaveModule::TraspileArcscript()
-{
-	// Initialize the transpiler (for now ignore the element ID)
-	//ArcscriptTranspiler transpiler(currentElement, initialVars, currentVisits);
-	// Run the script in the Transpiler
-	//TranspilerOutput output;
-}
+}*/
 
 /**
  * Creates the Variable instances for the variables from the imported JSON.
  * @param initialVarsJson The json object of the initial variable values.
  * @returns A map with the variable ID as key and the Variable instance as value.
 */
-std::map<std::string, Variable> FArcweaveModule::GetInitialVars(TSharedPtr<FJsonObject> JsonObject) {
+TMap<FString, FArcweaveVariable> FarcweaveModule::GetInitialVars(TSharedPtr<FJsonObject> JsonObject) {
+	const TSharedPtr<FJsonObject>* InitialVarsObject;
+	TMap<FString, FArcweaveVariable> initialVars;
+
+	if (JsonObject->TryGetObjectField("initialVars", InitialVarsObject))
+	{
+		for (const auto& VarObj : (*InitialVarsObject)->Values)
+		{
+			FArcweaveVariable var;
+			TSharedPtr<FJsonObject> VarObject = VarObj.Value->AsObject();
+			if(VarObject.IsValid() && VarObject->HasField("type"))
+			{
+				var.Id = VarObject->GetStringField("id");
+				var.Name = VarObject->GetStringField("name");
+				var.Type = VarObject->GetStringField("type");
+
+				if (var.Type == "string") {
+					var.Value = MakeShareable(new FJsonValueString(VarObject->GetStringField("value")));
+				}
+				else if (var.Type == "integer") {
+					var.Value = MakeShareable(new FJsonValueNumber(VarObject->GetIntegerField("value")));
+				}
+				else if (var.Type == "boolean") {
+					var.Value = MakeShareable(new FJsonValueBoolean(VarObject->GetBoolField("value")));
+				}
+				else if (var.Type == "float") {
+					var.Value = MakeShareable(new FJsonValueNumber(VarObject->GetNumberField("value")));
+				}
+				initialVars.Add(var.Id, var);
+			}
+			else
+			{
+				UE_LOG(LogArcwarePlugin, Error, TEXT("Error reading initial vars, missing type field"));
+			}
+		}
+	}
+	return initialVars;
+}
+
+
+/*void FarcweaveModule::TraspileArcscript()
+{
+	// Initialize the transpiler (for now ignore the element ID)
+	//ArcscriptTranspiler transpiler(currentElement, initialVars, currentVisits);
+	// Run the script in the Transpiler
+	//TranspilerOutput output;
+}*/
+
+/*std::map<std::string, Variable> FarcweaveModule::GetInitialVars(TSharedPtr<FJsonObject> JsonObject) {
 	const TSharedPtr<FJsonObject>* InitialVarsObject;
 	std::map<std::string, Variable> initialVars;
 	
@@ -253,9 +303,9 @@ std::map<std::string, Variable> FArcweaveModule::GetInitialVars(TSharedPtr<FJson
 		}
 	}
 	return initialVars;
-}
+}*/
 
-std::string FArcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, std::any actual) {
+/*std::string FarcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, std::any actual) {
   // std::cout << "Expected: "<< expected << std::endl;
   std::ostringstream errors;
 	if (!actual.has_value()) {
@@ -318,12 +368,94 @@ std::string FArcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, st
   }
 
   return errors.str();
+}*/
+FString FarcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, TSharedPtr<FJsonValue> actual) {
+	FString errors;
+
+	if (!actual.IsValid()) {
+		errors += TEXT("Expected result != Actual result:\n");
+		errors += TEXT("Expected: ");
+
+		// Serialize the JSON object to an FString
+		FString ExpectedJsonString;
+		TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&ExpectedJsonString);
+		FJsonSerializer::Serialize(expected.ToSharedRef(), JsonWriter);
+
+		errors += ExpectedJsonString;
+		errors += TEXT("\nActual: No Value!\n");
+	}
+	else if (actual->Type == EJson::String) {
+		FString actualStr = actual->AsString();
+		FString expectedStr = expected->GetStringField("result");
+
+		if (actualStr != expectedStr) {
+			errors += TEXT("Expected result != Actual result:\n");
+			errors += TEXT("Expected: ") + expectedStr;
+			errors += TEXT("\nActual: ") + actualStr + TEXT("\n");
+		}
+	}
+	else if (actual->Type == EJson::Number) {
+		double actualNum = actual->AsNumber();
+		double expectedNum = expected->GetNumberField("result");
+
+		if (FMath::Abs(actualNum - expectedNum) > KINDA_SMALL_NUMBER) {
+			errors += TEXT("Expected result != Actual result:\n");
+			errors += FString::Printf(TEXT("Expected: %f\nActual: %f\n"), expectedNum, actualNum);
+		}
+	}
+	else if (actual->Type == EJson::Boolean) {
+		bool actualBool = actual->AsBool();
+		bool expectedBool = expected->GetBoolField("result");
+
+		if (actualBool != expectedBool) {
+			errors += TEXT("Expected result != Actual result:\n");
+			errors += TEXT("Expected: ") + FString(expectedBool ? TEXT("True") : TEXT("False"));
+			errors += TEXT("\nActual: ") + FString(actualBool ? TEXT("True") : TEXT("False")) + TEXT("\n");
+		}
+	}
+	else {
+		errors += FString::Printf(TEXT("Actual type unknown: %d\n"), static_cast<int32>(actual->Type));
+	}
+
+	return errors;
 }
 
 /**
  * Creates the map with the expected variables from a certain test
 */
-std::map<std::string, std::any> FArcweaveModule::GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson) {
+TMap<FString, TSharedPtr<FJsonValue>> FarcweaveModule::GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson) {
+	TMap<FString, TSharedPtr<FJsonValue>> expectedVars;
+	const TMap<FString, TSharedPtr<FJsonValue>>& expectedVarsJsonMap = expectedVarsJson->Values;
+
+	for (const TPair<FString, TSharedPtr<FJsonValue>>& varPair : expectedVarsJsonMap)
+	{
+		FString key = varPair.Key;
+		TSharedPtr<FJsonValue> jsonValue = varPair.Value;
+
+		if (jsonValue->Type == EJson::String)
+		{
+			expectedVars.Add(key, MakeShareable(new FJsonValueString(jsonValue->AsString())));
+		}
+		else if (jsonValue->Type == EJson::Boolean)
+		{
+			expectedVars.Add(key, MakeShareable(new FJsonValueBoolean(jsonValue->AsBool())));
+		}
+		else if (jsonValue->Type == EJson::Number)
+		{
+			double dblValue = jsonValue->AsNumber();
+			if (FMath::IsNearlyEqual(dblValue, FMath::FloorToDouble(dblValue)))
+			{
+				expectedVars.Add(key, MakeShareable(new FJsonValueNumber(dblValue)));
+			}
+			else
+			{
+				expectedVars.Add(key, MakeShareable(new FJsonValueNumber(dblValue)));
+			}
+		}
+	}
+	return expectedVars;
+}
+/*std::map<std::string, std::any> FarcweaveModule::GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson) {
 	std::map<std::string, std::any> expectedVars;
 	TMap<FString, TSharedPtr<FJsonValue>> expectedVarsJsonMap = expectedVarsJson->Values;
 	for (const TPair<FString, TSharedPtr<FJsonValue>>& varPair : expectedVarsJsonMap)
@@ -356,7 +488,7 @@ std::map<std::string, std::any> FArcweaveModule::GetExpectedVars(TSharedPtr<FJso
 		}
 	}
 	return expectedVars;
-}
+}*/
 
 /**
  * Compares two maps of variables for their values and types. It ignores the int/double distinction.
@@ -364,7 +496,64 @@ std::map<std::string, std::any> FArcweaveModule::GetExpectedVars(TSharedPtr<FJso
  * @param actual The actual variable values
  * @returns A string containing the output messages of the comparison.
 */
-std::string FArcweaveModule::CompareVars(std::map<std::string, std::any> expected, std::map<std::string, std::any> actual) {
+FString FarcweaveModule::CompareVars(const TMap<FString, TSharedPtr<FJsonValue>>& expected, const TMap<FString, TSharedPtr<FJsonValue>>& actual) {
+    FString errors;
+    bool hasErrors = false;
+
+    for (const auto& pair : expected) {
+        FString varId = pair.Key;
+        const TSharedPtr<FJsonValue>& expValue = pair.Value;
+        const TSharedPtr<FJsonValue>* actValuePtr = actual.Find(varId);
+        if (!actValuePtr) {
+            hasErrors = true;
+            errors += FString::Printf(TEXT("Error in test: var %s not found in actual values.\n"), *varId);
+            continue;
+        }
+        const TSharedPtr<FJsonValue>& actValue = *actValuePtr;
+
+        // Compare integer values
+        if (expValue->Type == EJson::Number && FMath::IsNearlyEqual(expValue->AsNumber(), FMath::FloorToDouble(expValue->AsNumber()))) {
+            if (actValue->Type == EJson::Number) {
+                if (expValue->AsNumber() != actValue->AsNumber()) {
+                    hasErrors = true;
+                    errors += FString::Printf(TEXT("Error in test: var %s: Expected: %d, Actual: %d\n"), *varId, FMath::FloorToInt(expValue->AsNumber()), FMath::FloorToInt(actValue->AsNumber()));
+                }
+            } else {
+                hasErrors = true;
+                errors += FString::Printf(TEXT("Error in test: var %s: Mismatched types.\n"), *varId);
+            }
+        }
+        // Compare floating point values
+        else if (expValue->Type == EJson::Number) {
+            if (actValue->Type == EJson::Number) {
+                if (!FMath::IsNearlyEqual(expValue->AsNumber(), actValue->AsNumber())) {
+                    hasErrors = true;
+                    errors += FString::Printf(TEXT("Error in test: var %s: Expected: %f, Actual: %f\n"), *varId, expValue->AsNumber(), actValue->AsNumber());
+                }
+            } else {
+                hasErrors = true;
+                errors += FString::Printf(TEXT("Error in test: var %s: Mismatched types.\n"), *varId);
+            }
+        }
+        // Compare boolean values
+        else if (expValue->Type == EJson::Boolean) {
+            if (actValue->Type == EJson::Boolean && expValue->AsBool() != actValue->AsBool()) {
+                hasErrors = true;
+                errors += FString::Printf(TEXT("Error in test: var %s: Expected: %s, Actual: %s\n"), *varId, expValue->AsBool() ? TEXT("true") : TEXT("false"), actValue->AsBool() ? TEXT("true") : TEXT("false"));
+            }
+        }
+        // Compare string values
+        else if (expValue->Type == EJson::String) {
+            if (actValue->Type == EJson::String && expValue->AsString() != actValue->AsString()) {
+                hasErrors = true;
+                errors += FString::Printf(TEXT("Error in test: var %s: Expected: %s, Actual: %s\n"), *varId, *expValue->AsString(), *actValue->AsString());
+            }
+        }
+    }
+
+    return errors;
+}
+/*std::string FarcweaveModule::CompareVars(std::map<std::string, std::any> expected, std::map<std::string, std::any> actual) {
   std::map<std::string, std::any>::iterator mIt = expected.begin();
   std::ostringstream errors;
   bool hasErrors = false;
@@ -441,8 +630,8 @@ std::string FArcweaveModule::CompareVars(std::map<std::string, std::any> expecte
     mIt++;
   }
   return errors.str();
-}
+}*/
 
 #undef LOCTEXT_NAMESPACE
 	
-IMPLEMENT_MODULE(FArcweaveModule, arcweave)
+IMPLEMENT_MODULE(FarcweaveModule, arcweave)

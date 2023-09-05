@@ -38,7 +38,8 @@ public class arcweave : ModuleRules
 				"Json",
 				"JsonUtilities", 
 				"Engine",
-				"DeveloperSettings"
+				"DeveloperSettings",
+				"HTTP"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
