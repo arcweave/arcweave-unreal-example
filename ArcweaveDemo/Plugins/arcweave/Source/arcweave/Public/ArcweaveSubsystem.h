@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ArcweaveTypes.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ArcweaveSubsystem.generated.h"
@@ -23,6 +24,7 @@ struct FArcweaveBoard
  * 
  */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArcweaveResponseReceived, const TArray<FArcweaveBoard>&, Boards);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInitDialogue, const FArcDialogue&, Dialogue);
 
 UCLASS()
 class ARCWEAVE_API UArcweaveSubsystem : public UGameInstanceSubsystem
@@ -34,6 +36,8 @@ public:
 	void FetchData();
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Arcweave")
+	FOnInitDialogue OnInitDialogue;
 private:
 	void HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
