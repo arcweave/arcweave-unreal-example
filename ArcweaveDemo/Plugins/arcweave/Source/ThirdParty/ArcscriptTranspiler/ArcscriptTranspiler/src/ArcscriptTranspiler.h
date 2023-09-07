@@ -22,10 +22,10 @@ namespace Arcweave
    * The arscript code types
   */
   enum InputType { 
-    /// @brief A condition (results to bool) code type
-    CONDITION,
-    /// @brief A script code type
-    SCRIPT
+	/// @brief A condition (results to bool) code type
+	CONDITION,
+	/// @brief A script code type
+	SCRIPT
   };
 
   /**
@@ -41,12 +41,14 @@ namespace Arcweave
    * Member 'type' contains the type of the code block i.e. CONDITION or SCRIPT
   */
   struct TranspilerOutput {
-    std::string output;
-    std::map<std::string, std::any> changes;
-    std::any result;
-    InputType type;
+	std::string output;
+	std::map<std::string, std::any> changes;
+	std::any result;
+	InputType type;
   };
   
+
+  // The following types starting with a U* are the types that the exported DLL function accepts and returns
   struct UVariableChange {
 	  const char* varId;
 	  const char* type;
@@ -73,25 +75,25 @@ namespace Arcweave
   };
   
 
-struct UVariable {
-	const char* id;
-	const char* name;
-	const char* type;
-	int int_val;
-	double double_val;
-	const char* string_val;
-	bool bool_val;
-};
+	struct UVariable {
+		const char* id;
+		const char* name;
+		const char* type;
+		int int_val;
+		double double_val;
+		const char* string_val;
+		bool bool_val;
+	};
   
-struct UVisit {
-	const char* elId;
-	int visits;
+	struct UVisit {
+		const char* elId;
+		int visits;
 
-	UVisit() {
-		elId = nullptr;
-		visits = 0;
-	}
-};
+		UVisit() {
+			elId = nullptr;
+			visits = 0;
+		}
+	};
   
   /**
    * Implementation of the Arcscript Transpiler in C++. Uses the ANTLR4 runtime library
@@ -103,15 +105,15 @@ struct UVisit {
   class ArcscriptTranspiler {
   public:
 
-    ArcscriptState state;
+	ArcscriptState state;
 
-    ArcscriptTranspiler(std::string elId, std::map<std::string, Variable> initVars, std::map<std::string, int> _visits) : state(elId, initVars, _visits) { };
+	ArcscriptTranspiler(std::string elId, std::map<std::string, Variable> initVars, std::map<std::string, int> _visits) : state(elId, initVars, _visits) { };
 
-    /**
-     * Runs the arcscript code and returns it's results.
-     * @param code The code block that we need to parse
-     * @return The result of the ran script
-    */
+	/**
+	 * Runs the arcscript code and returns it's results.
+	 * @param code The code block that we need to parse
+	 * @return The result of the ran script
+	*/
 	TranspilerOutput runScript(std::string code);
 
 	//ARCSCRIPTTRANSPILER_API UTranspilerOutput URunScript(char* code);

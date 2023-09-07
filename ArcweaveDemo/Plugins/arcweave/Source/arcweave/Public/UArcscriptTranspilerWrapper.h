@@ -17,10 +17,14 @@ class ARCWEAVE_API UArcscriptTranspilerWrapper : public UObject
 public:
 
 private:
+
+    /** The DLL type of the script input type */
 	enum InputType {
 		CONDITION,
 		SCRIPT
 	};
+
+    /** The DLL type of the variable changes after a script run */
 	struct VariableChange {
 		char* varId;
 		const char* type;
@@ -38,6 +42,7 @@ private:
 		}
 	};
 
+    /** The DLL type of the script output */
 	struct TranspilerOutput {
 		char* output;
 		InputType type;
@@ -54,6 +59,7 @@ private:
 		}
 	};
 
+    /** The DLL type of the initial input variables of a script */
 	struct Variable {
 		const char* id;
 		const char* name;
@@ -73,6 +79,7 @@ private:
 		}
 	};
 
+    /** The DLL type of the initial visits of a script */
 	struct Visit {
 		const char* elId;
 		int visits;
@@ -90,6 +97,7 @@ public:
 		m_runScript = nullptr;
 	};
 
+    /** Run Arcscript code using the external library DLL */
 	FArcscriptTranspilerOutput RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits);
 	// Additional helper methods can be added here if needed.
 };	

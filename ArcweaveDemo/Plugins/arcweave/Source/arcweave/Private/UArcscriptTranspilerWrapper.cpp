@@ -11,6 +11,8 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 	int visitsLength = visits.Num();
 	const char* dllCode = strdup(TCHAR_TO_UTF8(*code));
 	const char* dllElId = strdup(TCHAR_TO_UTF8(*elementId));
+
+    // Transform Unreal variable objects to DLL accepted objects
 	Variable* dllVars = new Variable[varLength];
 	Visit* dllVisits = new Visit[visitsLength];
 
@@ -22,42 +24,23 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 		if (var.Value.Type.Equals(TEXT("string"))) {
 			dllVars[i].type = "string";
 			dllVars[i].string_val = strdup(TCHAR_TO_UTF8(*(var.Value.Value.Get()->AsString())));
-			UE_LOG(LogTemp, Warning, TEXT("%d: ID: %s, Name: %s, Type: %s, Value: %s"), i, *FString(dllVars[i].id), *FString(dllVars[i].name), *FString(dllVars[i].type), *FString(dllVars[i].string_val));
 		}
 		else if (var.Value.Type.Equals(TEXT("integer"))) {
 			dllVars[i].type = "integer";
 			dllVars[i].int_val = var.Value.Value.Get()->AsNumber();
-			UE_LOG(LogTemp, Warning, TEXT("%d: ID: %s, Name: %s, Type: %s, Value: %d"), i, *FString(dllVars[i].id), *FString(dllVars[i].name), *FString(dllVars[i].type), dllVars[i].int_val);
 		}
 		else if (var.Value.Type.Equals(TEXT("double"))) {
 			dllVars[i].type = "double";
 			dllVars[i].double_val = var.Value.Value.Get()->AsNumber();
-			UE_LOG(LogTemp, Warning, TEXT("%d: ID: %s, Name: %s, Type: %s, Value: %f"), i, *FString(dllVars[i].id), *FString(dllVars[i].name), *FString(dllVars[i].type), dllVars[i].double_val);
 		}
 		else if (var.Value.Type.Equals(TEXT("boolean"))) {
 			dllVars[i].type = "bool";
 			dllVars[i].bool_val = var.Value.Value.Get()->AsBool();
-			UE_LOG(LogTemp, Warning, TEXT("%d: ID: %s, Name: %s, Type: %s, Value: %d"), i, *FString(dllVars[i].id), *FString(dllVars[i].name), *FString(dllVars[i].type), dllVars[i].bool_val);
 		}
 		i++;
 	}
-	for (i = 0; i < varLength; i++) {
-		FString varOutput = FString::Printf(TEXT("%d: Var ID: %s, Name: %s, Type: %s, Value: "), i, *FString(dllVars[i].id), *FString(dllVars[i].name), *FString(dllVars[i].type));
-		if (strcmp(dllVars[i].type, "string") == 0) {
-			varOutput += FString(dllVars[i].string_val);
-		}
-		else if (strcmp(dllVars[i].type, "integer") == 0) {
-			varOutput += FString::FromInt(dllVars[i].int_val);
-		}
-		else if (strcmp(dllVars[i].type, "double") == 0) {
-			varOutput += FString::SanitizeFloat(dllVars[i].double_val);
-		}
-		else if (strcmp(dllVars[i].type, "bool") == 0) {
-			varOutput += FString::FromInt(dllVars[i].bool_val);
-		}
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *varOutput);
-	}
-	i = 0;
+
+    i = 0;
 	for (auto& visit : visits) {
 		dllVisits[i].elId = strdup(TCHAR_TO_UTF8(*visit.Key));
 		dllVisits[i].visits = visit.Value;
