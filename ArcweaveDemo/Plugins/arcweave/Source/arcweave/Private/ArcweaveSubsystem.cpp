@@ -4,12 +4,13 @@
 #include "..\Public\ArcweaveSubsystem.h"
 
 #include "ArcweaveSettings.h"
+#include "ArcweaveTypes.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 
-void UArcweaveSubsystem::FetchData()
+void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 {
-	UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
+	/*UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
 	// Check if the settings are valid
 	if (ArcweaveSettings->APIToken.IsEmpty() || ArcweaveSettings->Hash.IsEmpty())
 	{
@@ -24,14 +25,13 @@ void UArcweaveSubsystem::FetchData()
 			GEngine->AddOnScreenDebugMessage(-1, TimeToDisplay, TextColor, Message);
 		}
 		return;
-	}
-	FString AuthToken = ArcweaveSettings->APIToken;
-	FString ApiUrl = FString::Printf(TEXT("https://arcweave.com/api/%s/json"), *ArcweaveSettings->Hash);
+	}*/
+	FString ApiUrl = FString::Printf(TEXT("https://arcweave.com/api/%s/json"), *ProjectHash);
 
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
 	Request->SetVerb("GET");
 	Request->SetURL(ApiUrl);
-	Request->SetHeader(TEXT("Authorization"), FString::Printf(TEXT("Bearer %s"), *AuthToken));
+	Request->SetHeader(TEXT("Authorization"), FString::Printf(TEXT("Bearer %s"), *APIToken));
 	Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
 
 	// Set the request complete callback
@@ -39,6 +39,31 @@ void UArcweaveSubsystem::FetchData()
 
 	// Execute the request
 	Request->ProcessRequest();
+}
+
+FArcweaveAPISettings UArcweaveSubsystem::GetArcweaveSettings() const
+{
+	FArcweaveAPISettings OutSetttings = FArcweaveAPISettings();	
+	UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
+	// Check if the settings are valid
+	if (ArcweaveSettings->APIToken.IsEmpty() || ArcweaveSettings->Hash.IsEmpty())
+	{
+		//log also to screen
+		UE_LOG(LogTemp, Error, TEXT("Arcweave settings are not valid!"));
+		if (GEngine)
+		{
+			const float TimeToDisplay = 5.0f; 
+			const FColor TextColor = FColor::Red; 
+			const FString Message = TEXT("Arcweave settings are not valid!"); 
+
+			GEngine->AddOnScreenDebugMessage(-1, TimeToDisplay, TextColor, Message);
+		}
+		return OutSetttings;
+	}
+
+	OutSetttings.APIToken = ArcweaveSettings->APIToken;
+	OutSetttings.Hash = ArcweaveSettings->Hash;
+	return OutSetttings;
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
@@ -86,6 +111,3 @@ void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr R
 	}
 }
 
-// vsvIOEPSAorYs8qTlPvsHeKQ4MksRyAVOC6m09DB1xwgqEaMpV3ppmLnCNOs
-// https://arcweave.com/app/project/POlqqO3laz?board=8ee8ac05-de1d-416d-8f3d-8bf0b08594f4&scale=1.1&coords=-10896.5,-9859.31
-// POlqqO3laz

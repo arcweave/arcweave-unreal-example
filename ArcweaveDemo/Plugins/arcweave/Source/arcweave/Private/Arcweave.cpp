@@ -4,7 +4,7 @@
 #include "Core.h"
 #include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
-#include "ArcweaveSettings.h"
+#include "..\Public\ArcweaveSettings.h"
 #include "ISettingsModule.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
