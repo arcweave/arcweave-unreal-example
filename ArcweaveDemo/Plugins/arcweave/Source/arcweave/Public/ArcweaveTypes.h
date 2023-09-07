@@ -50,3 +50,27 @@ struct FArcweaveVariable
 	}
 };
 
+//struct holding all the settings for the plugin
+USTRUCT(BlueprintType)
+struct FArcweaveAPISettings
+{
+	GENERATED_BODY()
+
+	/*
+	 * API token that you can find in your Arcweave account settings.
+	 */
+	UPROPERTY(BlueprintReadWrite, Category = "Settings")
+	FString APIToken = FString("");
+
+	/*
+	 * Project hash that we want to retrieve the information for. You can find it by looking at the URL of your project.
+	 */
+	UPROPERTY(BlueprintReadWrite, Category = "Settings")
+	FString Hash = FString("");
+
+	FArcweaveAPISettings()
+		: APIToken(FString(""))
+		, Hash(FString(""))
+	{}
+};
+
