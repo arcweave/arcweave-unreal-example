@@ -50,3 +50,38 @@ struct FArcweaveVariable
 	}
 };
 
+enum FArcscriptInputType {
+	CONDITION,
+	SCRIPT
+};
+
+struct FArcscriptVariableChange
+{
+	FString Id;
+	FString Type;
+	TSharedPtr<FJsonValue> Value;
+
+	FArcscriptVariableChange() {
+		Id = FString("");
+		Type = FString("");
+		Value = nullptr;
+	}
+};
+
+USTRUCT(BlueprintType)
+struct FArcscriptTranspilerOutput
+{
+	GENERATED_BODY()
+
+	FString Output;
+	FArcscriptInputType Type;
+	TArray<FArcscriptVariableChange> Changes;
+	bool ConditionResult;
+
+	FArcscriptTranspilerOutput() {
+		Output = FString("");
+		Type = FArcscriptInputType::SCRIPT;
+		Changes = TArray<FArcscriptVariableChange>();
+		ConditionResult = false;
+	}
+};

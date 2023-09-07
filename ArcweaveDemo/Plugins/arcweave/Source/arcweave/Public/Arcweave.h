@@ -23,19 +23,17 @@ public:
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
 
-	bool TestJsonFile(){return false;};
+	bool TestJsonFile();
 
 private:
 	/** Handle to the test antlr dll we will load */
-	void*	Antlr4LibraryHandle;
+	void*	ArcscriptTranspilerHandle;
 
-	void TraspileArcscript();
 	/*std::map<std::string, Variable> GetInitialVars(TSharedPtr<FJsonObject> JsonObject);
 	std::string CompareResults(TSharedPtr<FJsonObject> expected, std::any actual);
 	std::map<std::string, std::any> GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson);
 	std::string CompareVars(std::map<std::string, std::any> expected, std::map<std::string, std::any> actual);*/
 
-		
 	TMap<FString, FArcweaveVariable> GetInitialVars(TSharedPtr<FJsonObject> JsonObject);
 	FString CompareResults(TSharedPtr<FJsonObject> expected, TSharedPtr<FJsonValue> actual);
 	TMap<FString, TSharedPtr<FJsonValue>> GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson);

@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
-
+using System;
+using System.IO;
 using UnrealBuildTool;
 
 public class arcweave : ModuleRules
@@ -11,9 +12,9 @@ public class arcweave : ModuleRules
 		bUseRTTI = true;
 		// we are using exceptions so we have to enable that
 		bEnableExceptions = true;
-		// enable this to 1 if we have memory issues
-		PublicDefinitions.Add("ANTLR4_USE_THREAD_LOCAL_CACHE=0");
-		
+		PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "../..", "Binaries", "ThirdParty", "ArcscriptTranspiler", "Win64", "ArcscriptTranspiler.lib"));
+		PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
+		RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/ArcscriptTranspiler/Win64/ArcscriptTranspiler.dll");
 		PublicIncludePaths.AddRange(
 			new string[] {
 				// ... add public include paths required here ...
@@ -33,7 +34,7 @@ public class arcweave : ModuleRules
 			{
 				"Core",
 				"CoreUObject",
-				"antlr4",
+				"ArcscriptTranspiler",
 				"Projects",
 				"Json",
 				"JsonUtilities", 
