@@ -100,7 +100,7 @@ bool FarcweaveModule::TestJsonFile()
 	// Load the file to a FString
 	if (!FFileHelper::LoadFileToString(JsonRaw, *JsonFilePath))
 	{
-		UE_LOG(LogArcwarePlugin, Error, TEXT("Failed to load JSON file!"));
+		UE_LOG(LogArcwarePlugin, Log, TEXT("Failed to load JSON file!"));
 		return false;
 	}
 
@@ -125,7 +125,7 @@ bool FarcweaveModule::TestJsonFile()
 				FString code = CaseObject->GetStringField("code");
 				if (code.IsEmpty())
 				{
-					UE_LOG(LogArcwarePlugin, Error, TEXT("//// code field is empty, exiting ///// "));
+					UE_LOG(LogArcwarePlugin, Log, TEXT("//// code field is empty, exiting ///// "));
 					return false;
 				}
 				UE_LOG(LogArcwarePlugin, Log, TEXT("Code: %s"), *code);
@@ -164,7 +164,7 @@ bool FarcweaveModule::TestJsonFile()
 				}
 				catch (std::exception& e) {
 					transpilerFailed = true;
-					UE_LOG(LogArcwarePlugin, Error, TEXT("Test Failed!\n%s"), *FString(e.what()));
+					UE_LOG(LogArcwarePlugin, Log, TEXT("Test Failed!\n%s"), *FString(e.what()));
 					return false;
 				}
 				// Run the script in the Transpiler				
@@ -187,9 +187,9 @@ bool FarcweaveModule::TestJsonFile()
 					bool expectedResult = CaseObject->GetBoolField("result");
 					if (result.Type == FArcscriptInputType::CONDITION) {
 						if (expectedResult != result.ConditionResult) {
-							UE_LOG(LogArcwarePlugin, Error, TEXT("Errors in code:\n%s"), *code);
-							UE_LOG(LogArcwarePlugin, Error, TEXT("Expected Condition result different from actual:"));
-							UE_LOG(LogArcwarePlugin, Error, TEXT("Expected: %d, Actual: %d"), expectedResult, result.ConditionResult);
+							UE_LOG(LogArcwarePlugin, Log, TEXT("Errors in code:\n%s"), *code);
+							UE_LOG(LogArcwarePlugin, Log, TEXT("Expected Condition result different from actual:"));
+							UE_LOG(LogArcwarePlugin, Log, TEXT("Expected: %d, Actual: %d"), expectedResult, result.ConditionResult);
 						}
 					}
 				}
@@ -201,8 +201,8 @@ bool FarcweaveModule::TestJsonFile()
 					std::map<std::string, std::any> expectedVars = GetExpectedVars(expectedVarsJson);
 					std::string errors = CompareVars(expectedVars, output.changes);
 					if (errors.size() > 0) {
-						UE_LOG(LogArcwarePlugin, Error, TEXT("Errors in code:\n%s"), UTF8_TO_TCHAR(code.c_str()));
-						UE_LOG(LogArcwarePlugin, Error, TEXT("%s"), UTF8_TO_TCHAR(errors.c_str()));
+						UE_LOG(LogArcwarePlugin, Log, TEXT("Errors in code:\n%s"), UTF8_TO_TCHAR(code.c_str()));
+						UE_LOG(LogArcwarePlugin, Log, TEXT("%s"), UTF8_TO_TCHAR(errors.c_str()));
 					}
 				}*/
 
@@ -211,16 +211,16 @@ bool FarcweaveModule::TestJsonFile()
 				{
 					FString expectedOutput = CaseObject->GetStringField("output");
 					if (result.Output != expectedOutput) {
-						UE_LOG(LogArcwarePlugin, Error, TEXT("Errors in code:\n%s"), *code);
-						UE_LOG(LogArcwarePlugin, Error, TEXT("Expected output different from actual:"));
-						UE_LOG(LogArcwarePlugin, Error, TEXT("Expected: \"%s\"\nActual: \"%s\""), *expectedOutput, *result.Output);
+						UE_LOG(LogArcwarePlugin, Log, TEXT("Errors in code:\n%s"), *code);
+						UE_LOG(LogArcwarePlugin, Log, TEXT("Expected output different from actual:"));
+						UE_LOG(LogArcwarePlugin, Log, TEXT("Expected: \"%s\"\nActual: \"%s\""), *expectedOutput, *result.Output);
 					}
 				}
 			}
 		}
 		else
 		{
-			UE_LOG(LogArcwarePlugin, Error, TEXT("Error transpiling arcscript, missing cases field"));
+			UE_LOG(LogArcwarePlugin, Log, TEXT("Error transpiling arcscript, missing cases field"));
 		}
 	}
 	return false;
@@ -263,7 +263,7 @@ TMap<FString, FArcweaveVariable> FarcweaveModule::GetInitialVars(TSharedPtr<FJso
 			}
 			else
 			{
-				UE_LOG(LogArcwarePlugin, Error, TEXT("Error reading initial vars, missing type field"));
+				UE_LOG(LogArcwarePlugin, Log, TEXT("Error reading initial vars, missing type field"));
 			}
 		}
 	}
