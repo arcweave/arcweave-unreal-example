@@ -70,7 +70,7 @@ namespace Arcweave
 	  char* output;
 	  InputType type;
 	  UVariableChange* changes;
-	  int changesLen = 0;
+	  size_t changesLen = 0;
 	  bool conditionResult = false;
   };
   
@@ -119,4 +119,4 @@ namespace Arcweave
 	//ARCSCRIPTTRANSPILER_API UTranspilerOutput URunScript(char* code);
   };
 };
-extern "C" ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, int varLength, UVisit* visits, int visitsLength);
+extern "C" ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength);

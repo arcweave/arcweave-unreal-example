@@ -7,8 +7,8 @@
 #include <string>
 
 FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits) {
-	int varLength = initialVars.Num();
-	int visitsLength = visits.Num();
+	size_t varLength = initialVars.Num();
+	size_t visitsLength = visits.Num();
 	const char* dllCode = _strdup(TCHAR_TO_UTF8(*code));
 	const char* dllElId = _strdup(TCHAR_TO_UTF8(*elementId));
 
@@ -16,7 +16,7 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 	Variable* dllVars = new Variable[varLength];
 	Visit* dllVisits = new Visit[visitsLength];
 
-	int i = 0;
+	size_t i = 0;
 	for (auto& var : initialVars) {
 		dllVars[i].id = _strdup(TCHAR_TO_UTF8(*var.Value.Id));
 		dllVars[i].name = _strdup(TCHAR_TO_UTF8(*var.Value.Name));
@@ -58,7 +58,7 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 	else {
 		result.Type = FArcscriptInputType::SCRIPT;
 	}
-
+    
 	for (i = 0; i < dllResult.changesLen; i++) {
 		FArcscriptVariableChange change;
 		change.Id = FString(dllResult.changes[i].varId);

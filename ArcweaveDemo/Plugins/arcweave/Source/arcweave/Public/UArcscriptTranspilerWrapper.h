@@ -47,7 +47,7 @@ private:
 		char* output;
 		InputType type;
 		VariableChange* changes;
-		int changesLen;
+		size_t changesLen;
 		bool conditionResult;
 
 		TranspilerOutput() {
@@ -90,7 +90,7 @@ private:
 	};
 
 public:
-	typedef TranspilerOutput(__cdecl* __RunScript)(const char*, const char*, Variable*, int, Visit*, int);
+	typedef TranspilerOutput(__cdecl* __RunScript)(const char*, const char*, Variable*, size_t, Visit*, size_t);
 	__RunScript m_runScript;
 
 	UArcscriptTranspilerWrapper() {

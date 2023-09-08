@@ -62,7 +62,7 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
   return result;
 }
 
-ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, int varLength, UVisit* visits, int visitsLength)
+ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength)
 {
     Arcweave::TranspilerOutput transpilerOutput;
     transpilerOutput.output = "THIS IS THE RESULT";
@@ -72,7 +72,7 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
     std::string sElId(elId);
 
     std::map<std::string, Variable> initVars;
-    for (int i = 0; i < varLength; i++) {
+    for (size_t i = 0; i < varLength; i++) {
         Variable var;
         var.id = std::string(variables[i].id);
         var.name = std::string(variables[i].name);
@@ -94,7 +94,7 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
     }
 
     std::map<std::string, int> initVisits;
-    for (int i = 0; i < visitsLength; i++) {
+    for (size_t i = 0; i < visitsLength; i++) {
         initVisits[std::string(visits[i].elId)] = visits[i].visits;
     }
 
@@ -110,10 +110,10 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
         uTranspilerOutput.conditionResult = std::any_cast<bool>(transpilerOutput.result);
     }
 
-    int changesLen = transpilerOutput.changes.size();
-    std::cout << "Changes Len: " << changesLen << std::endl;
+    size_t changesLen = transpilerOutput.changes.size();
+
     UVariableChange* variableChanges = new UVariableChange[changesLen];
-    int i = 0;
+    size_t i = 0;
     for (auto change : transpilerOutput.changes) {
         UVariableChange uChange;
         uChange.varId = _strdup(change.first.c_str());
