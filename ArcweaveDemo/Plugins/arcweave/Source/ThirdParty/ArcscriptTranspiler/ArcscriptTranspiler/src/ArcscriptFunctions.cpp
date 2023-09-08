@@ -2,6 +2,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 
 std::map<std::string, ArcscriptFunctions::FunctionInfo> ArcscriptFunctions::functions = {
   { "abs", { 1, 1 } },

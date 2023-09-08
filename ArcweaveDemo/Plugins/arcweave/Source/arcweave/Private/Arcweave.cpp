@@ -28,14 +28,15 @@ void FarcweaveModule::StartupModule()
 	FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	FString ArcscriptTranspilerPath;
 #if PLATFORM_WINDOWS
-	FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/ArcscriptTranspiler/Win64")));
-	ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/ArcscriptTranspiler/Win64/ArcscriptTranspiler.dll"));
+    FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release")));
+    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll"));
 #elif PLATFORM_MAC
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/arcweaveLibrary/Mac/Release/libExampleLibrary.dylib"));
 	#elif PLATFORM_LINUX
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/arcweaveLibrary/Linux/x86_64-unknown-linux-gnu/libExampleLibrary.so"));
 	#endif // PLATFORM_WINDOWS
-
+    //../Arcweave/arcweave-unreal-example/ArcweaveDemo/Plugins/arcweave/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll"
+    //D:\Arcweave\arcweave-unreal-example\ArcweaveDemo\Plugins\arcweave\Source\ThirdParty\ArcscriptTranspiler\x64\Release\ArcscriptTranspiler.dll
 	ArcscriptTranspilerHandle = !ArcscriptTranspilerPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*ArcscriptTranspilerPath) : nullptr;
 
 	if (ArcscriptTranspilerHandle)
@@ -55,7 +56,7 @@ void FarcweaveModule::StartupModule()
 	}
 	else
 	{
-		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("Antlr4LibraryError", "Failed to load antlr library"));
+		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("Antlr4LibraryError", "Failed to load ArcscriptTranspiler.dll"));
 	}
 #if WITH_EDITOR
 
@@ -269,118 +270,6 @@ TMap<FString, FArcweaveVariable> FarcweaveModule::GetInitialVars(TSharedPtr<FJso
 	return initialVars;
 }
 
-
-/*void FarcweaveModule::TraspileArcscript()
-{
-	// Initialize the transpiler (for now ignore the element ID)
-	//ArcscriptTranspiler transpiler(currentElement, initialVars, currentVisits);
-	// Run the script in the Transpiler
-	//TranspilerOutput output;
-}*/
-
-/*std::map<std::string, Variable> FarcweaveModule::GetInitialVars(TSharedPtr<FJsonObject> JsonObject) {
-	const TSharedPtr<FJsonObject>* InitialVarsObject;
-	std::map<std::string, Variable> initialVars;
-	
-	if (JsonObject->TryGetObjectField("initialVars", InitialVarsObject))
-	{
-		for (const auto& VarObj : (*InitialVarsObject)->Values)
-		{
-			Variable var;
-			TSharedPtr<FJsonObject> VarObject = VarObj.Value->AsObject();
-			if(VarObject.IsValid() && VarObject->HasField("type"))
-			{
-				var.id =  TCHAR_TO_UTF8(*VarObject->GetStringField("id"));
-				var.name =  TCHAR_TO_UTF8(*VarObject->GetStringField("name"));
-				var.type =  TCHAR_TO_UTF8(*VarObject->GetStringField("type"));
-				
-				if (var.type == "string") {
-					var.value = VarObject->GetStringField("value");
-				}
-				else if (var.type == "integer") {
-					var.value = VarObject->GetIntegerField("value");
-				}
-				else if (var.type == "boolean") {
-					var.value = VarObject->GetBoolField("value");
-				}
-				else if (var.type == "float") {
-					var.value = VarObject->GetNumberField("value");
-				}
-				initialVars[var.id] = var;
-			}
-			else
-			{
-				UE_LOG(LogArcwarePlugin, Error, TEXT("Error reading intial vars, missing type field"));
-			}
-		}
-	}
-	return initialVars;
-}*/
-
-/*std::string FarcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, std::any actual) {
-  // std::cout << "Expected: "<< expected << std::endl;
-  std::ostringstream errors;
-	if (!actual.has_value()) {
-		errors << "Expected result != Actual result:" << std::endl;
-		errors << "Expected: ";
-
-		// Serialize the JSON object to an FString
-		FString ExpectedJsonString;
-		TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&ExpectedJsonString);
-		FJsonSerializer::Serialize(expected.ToSharedRef(), JsonWriter);
-		
-		// Convert the FString to std::string and add it to the error message
-		errors << TCHAR_TO_UTF8(*ExpectedJsonString) << std::endl;
-		errors << "Actual: No Value!" << std::endl;
-	}else if (actual.type() == typeid(std::string)) {
-	std::string actualStr = std::any_cast<std::string>(actual);
-	std::string expectedStr = TCHAR_TO_UTF8(*expected->GetStringField("result"));
-
-	// std::cout << "Actual: "<< actualStr << std::endl;
-	if (actualStr != expectedStr) {
-	  errors << "Expected result != Actual result:" << std::endl;
-	  errors << "Expected: " << expectedStr << std::endl;
-	  errors << "Actual: " << actualStr << std::endl;
-	}
-  }
-  else if (actual.type() == typeid(int)) {
-	int actualInt = std::any_cast<int>(actual);
-	int expectedInt = expected->GetIntegerField("result");
-
-	// std::cout << "Actual: "<< actualInt << std::endl;
-	if (actualInt != expectedInt) {
-	  errors << "Expected result != Actual result:" << std::endl;
-	  errors << "Expected: " << expectedInt << std::endl;
-	  errors << "Actual: " << actualInt << std::endl;
-	}
-  }
-  else if (actual.type() == typeid(double)) {
-	double actualDbl = std::any_cast<double>(actual);
-	double expectedDbl = expected->GetNumberField("result");
-
-	// std::cout << "Actual: "<< actualDbl << std::endl;
-	if (actualDbl != expectedDbl) {
-	  errors << "Expected result != Actual result:" << std::endl;
-	  errors << "Expected: " << expectedDbl << std::endl;
-	  errors << "Actual: " << actualDbl << std::endl;
-	}
-  }
-  else if (actual.type() == typeid(bool)) {
-	bool actualBool = std::any_cast<bool>(actual);
-	bool expectedBool = expected->GetBoolField("result");
-
-	// std::cout << "Actual: "<< actualBool << std::endl;
-	if (actualBool != expectedBool) {
-	  errors << "Expected result != Actual result:" << std::endl;
-	  errors << "Expected: " << expectedBool << std::endl;
-	  errors << "Actual: " << actualBool << std::endl;
-	}
-  } else {
-	errors << "Actual type unknown: " << actual.type().name() << std::endl;
-  }
-
-  return errors.str();
-}*/
 FString FarcweaveModule::CompareResults(TSharedPtr<FJsonObject> expected, TSharedPtr<FJsonValue> actual) {
 	FString errors;
 
@@ -467,41 +356,6 @@ TMap<FString, TSharedPtr<FJsonValue>> FarcweaveModule::GetExpectedVars(TSharedPt
 	}
 	return expectedVars;
 }
-/*std::map<std::string, std::any> FarcweaveModule::GetExpectedVars(TSharedPtr<FJsonObject> expectedVarsJson) {
-	std::map<std::string, std::any> expectedVars;
-	TMap<FString, TSharedPtr<FJsonValue>> expectedVarsJsonMap = expectedVarsJson->Values;
-	for (const TPair<FString, TSharedPtr<FJsonValue>>& varPair : expectedVarsJsonMap)
-	{
-		FString key = varPair.Key;
-		TSharedPtr<FJsonValue> jsonValue = varPair.Value;
-
-		if (jsonValue->Type == EJson::String)
-		{
-			FString value = jsonValue->AsString();
-			expectedVars[std::string(TCHAR_TO_UTF8(*key))] = std::string(TCHAR_TO_UTF8(*value));
-		}
-		else if (jsonValue->Type == EJson::Boolean)
-		{
-			bool value = jsonValue->AsBool();
-			expectedVars[std::string(TCHAR_TO_UTF8(*key))] = value;
-		}
-		else if (jsonValue->Type == EJson::Number)
-		{
-			double dblValue = jsonValue->AsNumber();
-			if (floor(dblValue) == dblValue)
-			{
-				int intValue = static_cast<int>(dblValue);
-				expectedVars[std::string(TCHAR_TO_UTF8(*key))] = intValue;
-			}
-			else
-			{
-				expectedVars[std::string(TCHAR_TO_UTF8(*key))] = dblValue;
-			}
-		}
-	}
-	return expectedVars;
-}*/
-
 /**
  * Compares two maps of variables for their values and types. It ignores the int/double distinction.
  * @param expected The expected variable values
@@ -565,85 +419,6 @@ FString FarcweaveModule::CompareVars(const TMap<FString, TSharedPtr<FJsonValue>>
 
 	return errors;
 }
-/*std::string FarcweaveModule::CompareVars(std::map<std::string, std::any> expected, std::map<std::string, std::any> actual) {
-  std::map<std::string, std::any>::iterator mIt = expected.begin();
-  std::ostringstream errors;
-  bool hasErrors = false;
-  while (mIt != expected.end()) {
-	std::string varId = mIt->first;
-	std::any expValue = mIt->second;
-	std::any actValue = actual[varId];
-	if (expValue.type() == typeid(int)) {
-	  int exp = std::any_cast<int>(expValue);
-	  if (actValue.type() == typeid(int)) {
-		int act = std::any_cast<int>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  } else if (actValue.type() == typeid(double)) {
-		double act = std::any_cast<double>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  } else {
-		hasErrors = true;
-		errors << "Error in test: " << std::endl;
-		errors << "Wrong value types. Expected: " << expValue.type().name() << ", actual: " << actValue.type().name() << std::endl;
-	  }
-	} else if (expValue.type() == typeid(double)) {
-	  double exp = std::any_cast<double>(expValue);
-	  if (actValue.type() == typeid(int)) {
-		int act = std::any_cast<int>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  } else if (actValue.type() == typeid(double)) {
-		double act = std::any_cast<double>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  } else {
-		hasErrors = true;
-		errors << "Error in test: " << std::endl;
-		errors << "Wrong value types. Expected: " << expValue.type().name() << ", actual: " << actValue.type().name() << std::endl;
-	  }
-	} else if (expValue.type() == typeid(bool)) {
-	  if (actValue.type() != typeid(bool)) {
-		hasErrors = true;
-		errors << "Error in test: " << std::endl;
-		errors << "Wrong value types. Expected: " << expValue.type().name() << ", actual: " << actValue.type().name() << std::endl;
-	  } else {
-		bool exp = std::any_cast<bool>(expValue);
-		bool act = std::any_cast<bool>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  }
-	} else if (expValue.type() == typeid(std::string)) {
-	  if (actValue.type() != typeid(std::string)) {
-		hasErrors = true;
-		errors << "Error in test: " << std::endl;
-		errors << "Wrong value types. Expected: " << expValue.type().name() << ", actual: " << actValue.type().name() << std::endl;
-	  } else {
-		std::string exp = std::any_cast<std::string>(expValue);
-		std::string act = std::any_cast<std::string>(actValue);
-		if (exp != act) {
-		  hasErrors = true;
-		  errors << "Error in test: " << std::endl << "var " << varId << ": " << std::endl << "Expected: " << exp << "\nActual: " << act << std::endl;
-		}
-	  }
-	}
-
-	mIt++;
-  }
-  return errors.str();
-}*/
-
 #undef LOCTEXT_NAMESPACE
 	
 IMPLEMENT_MODULE(FarcweaveModule, arcweave)

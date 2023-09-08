@@ -9,8 +9,8 @@
 FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits) {
 	int varLength = initialVars.Num();
 	int visitsLength = visits.Num();
-	const char* dllCode = strdup(TCHAR_TO_UTF8(*code));
-	const char* dllElId = strdup(TCHAR_TO_UTF8(*elementId));
+	const char* dllCode = _strdup(TCHAR_TO_UTF8(*code));
+	const char* dllElId = _strdup(TCHAR_TO_UTF8(*elementId));
 
     // Transform Unreal variable objects to DLL accepted objects
 	Variable* dllVars = new Variable[varLength];
@@ -18,12 +18,12 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 
 	int i = 0;
 	for (auto& var : initialVars) {
-		dllVars[i].id = strdup(TCHAR_TO_UTF8(*var.Value.Id));
-		dllVars[i].name = strdup(TCHAR_TO_UTF8(*var.Value.Name));
+		dllVars[i].id = _strdup(TCHAR_TO_UTF8(*var.Value.Id));
+		dllVars[i].name = _strdup(TCHAR_TO_UTF8(*var.Value.Name));
 
 		if (var.Value.Type.Equals(TEXT("string"))) {
 			dllVars[i].type = "string";
-			dllVars[i].string_val = strdup(TCHAR_TO_UTF8(*(var.Value.Value.Get()->AsString())));
+			dllVars[i].string_val = _strdup(TCHAR_TO_UTF8(*(var.Value.Value.Get()->AsString())));
 		}
 		else if (var.Value.Type.Equals(TEXT("integer"))) {
 			dllVars[i].type = "integer";
@@ -42,7 +42,7 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 
     i = 0;
 	for (auto& visit : visits) {
-		dllVisits[i].elId = strdup(TCHAR_TO_UTF8(*visit.Key));
+		dllVisits[i].elId = _strdup(TCHAR_TO_UTF8(*visit.Key));
 		dllVisits[i].visits = visit.Value;
 		i++;
 	}
