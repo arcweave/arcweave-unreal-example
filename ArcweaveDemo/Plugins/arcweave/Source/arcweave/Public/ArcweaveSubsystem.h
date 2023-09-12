@@ -5,28 +5,15 @@
 #include "CoreMinimal.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "ArcweaveTypes.h"
 #include "ArcweaveSubsystem.generated.h"
 
 struct FArcweaveAPISettings;
 
-USTRUCT
-
-(BlueprintType)
-struct FArcweaveBoard
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly, Category = "Arcweave")
-	FString BoardId; // This will hold the key of each board in the JSON map
-
-	UPROPERTY(BlueprintReadOnly, Category = "Arcweave")
-	FString Name;
-};
-
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArcweaveResponseReceived, const TArray<FArcweaveBoard>&, Boards);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArcweaveResponseReceived, const FArcweaveProjectData&, ArcweaveProjectData);
 
 UCLASS()
 class ARCWEAVE_API UArcweaveSubsystem : public UGameInstanceSubsystem

@@ -109,3 +109,257 @@ struct FArcweaveAPISettings
 	{}
 };
 
+USTRUCT(BlueprintType)
+struct FArcweaveCoverData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Id = FString("");
+    
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString File = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Type = FString("");
+
+    FArcweaveCoverData()
+        : Id(FString(""))
+        , File(FString(""))
+        , Type(FString(""))
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveAssetData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FArcweaveCoverData Cover = FArcweaveCoverData();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString AudioId = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Mode = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Asset = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Delay = FString("");
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveAttributeValueData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Data = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Type = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    bool Plain = false;
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveAttributeData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Id = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString cId = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Name = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString cType = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FArcweaveAttributeValueData Value = FArcweaveAttributeValueData();
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveComponentData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Id = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Name = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    bool Root = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FString> Children = TArray<FString>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveAssetData> Assets = TArray<FArcweaveAssetData>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveAttributeData> Attributes = TArray<FArcweaveAttributeData>();
+
+    FArcweaveComponentData()
+        : Id(FString(""))
+        , Name(FString(""))
+        , Root(false)
+        , Children(TArray<FString>())
+        , Assets(TArray<FArcweaveAssetData>())
+        , Attributes(TArray<FArcweaveAttributeData>())
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveConnectionsData
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Id = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Type = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Label = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Theme = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Sourceid = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString Targetid = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString SourceType = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString TargetType = FString("");
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Arcweave")
+    FString TargetFace = FString("");
+
+    FArcweaveConnectionsData()
+        : Id(FString(""))
+        , Type(FString(""))
+        , Label(FString(""))
+        , Theme(FString(""))
+        , Sourceid(FString(""))
+        , Targetid(FString(""))
+        , SourceType(FString(""))
+        , TargetType(FString(""))
+        , TargetFace(FString(""))
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveElementData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Id = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Theme = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Title = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Content = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FString> Outputs = TArray<FString>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TMap<FString, FArcweaveAssetData> Assets;    
+
+    FArcweaveElementData()
+        : Id(FString(""))
+        , Theme(FString(""))
+        , Title(FString(""))
+        , Content(FString(""))
+        , Outputs(TArray<FString>())
+        , Components(TArray<FArcweaveComponentData>())
+        , Assets(TMap<FString, FArcweaveAssetData>())
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveBoardData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString BoardId = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Name = FString("");
+
+    UPROPERTY(BlueprintReadWrite)
+    TArray<FString> Notes;
+
+    UPROPERTY(BlueprintReadWrite)
+    TArray<FString> Jumpers;
+
+    UPROPERTY(BlueprintReadWrite)
+    TArray<FString> Branches;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveElementData>  Elements = TArray<FArcweaveElementData>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveConnectionsData> Connections = TArray<FArcweaveConnectionsData>();
+
+    FArcweaveBoardData()
+        : BoardId(FString(""))
+        , Notes(TArray<FString>())
+        , Jumpers(TArray<FString>())
+        , Branches(TArray<FString>())
+        , Name(FString(""))
+        , Elements(TArray<FArcweaveElementData>())
+        , Connections(TArray<FArcweaveConnectionsData>())
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FArcweaveProjectData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Name = FString("");
+
+    //project cover
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FArcweaveCoverData Cover = FArcweaveCoverData();
+
+    //project boards
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveBoardData> Boards = TArray<FArcweaveBoardData>();
+
+    //constructor
+    FArcweaveProjectData()
+        : Name(FString(""))
+        , Cover(FArcweaveCoverData())
+        , Boards(TArray<FArcweaveBoardData>())
+    {}
+};
+
