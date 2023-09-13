@@ -330,10 +330,10 @@ struct FArcweaveBoardData
 
     FArcweaveBoardData()
         : BoardId(FString(""))
+        , Name(FString(""))
         , Notes(TArray<FString>())
         , Jumpers(TArray<FString>())
         , Branches(TArray<FString>())
-        , Name(FString(""))
         , Elements(TArray<FArcweaveElementData>())
         , Connections(TArray<FArcweaveConnectionsData>())
     {}
