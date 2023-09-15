@@ -9,6 +9,9 @@
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 
+#define ARCWEAVE_SETTINGS_SECTION TEXT("/Script/arcweave.ArcweaveSettings")
+
+
 void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 {
 	/*UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
@@ -42,7 +45,7 @@ void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 	Request->ProcessRequest();
 }
 
-FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
+FArcweaveAPISettings UArcweaveSubsystem::GetArcweaveSettings() const
 {
 	FArcweaveAPISettings OutSetttings = FArcweaveAPISettings();	
 	/*UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
@@ -62,24 +65,20 @@ FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
 		return OutSetttings;
 	}*/
 
-    UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
-    if (ArcweaveSettings)
+    if (GConfig)
     {
-        ArcweaveSettings->ReloadConfig();
-        if (GConfig)
+        if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), OutSetttings.APIToken, GEngineIni))
         {
-            if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), OutSetttings.APIToken, GGameIni))
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Read APIToken: %s"), *OutSetttings.APIToken);
-            }
+            // Successfully read the APIToken from DefaultEngine.ini
+            UE_LOG(LogTemp, Warning, TEXT("Read APIToken: %s"), *OutSetttings.APIToken);
+        }
 
-            if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), OutSetttings.Hash, GGameIni))
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Read Hash: %s"), *OutSetttings.Hash);
-            }
+        if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), OutSetttings.Hash, GEngineIni))
+        {
+            // Successfully read the Hash from DefaultEngine.ini
+            UE_LOG(LogTemp, Warning, TEXT("Read Hash: %s"), *OutSetttings.Hash);
         }
     }
-
 
 
 	return OutSetttings;
@@ -92,46 +91,38 @@ void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FSt
         return;
     }
 
-    //GConfig->EmptySection(TEXT("TargetDeviceServices"), GGameIni);
+    //GConfig->EmptySection(TEXT("TargetDeviceServices"), GEngineIni);
 
     // save configuration
-    //GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), *APIToken, GGameIni);
-    //GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), *ProjectHash, GGameIni);
-    //GConfig->Flush(false, GGameIni);
-
-    UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
-    if (ArcweaveSettings)
-    {
-        ArcweaveSettings->APIToken = APIToken;
-        ArcweaveSettings->Hash = ProjectHash;
-        ArcweaveSettings->SaveConfig();
-    }
+    GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), *APIToken, GEngineIni);
+    GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), *ProjectHash, GEngineIni);
+    GConfig->Flush(false, GEngineIni);
 }
 
 FString UArcweaveSubsystem::RemoveHtmlTags(const FString& InputString)
 {
     FString CleanedString = InputString;
 
-    // Search for the opening '<' character in the string
-    int32 TagStartIndex = CleanedString.Find(TEXT("<"));
-    
-    while (TagStartIndex != INDEX_NONE)
+    // Search for the opening '<' character and closing '>' character in the string
+    int32 StartIndex = 0;
+    while (CleanedString.FindChar('<', StartIndex))
     {
-        int32 TagEndIndex = CleanedString.Find(TEXT(">"), ESearchCase::IgnoreCase, ESearchDir::FromStart, TagStartIndex);
+        int32 TagStartIndex = CleanedString.FindChar('<', StartIndex);
+        int32 TagEndIndex = CleanedString.FindChar('>', TagStartIndex);
 
-        // If both '<' and '>' are found, remove the tag
-        if (TagEndIndex != INDEX_NONE)
+        // If both '<' and '>' are found, remove the tag and update the start index
+        if (TagStartIndex != INDEX_NONE && TagEndIndex != INDEX_NONE)
         {
             CleanedString.RemoveAt(TagStartIndex, TagEndIndex - TagStartIndex + 1, /*bAllowShrinking*/ true);
-            // No need to adjust the TagStartIndex since we've just removed a segment
         }
         else
         {
-            // If no matching '>' is found or the string is finished, break the loop
+            // If no matching '>' is found, break the loop
             break;
         }
 
-        TagStartIndex = CleanedString.Find(TEXT("<"));
+        // Set the start index for the next iteration to continue searching for tags
+        StartIndex = TagStartIndex;
     }
 
     return CleanedString;
@@ -227,7 +218,7 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
             }
 
            Board.Elements = ParseElements(MainJsonObject, BoardValueObject);
-           Board.Connections = ParseConnections(FString("connections"), MainJsonObject, BoardValueObject);
+           Board.Connections = ParseConnections(MainJsonObject, BoardValueObject);
            Boards.Add(Board);
         }
     }
@@ -266,12 +257,12 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
     return InitialVars;
 }
 
-TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FString& FieldName, const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ParentValueObject)
+TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject)
 {
       // Parse "connections" as an array of connection data structs
     TArray<FArcweaveConnectionsData> Connections;
     TArray<FString> ConnectionsArrayStrings;
-    if (ParentValueObject->TryGetStringArrayField(FieldName, ConnectionsArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField("connections", ConnectionsArrayStrings))
     {
         for (const FString& ConnectionId : ConnectionsArrayStrings)
         {
@@ -289,9 +280,7 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
 
                         if (ConObject.IsValid())
                         {
-                            FString DirtyLabel = FString("");
-                            ConObject->TryGetStringField("label", DirtyLabel);
-                            Connection.Label = RemoveHtmlTags(DirtyLabel);                            
+                            ConObject->TryGetStringField("label", Connection.Label);
                             //UE_LOG(LogArcwarePlugin, Log, TEXT(" --- Connection object name: %s, label %s"), *ConnectionPair.Key, *Connection.Label);
                             ConObject->TryGetStringField("type", Connection.Type);
                             ConObject->TryGetStringField("theme", Connection.Theme);
@@ -335,14 +324,10 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                         if (ElementValueObject.IsValid())
                         {
                             ElementValueObject->TryGetStringField("theme", Element.Theme);
-                            FString DirtyTitle = FString("");
-                            ElementValueObject->TryGetStringField("title", DirtyTitle);
-                            Element.Title = RemoveHtmlTags(DirtyTitle);
-                            FString DirtyContent = FString("");
-                            ElementValueObject->TryGetStringField("content", DirtyContent);
-                            Element.Content = RemoveHtmlTags(DirtyContent);
+                            ElementValueObject->TryGetStringField("title", Element.Title);
+                            ElementValueObject->TryGetStringField("content", Element.Content);
                             //FArcscriptTranspilerOutput Output = RunTranspiler(Element.Content, Element.Id, ProjectData.InitialVars, TMap<FString, int>());
-                            Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
+                            ElementValueObject->TryGetStringArrayField("outputs", Element.Outputs);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                         }
                         Elements.Add(Element);
@@ -386,7 +371,7 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TShared
 
                             Components.Add(ElComponent);
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -479,8 +464,7 @@ void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     Super::Initialize(Collection);
     ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
     // we must read from engine config here
-    FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
-    FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);
+    FetchData(FString("vsvIOEPSAorYs8qTlPvsHeKQ4MksRyAVOC6m09DB1xwgqEaMpV3ppmLnCNOs"), FString("omE79ga0RN"));
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

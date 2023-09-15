@@ -30,7 +30,7 @@ public:
 	 * Get Arcweave API token from settings
 	 */
     UFUNCTION(BlueprintPure, Category = "Arcweave")
-    FArcweaveAPISettings LoadArcweaveSettings() const;
+    FArcweaveAPISettings GetArcweaveSettings() const;
 
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
     void SaveArcweaveSettings(const FString& APIToken, const FString& ProjectHash);
@@ -53,7 +53,7 @@ private:
     void ParseAttributeValue(const TSharedPtr<FJsonObject>& ValueObject, FArcweaveAttributeValueData& AttributeValue);
     TArray<FArcweaveBoardData> ParseBoard(const TSharedPtr<FJsonObject>& MainJsonObject);
     TMap<FString, FArcweaveVariable> ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject);
-    TArray<FArcweaveConnectionsData> ParseConnections(const FString& FieldName, const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
+    TArray<FArcweaveConnectionsData> ParseConnections(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);

@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS(config = Game, DefaultConfig)
+UCLASS(config = Engine, DefaultConfig)
 class ARCWEAVE_API UArcweaveSettings : public UObject
 {
 	GENERATED_BODY()
