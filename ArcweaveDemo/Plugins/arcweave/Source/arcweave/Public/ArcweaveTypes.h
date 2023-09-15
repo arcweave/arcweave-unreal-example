@@ -12,23 +12,27 @@
 
 //struct for dialogue
 USTRUCT(BlueprintType)
-struct FArcDialogue
+struct FArcweaveDialogue
 {
 	GENERATED_BODY()
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
-	FString Name = FString("");
+	FString CharacterName = FString("");
 
 	UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
-	FString Content = FString("");
+	FString QuestionTitle = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString Content = FString("");
 
 	UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
-	TArray<FString> Choices;
+	TArray<FString> Connections;
 
-	FArcDialogue()
-		: Name(FString(""))
+	FArcweaveDialogue()
+		: CharacterName(FString(""))
+		, QuestionTitle(FString(""))
 		, Content(FString(""))
-		, Choices(TArray<FString>())
+		, Connections(TArray<FString>())
 	{}
 };
 
@@ -287,7 +291,7 @@ struct FArcweaveElementData
     FString Content = FString("");
 
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
-    TArray<FString> Outputs = TArray<FString>();
+    TArray<FArcweaveConnectionsData> Outputs = TArray<FArcweaveConnectionsData>();
 
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
@@ -300,7 +304,7 @@ struct FArcweaveElementData
         , Theme(FString(""))
         , Title(FString(""))
         , Content(FString(""))
-        , Outputs(TArray<FString>())
+        , Outputs(TArray<FArcweaveConnectionsData>())
         , Components(TArray<FArcweaveComponentData>())
         , Assets(TMap<FString, FArcweaveAssetData>())
     {}
