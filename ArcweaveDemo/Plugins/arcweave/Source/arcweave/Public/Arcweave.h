@@ -27,6 +27,7 @@ public:
 
     bool TestJsonFile();
 
+    inline UArcscriptTranspilerWrapper* getArcscriptWrapper() { return ArcscriptWrapper; };
 private:
     /** Handle to the test antlr dll we will load */
     void*	ArcscriptTranspilerHandle;

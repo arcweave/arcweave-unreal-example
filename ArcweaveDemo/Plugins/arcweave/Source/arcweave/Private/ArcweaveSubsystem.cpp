@@ -243,24 +243,27 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
         for (const auto& VariablePair : VariablesObject->Get()->Values)
         {
             const TSharedPtr<FJsonObject> VarObject = VariablePair.Value->AsObject();
-            FArcweaveVariable Variable;
-            Variable.Id = VariablePair.Key;
-            VarObject->TryGetStringField("name", Variable.Name);
-            VarObject->TryGetStringField("type", Variable.Type);
-            if (Variable.Type == "string") {
-                Variable.Value = VarObject->GetStringField("value");
+            bool isRoot = false;
+            if (!(VarObject->TryGetBoolField("root", isRoot) && isRoot)) {
+                FArcweaveVariable Variable;
+                Variable.Id = VariablePair.Key;
+                VarObject->TryGetStringField("name", Variable.Name);
+                VarObject->TryGetStringField("type", Variable.Type);
+                if (Variable.Type == "string") {
+                    Variable.Value = VarObject->GetStringField("value");
+                }
+                else if (Variable.Type == "integer") {
+                    Variable.Value.AppendInt(VarObject->GetIntegerField("value"));
+                }
+                else if (Variable.Type == "boolean") {
+                    Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
+                }
+                else if (Variable.Type == "float")
+                {
+                    Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
+                }
+                InitialVars.Add(Variable.Id, Variable);
             }
-            else if (Variable.Type == "integer") {
-                Variable.Value.AppendInt(VarObject->GetIntegerField("value"));
-            }
-            else if (Variable.Type == "boolean") {
-                Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
-            }
-            else if (Variable.Type == "float")
-            {
-                Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
-            }
-            InitialVars.Add(Variable.Id, Variable);
         }
     }
     return InitialVars;
@@ -477,7 +480,9 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
 void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
-    ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
+    FarcweaveModule* arcweaveModule = FModuleManager::GetModulePtr<FarcweaveModule>("Arcweave");
+
+    ArcscriptWrapper = arcweaveModule->getArcscriptWrapper();
     // we must read from engine config here
     FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
     FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);
