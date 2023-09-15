@@ -29,16 +29,14 @@ public:
 	/*
 	 * Get Arcweave API token from settings
 	 */
-	UFUNCTION(BlueprintPure, Category = "Arcweave")
-	FArcweaveAPISettings GetArcweaveSettings() const;
+    UFUNCTION(BlueprintPure, Category = "Arcweave")
+    FArcweaveAPISettings GetArcweaveSettings() const;
+
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    void SaveArcweaveSettings(const FString& APIToken, const FString& ProjectHash);
 
     UFUNCTION(BlueprintPure, Category = "Arcweave")
     FArcweaveProjectData GetArcweaveProjectData() const {return ProjectData;};
-
-    //set arcweaveSettings
-    UFUNCTION(BlueprintCallable, Category = "Arcweave")
-    void SetArcweaveSettings(FArcweaveAPISettings NewSettings);    
-
 
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;

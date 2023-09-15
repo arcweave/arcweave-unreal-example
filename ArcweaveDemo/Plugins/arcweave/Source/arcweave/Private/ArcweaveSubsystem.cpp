@@ -9,6 +9,9 @@
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 
+#define ARCWEAVE_SETTINGS_SECTION TEXT("/Script/arcweave.ArcweaveSettings")
+
+
 void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 {
 	/*UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
@@ -45,7 +48,7 @@ void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 FArcweaveAPISettings UArcweaveSubsystem::GetArcweaveSettings() const
 {
 	FArcweaveAPISettings OutSetttings = FArcweaveAPISettings();	
-	UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
+	/*UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
 	// Check if the settings are valid
 	if (ArcweaveSettings->APIToken.IsEmpty() || ArcweaveSettings->Hash.IsEmpty())
 	{
@@ -60,22 +63,40 @@ FArcweaveAPISettings UArcweaveSubsystem::GetArcweaveSettings() const
 			GEngine->AddOnScreenDebugMessage(-1, TimeToDisplay, TextColor, Message);
 		}
 		return OutSetttings;
-	}
+	}*/
 
-	OutSetttings.APIToken = ArcweaveSettings->APIToken;
-	OutSetttings.Hash = ArcweaveSettings->Hash;
+    if (GConfig)
+    {
+        if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), OutSetttings.APIToken, GEngineIni))
+        {
+            // Successfully read the APIToken from DefaultEngine.ini
+            UE_LOG(LogTemp, Warning, TEXT("Read APIToken: %s"), *OutSetttings.APIToken);
+        }
+
+        if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), OutSetttings.Hash, GEngineIni))
+        {
+            // Successfully read the Hash from DefaultEngine.ini
+            UE_LOG(LogTemp, Warning, TEXT("Read Hash: %s"), *OutSetttings.Hash);
+        }
+    }
+
+
 	return OutSetttings;
 }
 
-void UArcweaveSubsystem::SetArcweaveSettings(FArcweaveAPISettings NewSettings)
+void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FString& ProjectHash)
 {
-    // Saves the color of the folder to the config
-    /*if(FPaths::FileExists(GEditorPerProjectIni))
+    if (GConfig == nullptr)
     {
-        GConfig->SetString(TEXT("PathColor"), *InPath, *InFolderColor.ToString(), GEditorPerProjectIni);
-    }*/
-    /*GConfig->SetArray(TEXT("Launcher.DeviceGroups"), TEXT("DeviceGroup"), DeviceGroupStrings, GEngineIni);
-    GConfig->Flush(false, GEngineIni);*/
+        return;
+    }
+
+    //GConfig->EmptySection(TEXT("TargetDeviceServices"), GEngineIni);
+
+    // save configuration
+    GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), *APIToken, GEngineIni);
+    GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), *ProjectHash, GEngineIni);
+    GConfig->Flush(false, GEngineIni);
 }
 
 FString UArcweaveSubsystem::RemoveHtmlTags(const FString& InputString)
