@@ -12,6 +12,8 @@
 #include "Modules/ModuleManager.h"
 #include "UObject/ObjectMacros.h"
 
+#define ARCWEAVE_SETTINGS_SECTION TEXT("/Script/arcweave.ArcweaveSettings")
+
 class FJsonObject;
 DECLARE_LOG_CATEGORY_EXTERN(LogArcwarePlugin, Log, All);
 

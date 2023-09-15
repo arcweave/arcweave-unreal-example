@@ -1,5 +1,5 @@
 {
-    "startingElement": null,
+    "startingElement": "188e6385-85e2-496b-82ac-a81696e7bcab",
     "boards": {
         "1c11fa2a-f76c-4be7-aac4-6bf92a63240f": {
             "name": "Knight Dialogue",
@@ -79,8 +79,8 @@
         "733b1cc4-6d51-4ad6-9fba-444b4f2d98f3": {
             "name": "Dialogues",
             "children": [
-                "1c11fa2a-f76c-4be7-aac4-6bf92a63240f",
-                "fde6c03b-9c62-4d2d-82b9-9d6613cf6c6f"
+                "ef8116b9-c38d-473d-9c0a-600bc37a010d",
+                "1c11fa2a-f76c-4be7-aac4-6bf92a63240f"
             ]
         },
         "b924f43d-3c3c-4769-b9c2-34a7a5c8da49": {
@@ -93,37 +93,26 @@
             "elements": [],
             "connections": []
         },
-        "fde6c03b-9c62-4d2d-82b9-9d6613cf6c6f": {
+        "ef8116b9-c38d-473d-9c0a-600bc37a010d": {
             "name": "Crusader Dialogue",
-            "notes": [
-                "ccd54214-e714-45ab-b0ea-f5f906e97352"
-            ],
-            "jumpers": [
-                "3517a1bc-3b73-4850-b03d-09daf9b7bc89"
-            ],
-            "branches": [
-                "e4ef520d-1a30-4fd8-97f7-ed7f3ccb1426"
-            ],
+            "notes": [],
+            "jumpers": [],
+            "branches": [],
             "elements": [
-                "d4823bca-643b-4d3a-a908-0056762a0476",
-                "601034d9-b442-449a-a927-cd112fca8f7e",
-                "d393f371-5aad-4dd9-a3ee-300bedaf993d",
-                "4d61d93e-e541-4dff-b10d-42c4fd81ad0b",
-                "fa351fcb-f7cd-4b65-ae0a-4640e8a5275f",
-                "4c7d10f2-e68b-498f-9ced-ffd74977a8f5",
-                "b6b7cebe-0c30-4da2-9839-2639f458f759"
+                "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
+                "8b1301ce-9401-4608-ad07-1b48810456e1",
+                "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
+                "4852ef56-b402-49f6-8e18-bfafa81c048d",
+                "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb"
             ],
             "connections": [
-                "3bcf09a5-0680-4826-8fef-76e79f31fad4",
-                "80407dcb-6a30-4720-8d87-0d53419c4d30",
-                "6738d031-bbd5-4d98-993f-a4926fc7fa33",
-                "ce4869fb-b31e-47a5-a0ca-47e46839a6f8",
-                "dd563c04-f2d3-4c7f-a66e-3bb649c34831",
-                "0c0cdd6d-3686-4198-88c7-d0753dda6945",
-                "64b12ec3-e4d4-475b-ab3b-d1187b043a04",
-                "10b4a35e-8329-4a0d-86d2-3d0144254aa1",
-                "a21bbb0e-2496-4cd9-81a5-08773b3a4044",
-                "63267ff2-9318-42e3-ad9b-aaadf1a2b05a"
+                "b8188427-cb5a-4afa-b63e-fcb75518bd09",
+                "c533d3b5-a790-4831-8e8c-8104e025cad0",
+                "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83",
+                "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee",
+                "b15398c7-cf05-477b-8a92-33d997c3fa9a",
+                "3658401e-eb15-4923-8a9c-493a35f509ee",
+                "7b8bc552-d160-43c2-a980-09ea33faccdb"
             ]
         }
     },
@@ -176,11 +165,6 @@
         "c917680a-9884-41fb-832c-7ac41f87c520": {
             "theme": "cyan",
             "content": "<p>Attach <strong>components<\/strong> to elements by dragging and dropping them from the Components list on the sidebar.<\/p>",
-            "autoHeight": true
-        },
-        "ccd54214-e714-45ab-b0ea-f5f906e97352": {
-            "theme": "blue",
-            "content": "<p>A <strong>branch<\/strong> diverts the narrative flow according to its conditions.<\/p><p>A branch must have an <strong>if<\/strong> condition. It can also have an <strong>else<\/strong>, as well as several <strong>elseif<\/strong> conditions.<\/p>",
             "autoHeight": true
         },
         "e31f8c73-9d3a-43f2-a009-04a569b1c06b": {
@@ -248,42 +232,37 @@
             "autoHeight": false,
             "components": []
         },
-        "4c7d10f2-e68b-498f-9ced-ffd74977a8f5": {
-            "theme": "red",
-            "title": "<p>Wrong answer<\/p>",
-            "assets": {
-                "audio": [
-                    {
-                        "id": "f3f80398-0922-4711-83c9-260130284ede",
-                        "mode": "stop",
-                        "asset": "5d1ceff2-38d1-4741-bf9f-106ca141717c",
-                        "delay": 0
-                    },
-                    {
-                        "id": "3720e660-4c76-40eb-86e5-17593915cce5",
-                        "mode": "once",
-                        "asset": "2fb13dcd-402e-4222-9b1a-f30a06241fab",
-                        "delay": "1200"
-                    }
-                ]
-            },
-            "content": "<p><em>\"Wrong!\"<\/em><strong> <\/strong>he shouts. Before you can utter another word he strikes you with the back of his sword hilt.<\/p><p>Everything fades to black...<\/p>",
+        "4852ef56-b402-49f6-8e18-bfafa81c048d": {
+            "theme": "cyan",
+            "title": "<p>Knight health is 50<\/p>",
+            "content": "<p>Ok, knight health is now at 50. Thanks<\/p><pre><code>knight_health = 50<\/code><\/pre>",
             "outputs": [
-                "6738d031-bbd5-4d98-993f-a4926fc7fa33"
+                "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee"
             ],
             "autoHeight": true,
             "components": []
         },
-        "4d61d93e-e541-4dff-b10d-42c4fd81ad0b": {
-            "theme": "red",
-            "title": "<p>Game over<\/p>",
+        "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407": {
+            "theme": "cyan",
+            "title": "<p>End<\/p>",
+            "content": "<p>This is the end, my friend<\/p>",
+            "outputs": [],
+            "autoHeight": true,
+            "components": []
+        },
+        "5265ceac-f13f-47fc-a02c-6eda7eea6b90": {
+            "theme": "cyan",
+            "title": "<p>Start<\/p>",
             "assets": {
                 "cover": {
-                    "id": "c48178d4-0619-4c95-8ca1-02aad2358e12"
+                    "id": "83bc18b9-1fae-4b47-9904-75c5da84a61d"
                 }
             },
-            "content": "<p>Alas, you did not manage to find what lies behind the ominous door...<\/p>",
-            "outputs": [],
+            "content": "<p>Dialogue start text. How do you like this??<\/p>",
+            "outputs": [
+                "b8188427-cb5a-4afa-b63e-fcb75518bd09",
+                "c533d3b5-a790-4831-8e8c-8104e025cad0"
+            ],
             "autoHeight": true,
             "components": []
         },
@@ -346,32 +325,6 @@
             "autoHeight": true,
             "components": []
         },
-        "601034d9-b442-449a-a927-cd112fca8f7e": {
-            "theme": "red",
-            "title": "<p>Trying to run past<\/p>",
-            "assets": {
-                "audio": [
-                    {
-                        "id": "22f8d35d-cc0b-4f09-accb-4d9b75580342",
-                        "mode": "stop",
-                        "asset": "5d1ceff2-38d1-4741-bf9f-106ca141717c",
-                        "delay": 0
-                    },
-                    {
-                        "id": "5dd511e1-7941-4306-8454-303bd51bbe71",
-                        "mode": "once",
-                        "asset": "2fb13dcd-402e-4222-9b1a-f30a06241fab",
-                        "delay": "1200"
-                    }
-                ]
-            },
-            "content": "<p>As you try to run past him, he swiftly grabs you by the neck. You fight for freedom but his grip is inhumanly strong. <\/p><p>You drift into unconsciousness...<\/p>",
-            "outputs": [
-                "80407dcb-6a30-4720-8d87-0d53419c4d30"
-            ],
-            "autoHeight": true,
-            "components": []
-        },
         "81a30674-aa09-4eb8-8484-59298d37f984": {
             "theme": "brown",
             "title": "<p>The stone passage<\/p>",
@@ -402,6 +355,18 @@
             "autoHeight": true,
             "components": []
         },
+        "8b1301ce-9401-4608-ad07-1b48810456e1": {
+            "theme": "cyan",
+            "title": "<p>The arcweave question<\/p>",
+            "content": "<p>Which character so you want to take the health?<\/p>",
+            "outputs": [
+                "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83",
+                "b15398c7-cf05-477b-8a92-33d997c3fa9a",
+                "7b8bc552-d160-43c2-a980-09ea33faccdb"
+            ],
+            "autoHeight": true,
+            "components": []
+        },
         "b2eb06f5-0a49-488b-8a60-7c469fd3af8a": {
             "theme": "purple",
             "title": "<p>Examine the painting<\/p>",
@@ -425,48 +390,12 @@
             "autoHeight": true,
             "components": []
         },
-        "b6b7cebe-0c30-4da2-9839-2639f458f759": {
-            "theme": "green",
-            "title": "<p>Success<\/p>",
-            "assets": {
-                "cover": {
-                    "id": "c48178d4-0619-4c95-8ca1-02aad2358e12"
-                }
-            },
-            "content": "<p>Congrats, you finished the example project! 🎉Now try and make your own interactive experience. If you need help check the <a href=\"https:\/\/arcweave.com\/docs\/1.0\" target=\"__blank\" rel=\"noopener noreferrer nofollow\" title=\"https:\/\/arcweave.com\/docs\/1.0\">docs<\/a>, our <a href=\"https:\/\/youtu.be\/Dfm6dKQH3I0\" target=\"__blank\" rel=\"noopener noreferrer nofollow\" title=\"https:\/\/youtu.be\/Dfm6dKQH3I0\">Youtube tutorials<\/a> or ping us on <a href=\"https:\/\/discord.gg\/atVXxAK\" target=\"__blank\" rel=\"noopener noreferrer nofollow\" title=\"https:\/\/discord.gg\/atVXxAK\">Discord<\/a>!<\/p><p>Happy creations! 😊<\/p>",
-            "outputs": [],
-            "autoHeight": true,
-            "components": []
-        },
-        "d393f371-5aad-4dd9-a3ee-300bedaf993d": {
+        "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb": {
             "theme": "cyan",
-            "title": "<p>The Question<\/p>",
-            "assets": {
-                "cover": {
-                    "id": "bcf8b35c-0ce5-4cbb-bfc7-5fa7a2dd90be"
-                }
-            },
-            "content": "<p><em>\"Only he who knows my name shall pass,\"<\/em> he hisses.<\/p>",
+            "title": "<p>Crusader health is 25<\/p>",
+            "content": "<p>Ok, knight health is now at 25. Thank you<\/p><pre><code>crusader_health = 25<\/code><\/pre>",
             "outputs": [
-                "64b12ec3-e4d4-475b-ab3b-d1187b043a04",
-                "a21bbb0e-2496-4cd9-81a5-08773b3a4044",
-                "dd563c04-f2d3-4c7f-a66e-3bb649c34831"
-            ],
-            "autoHeight": true,
-            "components": []
-        },
-        "d4823bca-643b-4d3a-a908-0056762a0476": {
-            "theme": "cyan",
-            "title": "<p>Dialogue start<\/p>",
-            "assets": {
-                "cover": {
-                    "id": "bcf8b35c-0ce5-4cbb-bfc7-5fa7a2dd90be"
-                }
-            },
-            "content": "<p>The man looks at you suspiciously and tightens his sword grip. He speaks in a deep voice: <em>\"What do you want stranger?\"<\/em><\/p>",
-            "outputs": [
-                "3bcf09a5-0680-4826-8fef-76e79f31fad4",
-                "0c0cdd6d-3686-4198-88c7-d0753dda6945"
+                "3658401e-eb15-4923-8a9c-493a35f509ee"
             ],
             "autoHeight": true,
             "components": []
@@ -506,46 +435,14 @@
             "outputs": [],
             "autoHeight": true,
             "components": []
-        },
-        "fa351fcb-f7cd-4b65-ae0a-4640e8a5275f": {
-            "theme": "green",
-            "title": "<p>Correct answer<\/p>",
-            "assets": {
-                "audio": [
-                    {
-                        "id": "84c27246-6f50-42c5-8d6a-c17041066a33",
-                        "mode": "stop",
-                        "asset": "5d1ceff2-38d1-4741-bf9f-106ca141717c",
-                        "delay": 0
-                    },
-                    {
-                        "id": "f8cbe6a1-2240-4b3e-b7f9-5d6db6cc27f2",
-                        "mode": "stop",
-                        "asset": "60625785-9f74-4171-9346-a4206a6f6f5e",
-                        "delay": 0
-                    }
-                ],
-                "cover": {
-                    "id": "206816c5-9c9a-4003-940c-5c5176caed18"
-                }
-            },
-            "content": "<p>At once, you utter the name you remember from the painting. In the blink of an eye, the <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Crusader\" data-type=\"component\">Crusader<\/span> disappears... Almost as if he were never there.<\/p><p>Weird.<\/p><p><\/p><pre><code>score += 3<\/code><\/pre><p>(Your score just went up 3 points. You now have a score of<\/p><pre><code>show(score, \".)\")<\/code><\/pre>",
-            "outputs": [
-                "ce4869fb-b31e-47a5-a0ca-47e46839a6f8"
-            ],
-            "autoHeight": true,
-            "components": []
         }
     },
     "jumpers": {
         "17251b2a-0930-4a93-8f14-e89eb3238146": {
             "elementId": "59370898-e089-46cd-b7cf-072b79a76453"
         },
-        "3517a1bc-3b73-4850-b03d-09daf9b7bc89": {
-            "elementId": "81a30674-aa09-4eb8-8484-59298d37f984"
-        },
         "60b22737-d18c-44ea-b24c-8d771dfd9f9d": {
-            "elementId": "d4823bca-643b-4d3a-a908-0056762a0476"
+            "elementId": null
         }
     },
     "connections": {
@@ -556,24 +453,6 @@
             "sourceid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
             "targetid": "e14fa106-d418-4935-ab44-0de013995605",
             "sourceType": "elements",
-            "targetType": "elements"
-        },
-        "0c0cdd6d-3686-4198-88c7-d0753dda6945": {
-            "type": "Bezier",
-            "label": "<p><em>\"I’ll come back later.\"<\/em><\/p>",
-            "theme": "brown",
-            "sourceid": "d4823bca-643b-4d3a-a908-0056762a0476",
-            "targetid": "3517a1bc-3b73-4850-b03d-09daf9b7bc89",
-            "sourceType": "elements",
-            "targetType": "jumpers"
-        },
-        "10b4a35e-8329-4a0d-86d2-3d0144254aa1": {
-            "type": "Straight",
-            "label": "<p><em>\"Uh... Crusader?\"<\/em><\/p>",
-            "theme": "red",
-            "sourceid": "2a94652d-594c-4e8d-9a05-993e9155547b",
-            "targetid": "4c7d10f2-e68b-498f-9ced-ffd74977a8f5",
-            "sourceType": "conditions",
             "targetType": "elements"
         },
         "26629aeb-75b8-44a1-9c31-6cdfe2f609b6": {
@@ -604,21 +483,22 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
+        "3658401e-eb15-4923-8a9c-493a35f509ee": {
+            "type": "Bezier",
+            "label": null,
+            "theme": "blue",
+            "sourceid": "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
+            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
+            "sourceType": "elements",
+            "targetFace": "right",
+            "targetType": "elements"
+        },
         "3b06bb14-876e-49e3-9378-1b8d1a84fcf2": {
             "type": "Bezier",
             "label": "<p>I Like it<\/p><p><\/p>",
             "theme": "blue",
             "sourceid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
             "targetid": "d852a577-bd1f-44cf-8187-77a86f97baef",
-            "sourceType": "elements",
-            "targetType": "elements"
-        },
-        "3bcf09a5-0680-4826-8fef-76e79f31fad4": {
-            "type": "Straight",
-            "label": "<p><em>\"Can I pass?\"<\/em><\/p>",
-            "theme": "cyan",
-            "sourceid": "d4823bca-643b-4d3a-a908-0056762a0476",
-            "targetid": "d393f371-5aad-4dd9-a3ee-300bedaf993d",
             "sourceType": "elements",
             "targetType": "elements"
         },
@@ -630,34 +510,6 @@
             "targetid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
             "sourceType": "elements",
             "targetFace": "right",
-            "targetType": "elements"
-        },
-        "63267ff2-9318-42e3-ad9b-aaadf1a2b05a": {
-            "type": "Straight",
-            "label": "<p><em>\"Conrad IV, Count of Exeter?\"<\/em><\/p>",
-            "theme": "green",
-            "sourceid": "5caff231-4102-41f0-8eb6-755d48660fb7",
-            "targetid": "fa351fcb-f7cd-4b65-ae0a-4640e8a5275f",
-            "sourceType": "conditions",
-            "targetFace": "left",
-            "targetType": "elements"
-        },
-        "64b12ec3-e4d4-475b-ab3b-d1187b043a04": {
-            "type": "Straight",
-            "label": null,
-            "theme": "blue",
-            "sourceid": "d393f371-5aad-4dd9-a3ee-300bedaf993d",
-            "targetid": "e4ef520d-1a30-4fd8-97f7-ed7f3ccb1426",
-            "sourceType": "elements",
-            "targetType": "branches"
-        },
-        "6738d031-bbd5-4d98-993f-a4926fc7fa33": {
-            "type": "Bezier",
-            "label": null,
-            "theme": "red",
-            "sourceid": "4c7d10f2-e68b-498f-9ced-ffd74977a8f5",
-            "targetid": "4d61d93e-e541-4dff-b10d-42c4fd81ad0b",
-            "sourceType": "elements",
             "targetType": "elements"
         },
         "678e093e-537c-4161-b011-8d6763c4be14": {
@@ -687,12 +539,12 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
-        "80407dcb-6a30-4720-8d87-0d53419c4d30": {
+        "7b8bc552-d160-43c2-a980-09ea33faccdb": {
             "type": "Bezier",
-            "label": null,
-            "theme": "red",
-            "sourceid": "601034d9-b442-449a-a927-cd112fca8f7e",
-            "targetid": "4d61d93e-e541-4dff-b10d-42c4fd81ad0b",
+            "label": "<p>Crusader<\/p>",
+            "theme": "blue",
+            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
+            "targetid": "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
             "sourceType": "elements",
             "targetType": "elements"
         },
@@ -714,13 +566,14 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "a21bbb0e-2496-4cd9-81a5-08773b3a4044": {
+        "b15398c7-cf05-477b-8a92-33d997c3fa9a": {
             "type": "Bezier",
-            "label": "<p>Try to run past him<\/p>",
-            "theme": "red",
-            "sourceid": "d393f371-5aad-4dd9-a3ee-300bedaf993d",
-            "targetid": "601034d9-b442-449a-a927-cd112fca8f7e",
+            "label": "<p>Back<\/p>",
+            "theme": "blue",
+            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
+            "targetid": "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
             "sourceType": "elements",
+            "targetFace": "right",
             "targetType": "elements"
         },
         "b7f7dfc4-46f9-40ee-a8e9-e8b584cecadf": {
@@ -738,6 +591,24 @@
             "theme": "blue",
             "sourceid": "d852a577-bd1f-44cf-8187-77a86f97baef",
             "targetid": "2d9c25ae-2653-4294-bec8-748b232dbec5",
+            "sourceType": "elements",
+            "targetType": "elements"
+        },
+        "b8188427-cb5a-4afa-b63e-fcb75518bd09": {
+            "type": "Bezier",
+            "label": "<p>I Like it<\/p><p><\/p>",
+            "theme": "blue",
+            "sourceid": "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
+            "targetid": "8b1301ce-9401-4608-ad07-1b48810456e1",
+            "sourceType": "elements",
+            "targetType": "elements"
+        },
+        "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83": {
+            "type": "Bezier",
+            "label": "<p>Knight<\/p>",
+            "theme": "blue",
+            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
+            "targetid": "4852ef56-b402-49f6-8e18-bfafa81c048d",
             "sourceType": "elements",
             "targetType": "elements"
         },
@@ -760,6 +631,15 @@
             "targetFace": "right",
             "targetType": "elements"
         },
+        "c533d3b5-a790-4831-8e8c-8104e025cad0": {
+            "type": "Bezier",
+            "label": "<p>Exit, please<\/p>",
+            "theme": "blue",
+            "sourceid": "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
+            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
+            "sourceType": "elements",
+            "targetType": "elements"
+        },
         "c903fd63-a07c-4d5f-829e-461eee7ce2b6": {
             "type": "Straight",
             "label": "<p>Examine the painting<\/p><pre><code>if visits(<span class=\"mention-element mention\" data-id=\"b2eb06f5-0a49-488b-8a60-7c469fd3af8a\" data-label=\"Examine the painting\" data-type=\"element\">examine_the_painting<\/span>)<\/code><\/pre><p>one more time<\/p><pre><code>endif<\/code><\/pre>",
@@ -768,24 +648,6 @@
             "targetid": "b2eb06f5-0a49-488b-8a60-7c469fd3af8a",
             "sourceType": "elements",
             "targetType": "elements"
-        },
-        "ce4869fb-b31e-47a5-a0ca-47e46839a6f8": {
-            "type": "Straight",
-            "label": "<p>Open the door<\/p>",
-            "theme": "green",
-            "sourceid": "fa351fcb-f7cd-4b65-ae0a-4640e8a5275f",
-            "targetid": "b6b7cebe-0c30-4da2-9839-2639f458f759",
-            "sourceType": "elements",
-            "targetType": "elements"
-        },
-        "dd563c04-f2d3-4c7f-a66e-3bb649c34831": {
-            "type": "Straight",
-            "label": "<p><em>\"I'll come back later.\"<\/em><\/p>",
-            "theme": "brown",
-            "sourceid": "d393f371-5aad-4dd9-a3ee-300bedaf993d",
-            "targetid": "3517a1bc-3b73-4850-b03d-09daf9b7bc89",
-            "sourceType": "elements",
-            "targetType": "jumpers"
         },
         "e8fbe6f8-7ce4-404d-b693-d108d7125a75": {
             "type": "Straight",
@@ -804,17 +666,19 @@
             "targetid": "59f416ac-5981-43c8-97ed-e5d8c5107948",
             "sourceType": "elements",
             "targetType": "elements"
-        }
-    },
-    "branches": {
-        "e4ef520d-1a30-4fd8-97f7-ed7f3ccb1426": {
+        },
+        "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee": {
+            "type": "Bezier",
+            "label": "<p>Exit<\/p>",
             "theme": "blue",
-            "conditions": {
-                "ifCondition": "5caff231-4102-41f0-8eb6-755d48660fb7",
-                "elseCondition": "2a94652d-594c-4e8d-9a05-993e9155547b"
-            }
+            "sourceid": "4852ef56-b402-49f6-8e18-bfafa81c048d",
+            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
+            "sourceType": "elements",
+            "targetFace": "right",
+            "targetType": "elements"
         }
     },
+    "branches": {},
     "components": {
         "036db898-0cb9-4a29-b19d-3e8f3288d9a2": {
             "name": "Characters",
@@ -843,9 +707,8 @@
                 }
             },
             "attributes": [
-                "d46b5c77-6441-4d30-8d74-b5a191b5ffc6",
-                "3e148d58-6b88-4976-94a0-188df6ce55da",
-                "4639a9b6-496b-4206-a5ee-0c2050d13714"
+                "32cd51f4-06cb-41a4-9920-e1447890d8c2",
+                "a15b1c0d-c674-4b42-99a2-659d9bfcc049"
             ]
         },
         "65005bda-15d0-41c5-867f-68c118829f08": {
@@ -894,22 +757,24 @@
         }
     },
     "attributes": {
-        "3e148d58-6b88-4976-94a0-188df6ce55da": {
+        "32cd51f4-06cb-41a4-9920-e1447890d8c2": {
+            "cId": "647349ca-9ebb-4d5f-b81e-500761ec1c5a",
+            "name": "Name",
+            "cType": "components",
+            "value": {
+                "data": "Conrad V, Count of Exeter",
+                "type": "string",
+                "plain": true
+            }
+        },
+        "a15b1c0d-c674-4b42-99a2-659d9bfcc049": {
             "cId": "647349ca-9ebb-4d5f-b81e-500761ec1c5a",
             "name": "Color",
             "cType": "components",
             "value": {
-                "data": "<p>White<\/p>",
-                "type": "string"
-            }
-        },
-        "4639a9b6-496b-4206-a5ee-0c2050d13714": {
-            "cId": "647349ca-9ebb-4d5f-b81e-500761ec1c5a",
-            "name": "",
-            "cType": "components",
-            "value": {
-                "data": [],
-                "type": "component-list"
+                "data": "Green",
+                "type": "string",
+                "plain": true
             }
         },
         "a1f9c1b1-0514-466d-a71e-756916ec2e04": {
@@ -926,7 +791,7 @@
             "name": "Color",
             "cType": "components",
             "value": {
-                "data": "Red",
+                "data": "Yellow",
                 "type": "string",
                 "plain": true
             }
@@ -936,7 +801,7 @@
             "name": "Name",
             "cType": "components",
             "value": {
-                "data": "Knight",
+                "data": "Knight3",
                 "type": "string",
                 "plain": true
             }
@@ -947,15 +812,6 @@
             "cType": "components",
             "value": {
                 "data": "<p>The courtyard of <span class=\"mention-component mention\" data-id=\"894c2a71-952e-45c9-b55a-340794307a1d\" data-label=\"Castle Monsignor\" data-type=\"component\">Castle Monsignor<\/span><\/p>",
-                "type": "string"
-            }
-        },
-        "d46b5c77-6441-4d30-8d74-b5a191b5ffc6": {
-            "cId": "647349ca-9ebb-4d5f-b81e-500761ec1c5a",
-            "name": "Name",
-            "cType": "components",
-            "value": {
-                "data": "<p>Conrad IV, Count of Exeter<\/p>",
                 "type": "string"
             }
         },
@@ -1054,24 +910,15 @@
         "990d6321-43cb-430b-84bd-6b48c574c489": {
             "name": "knight_health",
             "type": "integer",
-            "value": 100
+            "value": 75
         },
         "ddee7af7-0fc3-474d-ad6a-4938a330506a": {
             "name": "crusader_health",
             "type": "integer",
-            "value": 100
+            "value": 75
         }
     },
-    "conditions": {
-        "2a94652d-594c-4e8d-9a05-993e9155547b": {
-            "output": "10b4a35e-8329-4a0d-86d2-3d0144254aa1",
-            "script": null
-        },
-        "5caff231-4102-41f0-8eb6-755d48660fb7": {
-            "output": "63267ff2-9318-42e3-ad9b-aaadf1a2b05a",
-            "script": "visits(<span class=\"mention-element mention\" data-id=\"b2eb06f5-0a49-488b-8a60-7c469fd3af8a\" data-label=\"Examine the painting\" data-type=\"element\">examine_the_painting<\/span>)"
-        }
-    },
+    "conditions": {},
     "name": "The Castle",
     "cover": {
         "file": "cover.jpg",
