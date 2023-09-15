@@ -52,7 +52,3 @@ node_modules/
 #ignore generated pixelstraming stuff
 /ArcweaveDemo/Samples/**/*
 
-#ignore generated packages
-/ArcweaveDemo/Packages/**/*
-
-
