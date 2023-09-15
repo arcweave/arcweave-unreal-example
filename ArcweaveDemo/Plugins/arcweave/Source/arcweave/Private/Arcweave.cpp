@@ -248,16 +248,16 @@ TMap<FString, FArcweaveVariable> FarcweaveModule::GetInitialVars(TSharedPtr<FJso
 				var.Type = VarObject->GetStringField("type");
 
 				if (var.Type == "string") {
-					var.Value = MakeShareable(new FJsonValueString(VarObject->GetStringField("value")));
+					var.Value = VarObject->GetStringField("value");
 				}
 				else if (var.Type == "integer") {
-					var.Value = MakeShareable(new FJsonValueNumber(VarObject->GetIntegerField("value")));
+					var.Value.AppendInt(VarObject->GetIntegerField("value"));
 				}
 				else if (var.Type == "boolean") {
-					var.Value = MakeShareable(new FJsonValueBoolean(VarObject->GetBoolField("value")));
+					var.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
 				}
 				else if (var.Type == "float") {
-					var.Value = MakeShareable(new FJsonValueNumber(VarObject->GetNumberField("value")));
+					var.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
 				}
 				initialVars.Add(var.Id, var);
 			}

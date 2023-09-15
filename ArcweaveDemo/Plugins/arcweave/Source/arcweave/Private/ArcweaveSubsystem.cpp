@@ -67,281 +67,16 @@ FArcweaveAPISettings UArcweaveSubsystem::GetArcweaveSettings() const
 	return OutSetttings;
 }
 
-/*
-void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void UArcweaveSubsystem::SetArcweaveSettings(FArcweaveAPISettings NewSettings)
 {
-	if (bWasSuccessful && Response.IsValid())
-	{
-	    FString ResponseString = Response->GetContentAsString();
-	    UE_LOG(ArcweaveSubsystem, Log, TEXT("HTTP Response: %s"), *ResponseString);
-
-	    // Convert the response to a JSON object
-	    TSharedPtr<FJsonObject> JsonObject;
-	    TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseString);
-
-	    if (!FJsonSerializer::Deserialize(Reader, JsonObject) || !JsonObject.IsValid())
-	    {
-	        // Failed to parse the response
-	        UE_LOG(ArcweaveSubsystem, Error, TEXT("Failed to parse the HTTP Response!"));
-	        return;
-	    }
-
-	    // Extract project name and cover data
-	    FArcweaveProjectData ProjectData = FArcweaveProjectData();
-	    if (JsonObject->TryGetStringField("name", ProjectData.Name))
-	    {
-	        if (JsonObject->HasField("cover"))
-	        {
-	            TSharedPtr<FJsonObject> CoverObject = JsonObject->GetObjectField("cover");
-
-	            // Extract cover data
-	            if (CoverObject->TryGetStringField("file", ProjectData.Cover.File) &&
-                    CoverObject->TryGetStringField("type", ProjectData.Cover.Type))
-	            {
-	                // Successfully extracted cover data
-	            }
-	        }
-
-	        // Extract boards
-	        const TSharedPtr<FJsonObject>* BoardsObject;
-	        if (JsonObject->TryGetObjectField("boards", BoardsObject))
-	        {
-	            for (const auto& BoardPair : BoardsObject->Get()->Values)
-	            {
-	                FArcweaveBoardData Board;
-	                Board.BoardId = BoardPair.Key;
-
-	                const TSharedPtr<FJsonObject> BoardValueObject = BoardPair.Value->AsObject();
-	                if (BoardValueObject.IsValid())
-	                {
-	                    FString BoardName;
-	                    if (BoardValueObject->TryGetStringField("name", BoardName))
-	                    {
-	                        Board.Name = BoardName;
-	                    }
-
-	                    TArray<FString> ElementArrayStrings;
-	                    if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
-	                    {
-                            for (const auto& ElementId : ElementArrayStrings)
-                            {
-                               // Extract elements
-	                            const TSharedPtr<FJsonObject>* ElementsObject;
-	                            if (JsonObject->TryGetObjectField("elements", ElementsObject))
-	                            {
-	                                for (const auto& ElementPair : ElementsObject->Get()->Values)
-	                                {
-	                                    FArcweaveElementData Element;
-	                                    Element.Id = ElementPair.Key;
-
-                                        if (ElementPair.Key == ElementId)
-                                        {
-	                                        const TSharedPtr<FJsonObject> ElementValueObject = ElementPair.Value->AsObject();
-	                                        if (ElementValueObject.IsValid())
-	                                        {
-	                                            ElementValueObject->TryGetStringField("theme", Element.Theme);
-	                                            ElementValueObject->TryGetStringField("title", Element.Title);
-	                                            ElementValueObject->TryGetStringField("content", Element.Content);
-	                                            ElementValueObject->TryGetStringArrayField("outputs", Element.Outputs);
-
-	                                            // Extract "components" as an array of component data structs (similar to "boards")
-	                                            FArcweaveComponentData ElComponent;
-	                                            TArray<FString> ComponentsStringArray;
-	                                            if (ElementValueObject->TryGetStringArrayField("components", ComponentsStringArray))
-	                                            {
-	                                                for (const auto& ComponentId : ComponentsStringArray)
-	                                                {
-	                                                    //iterrare thirugh the array of components and find with this id
-	                                                    const TSharedPtr<FJsonObject>* CompObject;
-	                                                    if (JsonObject->TryGetObjectField("components", CompObject))
-	                                                    {
-	                                                        for (const auto& CompPair : CompObject->Get()->Values)
-	                                                        {
-	                                                            ElComponent.Id = CompPair.Key;
-
-	                                                            if (CompPair.Key == ComponentId)
-	                                                            {
-	                                                                const TSharedPtr<FJsonObject> ComponentValueObject = CompPair.Value->AsObject();
-	                                                                if (ComponentValueObject.IsValid())
-	                                                                {
-	                                                                    // Extract the "name"
-	                                                                    ComponentValueObject->TryGetStringField("name",  ElComponent.Name);
-	                                                                    ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
-	                                                                    ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
-                                                                       
-	                                                                    // Extract "assets" for components as a map of asset data structs
-	                                                                    const TSharedPtr<FJsonObject>* ComponentAssetsObject;
-	                                                                    if (ComponentValueObject->TryGetObjectField("assets", ComponentAssetsObject))
-	                                                                    {
-	                                                                        FArcweaveAssetData ComponentAsset;
-	                                                                        for (const auto& ComponentAssetPair : ComponentAssetsObject->Get()->Values)
-	                                                                        {
-	                                                                            ComponentAsset.AudioId = ComponentAssetPair.Key;
-	                                                                            const TSharedPtr<FJsonObject> ComponentAssetValueObject = ComponentAssetPair.Value->AsObject();
-	                                                                            if (ComponentAssetValueObject.IsValid())
-	                                                                            {
-	                                                                                ComponentAssetValueObject->TryGetStringField("mode", ComponentAsset.Mode);
-	                                                                                ComponentAssetValueObject->TryGetStringField("asset", ComponentAsset.Asset);
-	                                                                                ComponentAssetValueObject->TryGetStringField("delay", ComponentAsset.Delay);
-	                                                                            }
-	                                                                        }
-	                                                                        ElComponent.Assets.Add(ComponentAsset);
-	                                                                    }
-
-	                                                                    // Extract "attributes" for components as a map of asset data structs
-	                                                                    TArray<FString> AttributesStringArray;
-	                                                                    if (ComponentValueObject->TryGetStringArrayField("attributes", AttributesStringArray))
-	                                                                    {
-	                                                                        for (const auto& AttributeAssetId : AttributesStringArray)
-	                                                                        {
-	                                                                            FArcweaveAttributeData AttributeAsset;
-
-	                                                                            //iterrare thirugh the array of atrributes and find with this id
-	                                                                            const TSharedPtr<FJsonObject>* AttributesObject;
-	                                                                            if (JsonObject->TryGetObjectField("attributes", AttributesObject))
-	                                                                            {
-	                                                                                for (const auto& AttrPair : AttributesObject->Get()->Values)
-	                                                                                {
-	                                                                                    FArcweaveAttributeData AttributeData;
-	                                                                                    AttributeData.Id = AttrPair.Key;
-
-	                                                                                    if (AttributeAssetId == AttributeData.Id)
-	                                                                                    {
-	                                                                                        const TSharedPtr<FJsonObject> AttributeAssetValueObject = AttrPair.Value->AsObject();
-	                                                                                        if (AttributeAssetValueObject.IsValid())
-	                                                                                        {
-	                                                                                            AttributeAssetValueObject->TryGetStringField("cId", AttributeAsset.cId);
-	                                                                                            AttributeAssetValueObject->TryGetStringField("name", AttributeAsset.Name);
-	                                                                                            AttributeAssetValueObject->TryGetStringField("cType", AttributeAsset.cType);
-
-	                                                                                            const TSharedPtr<FJsonObject>* AttributeValueObject;
-	                                                                                            if (AttributeAssetValueObject->TryGetObjectField("value", AttributeValueObject))
-	                                                                                            {
-	                                                                                                for (const auto& AtrributeValuePair : AttributeValueObject->Get()->Values)
-	                                                                                                {
-	                                                                                                    FArcweaveAttributeValueData ArcweaveAttributeValueData;
-
-	                                                                                                    const TSharedPtr<FJsonObject> AttributeValueObj = AtrributeValuePair.Value->AsObject();
-	                                                                                                    if (AttributeValueObj.IsValid())
-	                                                                                                    {
-	                                                                                                        AttributeValueObj->TryGetStringField("data", ArcweaveAttributeValueData.Data);
-	                                                                                                        AttributeValueObj->TryGetStringField("type", ArcweaveAttributeValueData.Type);
-	                                                                                                        AttributeValueObj->TryGetBoolField("plain", ArcweaveAttributeValueData.Plain);
-	                                                                                                        AttributeAsset.Value = ArcweaveAttributeValueData;
-	                                                                                                    }
-	                                                                                                }
-	                                                                                            }
-	                                                                                        }
-	                                                                                        ElComponent.Attributes.Add(AttributeAsset);
-	                                                                                    }
-	                                                                                }
-	                                                                            }
-	                                                                        }
-	                                                                    }
-	                                                                    // Add the fully populated Component struct to the Element's Components array
-	                                                                    Element.Components.Add(ElComponent);
-	                                                                }
-	                                                                Element.Components.Add(ElComponent);
-	                                                            }
-	                                                        }
-	                                                    }
-	                                                }
-	                                            }
-	                                        }
-                                            Board.Elements.Add(Element);
-                                        }
-	                                }
-	                            }
-                            }
-	                    }
-
-	                    TArray<FString> ConnectionsArrayStrings;
-	                    if (BoardValueObject->TryGetStringArrayField("connections", ConnectionsArrayStrings))
-	                    {
-	                        for (const auto& ConnectionId : ConnectionsArrayStrings)
-	                        {
-	                            // Extract connections
-	                            const TSharedPtr<FJsonObject>* ConnectionsObject;
-	                            if (JsonObject->TryGetObjectField("connections", ConnectionsObject))
-	                            {
-	                                for (const auto& ConnectionPair : ConnectionsObject->Get()->Values)
-	                                {
-	                                    FArcweaveConnectionsData Connection;
-	                                    Connection.Id = ConnectionPair.Key;
-
-	                                    if (ConnectionPair.Key == ConnectionId)
-	                                    {
-	                                        const TSharedPtr<FJsonObject> ConObject = ConnectionPair.Value->AsObject();
-	                                        if (ConObject.IsValid())
-	                                        {
-	                                            FString Type;
-	                                            if (ConObject->TryGetStringField("type", Type))
-	                                            {
-	                                                Connection.Type = Type;
-	                                            }
-
-	                                            FString Label;
-	                                            if (ConObject->TryGetStringField("label", Label))
-	                                            {
-	                                                Connection.Label = Label;
-	                                            }
-
-	                                            FString Theme;
-	                                            if (ConObject->TryGetStringField("theme", Theme))
-	                                            {
-	                                                Connection.Theme = Theme;
-	                                            }
-
-	                                            FString Sourceid;
-	                                            if (ConObject->TryGetStringField("sourceid", Sourceid))
-	                                            {
-	                                                Connection.Sourceid = Sourceid;
-	                                            }
-
-	                                            FString Targetid;
-	                                            if (ConObject->TryGetStringField("theme", Targetid))
-	                                            {
-	                                                Connection.Targetid = Targetid;
-	                                            }
-
-	                                            FString SourceType;
-	                                            if (ConObject->TryGetStringField("sourceType", SourceType))
-	                                            {
-	                                                Connection.SourceType = SourceType;
-	                                            }
-
-	                                            FString TargetType;
-	                                            if (ConObject->TryGetStringField("targetType", TargetType))
-	                                            {
-	                                                Connection.TargetType = TargetType;
-	                                            }
-	                                        }
-	                                        Board.Connections.Add(Connection);
-	                                    }
-	                                }
-	                            }
-	                        }
-	                    }
-	                }
-	                ProjectData.Boards.Add(Board);
-	            }
-	        }
-	        // Fire the multicast delegate
-	        OnArcweaveResponseReceived.Broadcast(ProjectData);
-	    }
-	    else
-	    {
-	        // Handle error here.
-	        UE_LOG(ArcweaveSubsystem, Error, TEXT("Project name is invalid!"));
-	    }
-	}
-	else
-	{
-		// Handle error here.
-		UE_LOG(ArcweaveSubsystem, Error, TEXT("HTTP Request failed!"));
-	}
+    // Saves the color of the folder to the config
+    /*if(FPaths::FileExists(GEditorPerProjectIni))
+    {
+        GConfig->SetString(TEXT("PathColor"), *InPath, *InFolderColor.ToString(), GEditorPerProjectIni);
+    }*/
+    /*GConfig->SetArray(TEXT("Launcher.DeviceGroups"), TEXT("DeviceGroup"), DeviceGroupStrings, GEngineIni);
+    GConfig->Flush(false, GEngineIni);*/
 }
-*/
 
 FString UArcweaveSubsystem::RemoveHtmlTags(const FString& InputString)
 {
@@ -469,6 +204,38 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
     return Boards;
 }
 
+TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject)
+{
+    TMap<FString, FArcweaveVariable> InitialVars;
+    const TSharedPtr<FJsonObject>* VariablesObject;
+    if (MainJsonObject->TryGetObjectField("variables", VariablesObject))
+    {
+        for (const auto& VariablePair : VariablesObject->Get()->Values)
+        {
+            const TSharedPtr<FJsonObject> VarObject = VariablePair.Value->AsObject();
+            FArcweaveVariable Variable;
+            Variable.Id = VariablePair.Key;
+            VarObject->TryGetStringField("name", Variable.Name);
+            VarObject->TryGetStringField("type", Variable.Type);
+            if (Variable.Type == "string") {
+                Variable.Value = VarObject->GetStringField("value");
+            }
+            else if (Variable.Type == "integer") {
+                Variable.Value.AppendInt(VarObject->GetIntegerField("value"));
+            }
+            else if (Variable.Type == "boolean") {
+                Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
+            }
+            else if (Variable.Type == "float")
+            {
+                Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
+            }
+            InitialVars.Add(Variable.Id, Variable);
+        }
+    }
+    return InitialVars;
+}
+
 TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject)
 {
       // Parse "connections" as an array of connection data structs
@@ -538,6 +305,7 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             ElementValueObject->TryGetStringField("theme", Element.Theme);
                             ElementValueObject->TryGetStringField("title", Element.Title);
                             ElementValueObject->TryGetStringField("content", Element.Content);
+                            //FArcscriptTranspilerOutput Output = RunTranspiler(Element.Content, Element.Id, ProjectData.InitialVars, TMap<FString, int>());
                             ElementValueObject->TryGetStringArrayField("outputs", Element.Outputs);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                         }
@@ -590,6 +358,36 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TShared
     return Components;
 }
 
+TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject)
+{
+    // Parse "components" as an array of component data structs
+    TArray<FArcweaveComponentData> Components;
+    // Iterate through the array of components and find with this id
+    const TSharedPtr<FJsonObject>* CompObject;
+    if (MainJsonObject->TryGetObjectField("components", CompObject))
+    {
+        for (const auto& CompPair : CompObject->Get()->Values)
+        {
+            FArcweaveComponentData ElComponent;
+            ElComponent.Id = CompPair.Key;
+            const TSharedPtr<FJsonObject> ComponentValueObject = CompPair.Value->AsObject();
+
+            if (ComponentValueObject.IsValid())
+            {
+                // Extract the "name" and "root"
+                ComponentValueObject->TryGetStringField("name", ElComponent.Name);
+                ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
+                ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
+                ElComponent.Assets = ParseComponentAsset(ComponentValueObject);
+                ElComponent.Attributes = ParseComponentAttributes(MainJsonObject, ComponentValueObject);
+
+                Components.Add(ElComponent);
+            }
+        }
+    }                          
+    return Components;
+}
+
 void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
 {
     // Convert the response to a JSON object
@@ -603,8 +401,7 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
         return;
     }
 
-    // Extract project name and cover data
-    FArcweaveProjectData ProjectData = FArcweaveProjectData();
+    // Extract project name and cover data     
     if (JsonObject->TryGetStringField("name", ProjectData.Name))
     {
         if (JsonObject->HasField("cover"))
@@ -614,9 +411,11 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
             // Extract cover data
             CoverObject->TryGetStringField("file", ProjectData.Cover.File);
             CoverObject->TryGetStringField("type", ProjectData.Cover.Type);
-        }
+        }        
 
+        ProjectData.InitialVars = ParseVariables(JsonObject);
         ProjectData.Boards = ParseBoard(JsonObject);
+        ProjectData.Components = ParseAllComponents(JsonObject);
         OnArcweaveResponseReceived.Broadcast(ProjectData);
         //LogStructFieldsRecursive(&ProjectData, FArcweaveProjectData::StaticStruct(),0);
     }
@@ -625,6 +424,26 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
         // Handle error here.
         UE_LOG(LogArcwarePlugin, Error, TEXT("Project name is invalid!"));
     }
+}
+
+FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FString ElementId,
+    TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits)
+{
+    FArcscriptTranspilerOutput Output;
+    if (ArcscriptWrapper)
+    {
+        Output = ArcscriptWrapper->RunScript(Code, ElementId, InitialVars, Visits);
+    }
+    
+    return Output;
+}
+
+void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+    Super::Initialize(Collection);
+    ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
+    // we must read from engine config here
+    FetchData(FString("vsvIOEPSAorYs8qTlPvsHeKQ4MksRyAVOC6m09DB1xwgqEaMpV3ppmLnCNOs"), FString("omE79ga0RN"));
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
@@ -643,7 +462,9 @@ void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr R
     }
 }
 
-void  UArcweaveSubsystem::LogStructFields(const void* StructPtr, UStruct* StructDefinition)
+
+
+/*void  UArcweaveSubsystem::LogStructFields(const void* StructPtr, UStruct* StructDefinition)
 {
     if (!StructPtr || !StructDefinition)
     {
@@ -664,9 +485,9 @@ void  UArcweaveSubsystem::LogStructFields(const void* StructPtr, UStruct* Struct
         // Log the property name and value
         UE_LOG(LogArcwarePlugin, Log, TEXT("%s: %s"), *PropertyName, *PropertyValue);
     }
-}
+}*/
 
-void UArcweaveSubsystem::LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel)
+/*void UArcweaveSubsystem::LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel)
 {
     if (!StructPtr || !StructDefinition)
     {
@@ -705,4 +526,4 @@ void UArcweaveSubsystem::LogStructFieldsRecursive(const void* StructPtr, UStruct
             }
         }
     }
-}
+}*/

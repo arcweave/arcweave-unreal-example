@@ -23,19 +23,20 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 
 		if (var.Value.Type.Equals(TEXT("string"))) {
 			dllVars[i].type = "string";
-			dllVars[i].string_val = _strdup(TCHAR_TO_UTF8(*(var.Value.Value.Get()->AsString())));
+			dllVars[i].string_val = _strdup(TCHAR_TO_UTF8(*(var.Value.Value)));
 		}
 		else if (var.Value.Type.Equals(TEXT("integer"))) {
 			dllVars[i].type = "integer";
-			dllVars[i].int_val = var.Value.Value.Get()->AsNumber();
+		    TCHAR* EndPtr = nullptr;
+			dllVars[i].int_val = FCString::Strtoi(*var.Value.Value, &EndPtr, 10);
 		}
 		else if (var.Value.Type.Equals(TEXT("double"))) {
 			dllVars[i].type = "double";
-			dllVars[i].double_val = var.Value.Value.Get()->AsNumber();
+			dllVars[i].double_val =  FCString::Atod(*var.Value.Value);
 		}
 		else if (var.Value.Type.Equals(TEXT("boolean"))) {
 			dllVars[i].type = "bool";
-			dllVars[i].bool_val = var.Value.Value.Get()->AsBool();
+			dllVars[i].bool_val = (var.Value.Value == FString("true")) ? true : false;
 		}
 		i++;
 	}

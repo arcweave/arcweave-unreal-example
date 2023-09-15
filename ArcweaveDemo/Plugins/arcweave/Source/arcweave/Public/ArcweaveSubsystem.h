@@ -9,7 +9,7 @@
 #include "ArcweaveSubsystem.generated.h"
 
 struct FArcweaveAPISettings;
-
+class UArcscriptTranspilerWrapper;
 /**
  * 
  */
@@ -32,8 +32,21 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Arcweave")
 	FArcweaveAPISettings GetArcweaveSettings() const;
 
+    UFUNCTION(BlueprintPure, Category = "Arcweave")
+    FArcweaveProjectData GetArcweaveProjectData() const {return ProjectData;};
+
+    //set arcweaveSettings
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    void SetArcweaveSettings(FArcweaveAPISettings NewSettings);    
+
+
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;
+
+protected:
+    //override init function
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+    
 private:
 	void HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
     FString RemoveHtmlTags(const FString& InputString);
@@ -41,12 +54,21 @@ private:
     TArray<FArcweaveAttributeData> ParseComponentAttributes(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ComponentValueObject);
     void ParseAttributeValue(const TSharedPtr<FJsonObject>& ValueObject, FArcweaveAttributeValueData& AttributeValue);
     TArray<FArcweaveBoardData> ParseBoard(const TSharedPtr<FJsonObject>& MainJsonObject);
+    TMap<FString, FArcweaveVariable> ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject);
     TArray<FArcweaveConnectionsData> ParseConnections(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
+    TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);
     void ParseResponse(const FString& ResponseString);
+    FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);
 
-    void LogStructFields(const void* StructPtr, UStruct* StructDefinition);
-    void LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel);
+    //void LogStructFields(const void* StructPtr, UStruct* StructDefinition);
+    //void LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel);
+
+private:
+    UPROPERTY()
+    UArcscriptTranspilerWrapper* ArcscriptWrapper;
+    
+    FArcweaveProjectData ProjectData = FArcweaveProjectData();
 };
 

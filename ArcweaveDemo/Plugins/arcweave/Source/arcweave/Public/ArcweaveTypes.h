@@ -36,17 +36,21 @@ USTRUCT(BlueprintType)
 struct FArcweaveVariable
 {
 	GENERATED_BODY()
-	
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Id;
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Name;
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Type;
-	TSharedPtr<FJsonValue> Value; // Can hold different types, but you might need to handle serialization/deserialization.
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+	FString Value; // we can easily convert this to a more specific type later
 
 	FArcweaveVariable() {
 		Id = FString("");
 		Name = FString("");
 		Type = FString("");
-		Value = nullptr;
+		Value = FString("");
 	}
 };
 
@@ -94,13 +98,13 @@ struct FArcweaveAPISettings
 	/*
 	 * API token that you can find in your Arcweave account settings.
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "Settings")
+	UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString APIToken = FString("");
 
 	/*
 	 * Project hash that we want to retrieve the information for. You can find it by looking at the URL of your project.
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "Settings")
+	UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Hash = FString("");
 
 	FArcweaveAPISettings()
@@ -351,15 +355,25 @@ struct FArcweaveProjectData
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     FArcweaveCoverData Cover = FArcweaveCoverData();
 
+    //project intial variables
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TMap<FString, FArcweaveVariable> InitialVars = TMap<FString, FArcweaveVariable>();
+    
     //project boards
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveBoardData> Boards = TArray<FArcweaveBoardData>();
+
+    //project components
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
 
     //constructor
     FArcweaveProjectData()
         : Name(FString(""))
         , Cover(FArcweaveCoverData())
+        , InitialVars(TMap<FString, FArcweaveVariable>())
         , Boards(TArray<FArcweaveBoardData>())
+        , Components(TArray<FArcweaveComponentData>())
     {}
 };
 
