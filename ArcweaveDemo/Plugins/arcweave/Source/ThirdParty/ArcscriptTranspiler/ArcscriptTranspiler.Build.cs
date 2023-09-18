@@ -18,6 +18,14 @@ public class ArcscriptTranspiler : ModuleRules
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/antlr4-runtime.dll");
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
 
+            PublicIncludePaths.AddRange(new string[]
+            {
+                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/antlr4-runtime/src",
+                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src",
+                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptParser",
+                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer"
+            });
+
             PublicDependencyModuleNames.AddRange(new string[] {
                 "Core",
                 "Projects",

@@ -9,8 +9,8 @@ namespace Arcweave {
   class RuntimeErrorException : public std::exception {
     public:
     std::string message;
-    size_t line = -1;
-    size_t charPositionInLine = -1;
+    int line = -1;
+    int charPositionInLine = -1;
     RuntimeErrorException(std::string msg) {
       message = msg;
     };
@@ -19,21 +19,21 @@ namespace Arcweave {
       line = _line;
       charPositionInLine = _charPositionInLine;
     };
-    std::string what() {
+    char const* what() const noexcept override {
       if (line > -1) {
         std::ostringstream oss;
         oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
         return oss.str().c_str();
       }
-      return message;
+      return message.c_str();
     }
   };
 
   class ParseErrorException : public std::exception {
     public:
     std::string message;
-    size_t line = -1;
-    size_t charPositionInLine = -1;
+    int line = -1;
+    int charPositionInLine = -1;
     ParseErrorException(std::string msg) {
       message = msg;
     };
@@ -42,13 +42,13 @@ namespace Arcweave {
       line = _line;
       charPositionInLine = _charPositionInLine;
     };
-    std::string what() {
+    char const* what() const noexcept override {
       if (line > -1) {
         std::ostringstream oss;
         oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
         return oss.str().c_str();
       }
-      return message;
+      return message.c_str();
     }
   };
 }

@@ -46,12 +46,7 @@ void FarcweaveModule::StartupModule()
 		//Antlr4LibraryFunction();
 		if(ArcscriptWrapper)
 		{
-			ArcscriptWrapper->m_runScript = nullptr;
-			FString procName = "runScriptExport";
-			ArcscriptWrapper->m_runScript = (UArcscriptTranspilerWrapper::__RunScript)FPlatformProcess::GetDllExport(ArcscriptTranspilerHandle, *procName);
 			TestJsonFile();
-			//FString Result = ArcscriptWrapper->RunScript("<pre><code>x=5</code></pre>");
-			// Do something with the Result...
 		}
 	}
 	else
@@ -80,7 +75,6 @@ void FarcweaveModule::ShutdownModule()
 	// Free the dll handle
 	FPlatformProcess::FreeDllHandle(ArcscriptTranspilerHandle);
 	ArcscriptTranspilerHandle = nullptr;
-	ArcscriptWrapper->m_runScript = nullptr;
 #if WITH_EDITOR
 	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
 	{

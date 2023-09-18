@@ -6,6 +6,12 @@
 #include "Core.h"
 #include <string>
 
+THIRD_PARTY_INCLUDES_START
+#include "ArcscriptTranspiler.h"
+THIRD_PARTY_INCLUDES_END
+
+DEFINE_LOG_CATEGORY(LogArcweavePlugin);
+
 FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits) {
 	size_t varLength = initialVars.Num();
 	size_t visitsLength = visits.Num();
@@ -13,8 +19,8 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 	const char* dllElId = _strdup(TCHAR_TO_UTF8(*elementId));
 
     // Transform Unreal variable objects to DLL accepted objects
-	Variable* dllVars = new Variable[varLength];
-	Visit* dllVisits = new Visit[visitsLength];
+	UVariable* dllVars = new UVariable[varLength];
+	UVisit* dllVisits = new UVisit[visitsLength];
 
 	size_t i = 0;
 	for (auto& var : initialVars) {
@@ -48,12 +54,27 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 		i++;
 	}
 
-	TranspilerOutput dllResult = m_runScript(dllCode, dllElId, dllVars, varLength, dllVisits, visitsLength);
+    UTranspilerOutput dllResult;
+    try {
+        dllResult = runScriptExport(dllCode, dllElId, dllVars, varLength, dllVisits, visitsLength);
+    }
+    catch (Arcweave::ParseErrorException& e) {
+        UE_LOG(LogArcweavePlugin, Error, TEXT("ParseErrorException %s"), *FString(e.what()));
+        return FArcscriptTranspilerOutput();
+    }
+    catch (Arcweave::RuntimeErrorException& e) {
+        UE_LOG(LogArcweavePlugin, Error, TEXT("RuntimeErrorException %s"), *FString(e.what()));
+        return FArcscriptTranspilerOutput();
+    }
+    catch (std::exception &e) {
+        UE_LOG(LogArcweavePlugin, Error, TEXT("%s"), *FString(e.what()));
+        return FArcscriptTranspilerOutput();
+    }
 
 	FArcscriptTranspilerOutput result;
 	result.Output = dllResult.output;
 	result.ConditionResult = dllResult.conditionResult;
-	if (dllResult.type == InputType::CONDITION) {
+	if (dllResult.type == Arcweave::InputType::CONDITION) {
 		result.Type = FArcscriptInputType::CONDITION;
 	}
 	else {
