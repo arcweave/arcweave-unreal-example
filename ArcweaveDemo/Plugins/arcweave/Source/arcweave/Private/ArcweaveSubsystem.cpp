@@ -353,7 +353,7 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             Element.Title = RemoveHtmlTags(DirtyTitle);
                             FString DirtyContent = FString("");
                             ElementValueObject->TryGetStringField("content", DirtyContent);
-                            //Element.Content = RemoveHtmlTags(DirtyContent);
+                            Element.Content = RemoveHtmlTags(DirtyContent);
                             FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
                             Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
@@ -518,7 +518,7 @@ void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr R
     if (bWasSuccessful && Response.IsValid())
     {
         FString ResponseString = Response->GetContentAsString();
-        UE_LOG(LogArcwarePlugin, Log, TEXT("HTTP Response: %s"), *ResponseString);
+        //UE_LOG(LogArcwarePlugin, Log, TEXT("HTTP Response: %s"), *ResponseString);
 
         ParseResponse(ResponseString);
     }
