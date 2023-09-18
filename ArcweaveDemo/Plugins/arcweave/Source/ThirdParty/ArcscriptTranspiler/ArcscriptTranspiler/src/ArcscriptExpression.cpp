@@ -187,7 +187,7 @@ bool Expression::operator== (std::string other) {
 }
 
 bool Expression::operator== (bool other) {
-  return std::any_cast<bool>(value) == other;
+  return valueToBool(value) == other;
 }
 
 bool Expression::operator!= (const Expression &other) {

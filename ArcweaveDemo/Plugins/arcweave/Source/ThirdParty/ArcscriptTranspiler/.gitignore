@@ -12,6 +12,9 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+packages
+*.user
+
 antlr4-runtime/CMakeCache.txt
 antlr4-runtime/CMakeFiles/
 antlr4-runtime/_deps/

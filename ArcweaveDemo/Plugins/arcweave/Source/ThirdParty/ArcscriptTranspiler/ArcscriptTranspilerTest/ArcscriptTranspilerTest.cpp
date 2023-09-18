@@ -2,10 +2,15 @@
 //
 
 #include <iostream>
+#include <filesystem>
+#include <fstream>
 #include <map>
 #include <string>
 #include <windows.h>
 #include <any>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 enum InputType {
     /// @brief A condition (results to bool) code type
@@ -14,19 +19,28 @@ enum InputType {
     SCRIPT
 };
 struct UVariableChange {
-    char* varId;
+    const char* varId;
     const char* type;
     int int_result;
     double double_result;
     const char* string_result;
     bool bool_result;
+
+    UVariableChange() {
+        varId = nullptr;
+        type = nullptr;
+        int_result = 0;
+        double_result = 0.0;
+        string_result = nullptr;
+        bool_result = false;
+    }
 };
 
 struct UTranspilerOutput {
     const char* output;
     InputType type;
     UVariableChange* changes;
-    int changesLen = 0;
+    size_t changesLen = 0;
     bool conditionResult = false;
 };
 
@@ -51,37 +65,93 @@ struct UVisit {
     }
 };
 
-typedef UTranspilerOutput(__cdecl* MYPROC)(const char*, const char*, UVariable*, int, UVisit*, int);
+typedef UTranspilerOutput(__cdecl* MYPROC)(const char*, const char*, UVariable*, size_t, UVisit*, size_t);
+
+UVariable* getInitialVars(json initialVarsJson) {
+    UVariable* initVars = new UVariable[initialVarsJson.size()];
+    int i = 0;
+    for (json::iterator it = initialVarsJson.begin(); it != initialVarsJson.end(); ++it) {
+        std::string id = it.value()["id"].template get<std::string>();
+        std::string name = it.value()["name"].template get<std::string>();
+        std::string type = it.value()["type"].template get<std::string>();
+
+        initVars[i].id = _strdup(id.c_str());
+        initVars[i].name = _strdup(name.c_str());
+        initVars[i].type = _strdup(type.c_str());
+
+        if (strcmp(initVars[i].type, "string") == 0) {
+            initVars[i].string_val = _strdup(it.value()["value"].template get<std::string>().c_str());
+        }
+        else if (strcmp(initVars[i].type, "integer") == 0) {
+            initVars[i].int_val = it.value()["value"].template get<int>();
+        }
+        else if (strcmp(initVars[i].type, "double") == 0) {
+            initVars[i].double_val= it.value()["value"].template get<double>();
+        }
+        else if (strcmp(initVars[i].type, "boolean") == 0) {
+            initVars[i].bool_val = it.value()["value"].template get<bool>();
+        }
+        i += 1;
+    }
+
+    return initVars;
+}
+
+UVisit* getVisits(json initVisits) {
+    if (initVisits.size() == 0) return nullptr;
+    UVisit* visits = new UVisit[initVisits.size()];
+    int i = 0; 
+    for (json::iterator it = initVisits.begin(); it != initVisits.end(); ++it) {
+        visits[i].elId = _strdup(it.key().c_str());
+        visits[i].visits = it.value().template get<int>();
+        i += 1;
+    }
+    return visits;
+}
+
+HINSTANCE hinstLib;
+MYPROC ProcAdd;
+BOOL fFreeResult, fRunTimeLinkSuccess = false;
+
+int testFile(std::filesystem::path path) {
+    std::ifstream f(path);
+    json data = json::parse(f);
+    std::cout << data << std::endl;
+    json initVarsJson = data["initialVars"];
+    UVariable* initVars = getInitialVars(initVarsJson);
+    size_t initVarLen = initVarsJson.size();
+    for (json::iterator it = data["cases"].begin(); it != data["cases"].end(); ++it) {
+        const char* code = _strdup((*it)["code"].template get<std::string>().c_str());
+        UVisit* visits = nullptr;
+        size_t visitsLen = 0;
+        const char* currentElement = nullptr;
+        if ((*it).contains("elementId")) {
+            currentElement = _strdup((*it)["elementId"].template get<std::string>().c_str());
+        }
+        else {
+            currentElement = _strdup("TestElement");
+        }
+        if ((*it).contains("visits")) {
+            visits = getVisits((*it)["visits"]);
+            visitsLen = (*it)["visits"].size();
+        }
+        bool hasError = false;
+        if ((*it).contains("error")) {
+            hasError = true;
+        }
+        
+        UTranspilerOutput result = (ProcAdd)(code, currentElement, initVars, initVarLen, visits, visitsLen);
+    }
+    return 0;
+}
+
+
 
 int main()
 {
-    UVariable* initVars = new UVariable[2];
-    initVars[0].id = "var1";
-    initVars[0].name = "x";
-    initVars[0].int_val = 2;
-    initVars[0].type = "integer";
-
-    initVars[1].id = "var4";
-    initVars[1].name = "w";
-    initVars[1].string_val = "Dummy text";
-    initVars[1].type = "string";
-
-    UVisit* visits = new UVisit[3];
-    visits[0].elId = "el1";
-    visits[0].visits = 2;
-    visits[1].elId = "el2";
-    visits[1].visits = 9;
-    visits[2].elId = "el3";
-    visits[2].visits = 0;
-
-    std::string code = "<pre><code>x=5</code></pre>";
-    std::string elId = "testElementId";
 
     UTranspilerOutput result;
 
-    HINSTANCE hinstLib;
-    MYPROC ProcAdd;
-    BOOL fFreeResult, fRunTimeLinkSuccess = false;
 
     hinstLib = LoadLibrary(TEXT("ArcscriptTranspiler.dll"));
     if (hinstLib != NULL) {
@@ -91,8 +161,10 @@ int main()
         if (NULL != ProcAdd) {
             printf("ProcAdd NOT NULL\n");
             fRunTimeLinkSuccess = TRUE;
-            try {
-                result = (ProcAdd)(code.c_str(), elId.c_str(), initVars, 2, visits, 3);
+            //try {
+                const std::filesystem::path path{ "D:\\arcweave\\unreal\\arcweave-unreal-example\\ArcweaveDemo\\Plugins\\arcweave\\Source\\arcweave\\test\\valid.json" };
+                testFile(path);
+                /*result = (ProcAdd)(code.c_str(), elId.c_str(), initVars, 2, visits, 3);
                 std::cout << "CHANGES: " << std::endl;
                 std::string lines = "";
                 for (int i = 0; i < result.changesLen; i++) {
@@ -113,11 +185,12 @@ int main()
 
                     lines += line;
                 }
-                std::cout << lines;
-            }
+                std::cout << lines;*/
+            /*}
             catch (std::exception& e) {
                 std::cerr << e.what() << std::endl;
-            }
+                throw e;
+            }*/
             printf("ProcAdd finished\n");
         }
         else {
