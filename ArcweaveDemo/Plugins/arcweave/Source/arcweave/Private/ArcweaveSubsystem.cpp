@@ -353,8 +353,15 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             Element.Title = RemoveHtmlTags(DirtyTitle);
                             FString DirtyContent = FString("");
                             ElementValueObject->TryGetStringField("content", DirtyContent);
-                            Element.Content = RemoveHtmlTags(DirtyContent);
-                            //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
+                            //Element.Content = RemoveHtmlTags(DirtyContent);
+                            //run the transpiler, but with try catch
+                            try
+                            {
+                                FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
+                            }
+                            catch (...)
+                            {
+                            }
                             Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                         }
