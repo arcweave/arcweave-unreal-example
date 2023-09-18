@@ -225,8 +225,9 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
             {
                 Board.Name = BoardName;
             }
-
-           Board.Elements = ParseElements(MainJsonObject, BoardValueObject);
+            
+           Board.Visits = InitVisist(BoardValueObject, Board);
+           Board.Elements = ParseElements(MainJsonObject, BoardValueObject, Board);
            Board.Connections = ParseConnections(FString("connections"), MainJsonObject, BoardValueObject);
            Boards.Add(Board);
         }
@@ -314,13 +315,19 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
     return Connections;
 }
 
-TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject)
+TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, const FArcweaveBoardData& BoardObj)
 {
     TArray<FArcweaveElementData> Elements;
      // Parse "elements" as an array of element data structs
     TArray<FString> ElementArrayStrings;
     if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
     {
+        TMap<FString, int>  Visits;
+        for (const FString& ElementId : ElementArrayStrings)
+        {
+            Visits.Add(ElementId,0);
+        }
+        //then search for the element pairs
         for (const FString& ElementId : ElementArrayStrings)
         {
             // Extract elements
@@ -338,8 +345,7 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                         if (ElementValueObject.IsValid())
                         {
                             //inti visits object for the transpiler
-                            TMap<FString, int> Visits;
-                            Visits.Add(Element.Id, 0);
+                            
                             //get the values from the json object
                             ElementValueObject->TryGetStringField("theme", Element.Theme);
                             FString DirtyTitle = FString("");
@@ -347,8 +353,8 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             Element.Title = RemoveHtmlTags(DirtyTitle);
                             FString DirtyContent = FString("");
                             ElementValueObject->TryGetStringField("content", DirtyContent);
-                            //Element.Content = RemoveHtmlTags(DirtyContent);
-                            FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
+                            Element.Content = RemoveHtmlTags(DirtyContent);
+                            //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
                             Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                         }
@@ -356,9 +362,24 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                     }
                 }
             }
-        }
+        }        
     }
     return Elements;
+}
+
+TMap<FString, int> UArcweaveSubsystem::InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj)
+{
+    //add the visits to the board data
+    TMap<FString, int> AllVisits;
+    TArray<FString> ElementArrayStrings;
+    if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
+    {
+        for (const FString& ElementId : ElementArrayStrings)
+        {
+           AllVisits.Add(ElementId, 0);
+        }
+    }
+    return AllVisits;
 }
 
 TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject)
