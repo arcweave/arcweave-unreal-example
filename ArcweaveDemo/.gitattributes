@@ -1,3 +1,4 @@
 ArcweaveDemo/Packages/Windows/ArcweaveDemo/Binaries/Win64/ArcweaveDemo.exe filter=lfs diff=lfs merge=lfs -text
 ArcweaveDemo/Packages/Windows/ArcweaveDemo/Binaries/Win64/ArcweaveDemo.pdb filter=lfs diff=lfs merge=lfs -text
 ArcweaveDemo/Packages/Windows/ArcweaveDemo/Content/Paks/ArcweaveDemo-Windows.ucas filter=lfs diff=lfs merge=lfs -text
+*.exe filter=lfs diff=lfs merge=lfs -text
