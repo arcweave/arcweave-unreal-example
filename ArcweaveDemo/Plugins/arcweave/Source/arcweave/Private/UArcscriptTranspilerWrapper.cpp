@@ -121,6 +121,22 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 	}
 	//FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(lines));
 
+    // Clean up allocated memory before returning
+    free(const_cast<char*>(dllCode));
+    free(const_cast<char*>(dllElId));
+    for (i = 0; i < varLength; i++) {
+        free(const_cast<char*>(dllVars[i].id));
+        free(const_cast<char*>(dllVars[i].name));
+        if (strcmp(dllVars[i].type, "string") == 0) {
+            free(const_cast<char*>(dllVars[i].string_val));
+        }
+    }
+    delete[] dllVars;
+    for (i = 0; i < visitsLength; i++) {
+        free(const_cast<char*>(dllVisits[i].elId));
+    }
+    delete[] dllVisits;
+
 
 	return result;
 }

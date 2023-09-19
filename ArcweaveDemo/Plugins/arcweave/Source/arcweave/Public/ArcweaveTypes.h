@@ -58,6 +58,7 @@ struct FArcweaveVariable
 	}
 };
 
+UENUM()
 enum FArcscriptInputType {
 	CONDITION,
 	SCRIPT
@@ -374,6 +375,10 @@ struct FArcweaveProjectData
     //project components
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
+
+    //project branches
+    /*PROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();*/
 
     //constructor
     FArcweaveProjectData()

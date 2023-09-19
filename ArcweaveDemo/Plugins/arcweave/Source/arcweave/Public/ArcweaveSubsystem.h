@@ -38,6 +38,14 @@ public:
     UFUNCTION(BlueprintPure, Category = "Arcweave")
     FArcweaveProjectData GetArcweaveProjectData() const {return ProjectData;};
 
+    /*
+     * Run transpiler for the element
+     * Increase visits counter for the element
+     */
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    FArcweaveElementData TranspileElement(FString ElementId, bool& Success);
+
+
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;
 
@@ -54,7 +62,7 @@ private:
     TArray<FArcweaveBoardData> ParseBoard(const TSharedPtr<FJsonObject>& MainJsonObject);
     TMap<FString, FArcweaveVariable> ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject);
     TArray<FArcweaveConnectionsData> ParseConnections(const FString& FieldName, const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
-    TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, const FArcweaveBoardData& BoardObj);
+    TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
     TMap<FString, int> InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);
@@ -63,6 +71,8 @@ private:
 
     //void LogStructFields(const void* StructPtr, UStruct* StructDefinition);
     //void LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel);
+
+    void LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput);
 
 private:
     UPROPERTY()

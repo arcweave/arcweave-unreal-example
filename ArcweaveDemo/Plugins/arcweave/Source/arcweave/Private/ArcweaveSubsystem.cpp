@@ -108,6 +108,45 @@ void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FSt
     }
 }
 
+FArcweaveElementData UArcweaveSubsystem::TranspileElement(FString ElementId, bool& Success)
+{
+    Success = false;
+    FArcweaveElementData Element;
+    //get the element
+    FArcweaveBoardData BoardObj;
+    for (const auto& Board : ProjectData.Boards)
+    {
+        for (const auto& ElementObj : Board.Elements)
+        {
+            if (ElementObj.Id == ElementId)
+            {
+                BoardObj = Board;
+                Element = ElementObj;
+                break;
+            }
+        }
+    }
+    if (BoardObj.BoardId.IsEmpty() || Element.Id.IsEmpty())
+    {
+        UE_LOG(LogArcwarePlugin, Error, TEXT(" Cannot find transpile data for element id: %s"), *ElementId);
+        return Element;
+    }
+    //run the transpiler
+    try
+    {
+        FArcscriptTranspilerOutput Output = RunTranspiler(Element.Content, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
+        //increase the visits counter
+        BoardObj.Visits[ElementId] += 1;
+        Element.Content = RemoveHtmlTags(Output.Output);
+        Success = true;
+    }
+    catch (...)
+    {
+    }
+        
+    return Element;
+}
+
 FString UArcweaveSubsystem::RemoveHtmlTags(const FString& InputString)
 {
     FString CleanedString = InputString;
@@ -315,17 +354,16 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
     return Connections;
 }
 
-TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, const FArcweaveBoardData& BoardObj)
+TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj)
 {
     TArray<FArcweaveElementData> Elements;
      // Parse "elements" as an array of element data structs
     TArray<FString> ElementArrayStrings;
     if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
     {
-        TMap<FString, int>  Visits;
         for (const FString& ElementId : ElementArrayStrings)
         {
-            Visits.Add(ElementId,0);
+            BoardObj.Visits.Add(ElementId, 0);
         }
         //then search for the element pairs
         for (const FString& ElementId : ElementArrayStrings)
@@ -352,9 +390,8 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             ElementValueObject->TryGetStringField("title", DirtyTitle);
                             Element.Title = RemoveHtmlTags(DirtyTitle);
                             FString DirtyContent = FString("");
-                            ElementValueObject->TryGetStringField("content", DirtyContent);
-                            Element.Content = RemoveHtmlTags(DirtyContent);
-                            FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, Visits);
+                            ElementValueObject->TryGetStringField("content", Element.Content);
+                            //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
                             Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                         }
@@ -497,9 +534,62 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
     if (ArcscriptWrapper)
     {
         Output = ArcscriptWrapper->RunScript(Code, ElementId, InitialVars, Visits);
+        LogTranspilerOutput(Output);
     }
     
     return Output;
+}
+
+void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput)
+{
+    UE_LOG(LogArcwarePlugin, Display, TEXT("--- TranspilerOutput ------"));
+
+
+    // Log individual fields of FArcscriptTranspilerOutput
+    UE_LOG(LogArcwarePlugin, Display, TEXT("Output='%s'"), *TranspilerOutput.Output);
+    FString TypeToString =  UEnum::GetValueAsString(TranspilerOutput.Type);
+    UE_LOG(LogArcwarePlugin, Display, TEXT("Type=%s"), *TypeToString);
+    UE_LOG(LogArcwarePlugin, Display, TEXT("ConditionResult=%s"), TranspilerOutput.ConditionResult ? TEXT("true") : TEXT("false"));
+
+    // Log FArcscriptVariableChange objects in the Changes array
+    for (const FArcscriptVariableChange& Change : TranspilerOutput.Changes)
+    {
+        UE_LOG(LogArcwarePlugin, Display, TEXT("Change:"));
+        UE_LOG(LogArcwarePlugin, Display, TEXT("Id='%s'"), *Change.Id);
+        UE_LOG(LogArcwarePlugin, Display, TEXT("Type='%s'"), *Change.Type);
+
+        // Check if Value is valid before logging it
+        if (Change.Value.IsValid())
+        {
+            //log value type based on a type variable
+            if(Change.Type == FString("string"))
+            {
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%s"), *Change.Value->AsString());
+            }
+            else if (Change.Type == FString("integer"))
+            {
+                int outInt = 0;
+                Change.Value->TryGetNumber(outInt);
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%d"), outInt);
+            }
+            else if (Change.Type == FString("boolean"))
+            {
+                FString result = Change.Value->AsBool() ? TEXT("true") : TEXT("false");
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%s"), *result);
+            }
+            else if (Change.Type == FString("float"))
+            {
+                float outFloat = 0;
+                Change.Value->TryGetNumber(outFloat);
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%f"), outFloat);
+            }
+        }
+        else
+        {
+            UE_LOG(LogArcwarePlugin, Display, TEXT("Value is null"));
+        }
+    }
+    UE_LOG(LogArcwarePlugin, Display, TEXT("--- TranspilerOutput END ------"));
 }
 
 void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
