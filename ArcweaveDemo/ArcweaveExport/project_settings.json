@@ -5,22 +5,25 @@
             "name": "Knight Dialogue",
             "notes": [],
             "jumpers": [],
-            "branches": [],
+            "branches": [
+                "3acf84d3-4927-44ff-be54-e31266ecdef2"
+            ],
             "elements": [
                 "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
                 "d852a577-bd1f-44cf-8187-77a86f97baef",
                 "e14fa106-d418-4935-ab44-0de013995605",
                 "59f416ac-5981-43c8-97ed-e5d8c5107948",
-                "2d9c25ae-2653-4294-bec8-748b232dbec5"
+                "17569443-e7b2-4b59-88c6-7d45d56c1785",
+                "0c2e7997-4e64-4d40-abe4-b25a9d372e77"
             ],
             "connections": [
                 "3b06bb14-876e-49e3-9378-1b8d1a84fcf2",
                 "008eb6e1-05d0-4d94-a690-fa9b5caaefb2",
                 "ecd3d738-af9b-4b9c-ad04-73c078c77879",
-                "c0b36f70-a9a3-4546-aaee-fe34173789b2",
-                "5af1a235-dcc9-4825-8938-7f6b08b3cfd1",
-                "26629aeb-75b8-44a1-9c31-6cdfe2f609b6",
-                "b80dbcbc-f0ec-4fce-9324-404ec691539f"
+                "6a48477d-0d85-4f0f-8fbb-d9e43f8de13b",
+                "4e78a9ca-f45f-4b09-8f76-ef9401439453",
+                "6bd2cab9-cacc-4d5e-90dc-749e6a2370ab",
+                "2220f64a-23a2-478c-a9ec-9901d3b5641f"
             ]
         },
         "2ad15ff6-f2ba-4f1d-9d9d-68938c683d7e": {
@@ -97,22 +100,26 @@
             "name": "Crusader Dialogue",
             "notes": [],
             "jumpers": [],
-            "branches": [],
+            "branches": [
+                "d9910008-09f8-4775-a0ec-33c7acc35a4a",
+                "0d845415-33d5-4486-9514-32b88e17e6b2"
+            ],
             "elements": [
                 "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
                 "8b1301ce-9401-4608-ad07-1b48810456e1",
                 "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
-                "4852ef56-b402-49f6-8e18-bfafa81c048d",
-                "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb"
+                "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
+                "63bee155-1348-4b82-a52d-24c96143c9db",
+                "53cf9deb-951c-4655-88d8-634a3b3bd851"
             ],
             "connections": [
                 "b8188427-cb5a-4afa-b63e-fcb75518bd09",
                 "c533d3b5-a790-4831-8e8c-8104e025cad0",
-                "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83",
-                "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee",
-                "b15398c7-cf05-477b-8a92-33d997c3fa9a",
-                "3658401e-eb15-4923-8a9c-493a35f509ee",
-                "7b8bc552-d160-43c2-a980-09ea33faccdb"
+                "7b8bc552-d160-43c2-a980-09ea33faccdb",
+                "ff386bdf-b57e-4a2b-a951-895cc415ac25",
+                "ec7dcc23-51da-441e-a2e9-cd26869efe8f",
+                "c60cd465-4c3c-40d1-be65-9e747d699f08",
+                "74fc93a9-0416-4294-ac88-6e8d7c2e9f62"
             ]
         }
     },
@@ -184,6 +191,22 @@
         }
     },
     "elements": {
+        "0c2e7997-4e64-4d40-abe4-b25a9d372e77": {
+            "theme": "cyan",
+            "title": "<p>Knight high<\/p>",
+            "content": "<p>Knight health is goood<\/p>",
+            "outputs": [],
+            "autoHeight": true,
+            "components": []
+        },
+        "17569443-e7b2-4b59-88c6-7d45d56c1785": {
+            "theme": "cyan",
+            "title": "<p>Knight low<\/p>",
+            "content": "<p>Knight health is really low<\/p>",
+            "outputs": [],
+            "autoHeight": true,
+            "components": []
+        },
         "188e6385-85e2-496b-82ac-a81696e7bcab": {
             "theme": "cyan",
             "title": "<p>The <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Crusader\" data-type=\"component\">Crusader<\/span><\/p>",
@@ -207,16 +230,6 @@
                 "647349ca-9ebb-4d5f-b81e-500761ec1c5a"
             ]
         },
-        "2d9c25ae-2653-4294-bec8-748b232dbec5": {
-            "theme": "cyan",
-            "title": "<p>Crusader health is 25<\/p>",
-            "content": "<p>Ok, knight health is now at 25. Thank you<\/p><pre><code>crusader_health = 25<\/code><\/pre>",
-            "outputs": [
-                "26629aeb-75b8-44a1-9c31-6cdfe2f609b6"
-            ],
-            "autoHeight": true,
-            "components": []
-        },
         "38375689-9e4d-430e-954c-65205eb622fe": {
             "theme": "default",
             "title": "<p style=\"margin-left: 0px\">Outside <span class=\"mention mention-component\" data-id=\"894c2a71-952e-45c9-b55a-340794307a1d\" data-type=\"component\">Castle Monsignor<\/span><\/p>",
@@ -230,16 +243,6 @@
                 "b7f7dfc4-46f9-40ee-a8e9-e8b584cecadf"
             ],
             "autoHeight": false,
-            "components": []
-        },
-        "4852ef56-b402-49f6-8e18-bfafa81c048d": {
-            "theme": "cyan",
-            "title": "<p>Knight health is 50<\/p>",
-            "content": "<p>Ok, knight health is now at 50. Thanks<\/p><pre><code>knight_health = 50<\/code><\/pre>",
-            "outputs": [
-                "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee"
-            ],
-            "autoHeight": true,
             "components": []
         },
         "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407": {
@@ -263,6 +266,14 @@
                 "b8188427-cb5a-4afa-b63e-fcb75518bd09",
                 "c533d3b5-a790-4831-8e8c-8104e025cad0"
             ],
+            "autoHeight": true,
+            "components": []
+        },
+        "53cf9deb-951c-4655-88d8-634a3b3bd851": {
+            "theme": "cyan",
+            "title": "<p>Crusader high<\/p>",
+            "content": "<p>Crusader is still alive<\/p>",
+            "outputs": [],
             "autoHeight": true,
             "components": []
         },
@@ -294,9 +305,9 @@
         "59f416ac-5981-43c8-97ed-e5d8c5107948": {
             "theme": "cyan",
             "title": "<p>Knight health is 50<\/p>",
-            "content": "<p>Ok, knight health is now at 50. Thanks<\/p><pre><code>knight_health = 50<\/code><\/pre>",
+            "content": "<p>Ok, knight health is modified. Thanks<\/p><pre><code>knight_health = 60<\/code><\/pre>",
             "outputs": [
-                "c0b36f70-a9a3-4546-aaee-fe34173789b2"
+                "6a48477d-0d85-4f0f-8fbb-d9e43f8de13b"
             ],
             "autoHeight": true,
             "components": []
@@ -322,6 +333,14 @@
                 "c903fd63-a07c-4d5f-829e-461eee7ce2b6",
                 "6f0952d7-202a-4978-8d63-3fee4c5dde35"
             ],
+            "autoHeight": true,
+            "components": []
+        },
+        "63bee155-1348-4b82-a52d-24c96143c9db": {
+            "theme": "cyan",
+            "title": "<p>Crusader low<\/p>",
+            "content": "<p>Crusader is weak<\/p>",
+            "outputs": [],
             "autoHeight": true,
             "components": []
         },
@@ -358,11 +377,10 @@
         "8b1301ce-9401-4608-ad07-1b48810456e1": {
             "theme": "cyan",
             "title": "<p>The arcweave question<\/p>",
-            "content": "<p>Which character so you want to take the health?<\/p>",
+            "content": "<p>Do you want to decrase health of your character?<\/p>",
             "outputs": [
-                "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83",
-                "b15398c7-cf05-477b-8a92-33d997c3fa9a",
-                "7b8bc552-d160-43c2-a980-09ea33faccdb"
+                "7b8bc552-d160-43c2-a980-09ea33faccdb",
+                "74fc93a9-0416-4294-ac88-6e8d7c2e9f62"
             ],
             "autoHeight": true,
             "components": []
@@ -393,9 +411,9 @@
         "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb": {
             "theme": "cyan",
             "title": "<p>Crusader health is 25<\/p>",
-            "content": "<p>Ok, knight health is now at 25. Thank you<\/p><pre><code>crusader_health = 25<\/code><\/pre>",
+            "content": "<p>Ok, knight health is modified. Thank you<\/p><pre><code>crusader_health = 25<\/code><\/pre>",
             "outputs": [
-                "3658401e-eb15-4923-8a9c-493a35f509ee"
+                "c60cd465-4c3c-40d1-be65-9e747d699f08"
             ],
             "autoHeight": true,
             "components": []
@@ -403,11 +421,10 @@
         "d852a577-bd1f-44cf-8187-77a86f97baef": {
             "theme": "cyan",
             "title": "<p>The arcweave question<\/p>",
-            "content": "<p>Which character so you want to take the health?<\/p>",
+            "content": "<p>Do you want to decrase health of your character?<\/p>",
             "outputs": [
                 "ecd3d738-af9b-4b9c-ad04-73c078c77879",
-                "5af1a235-dcc9-4825-8938-7f6b08b3cfd1",
-                "b80dbcbc-f0ec-4fce-9324-404ec691539f"
+                "4e78a9ca-f45f-4b09-8f76-ef9401439453"
             ],
             "autoHeight": true,
             "components": []
@@ -424,6 +441,9 @@
             "outputs": [
                 "3b06bb14-876e-49e3-9378-1b8d1a84fcf2",
                 "008eb6e1-05d0-4d94-a690-fa9b5caaefb2"
+            ],
+            "attributes": [
+                "da96cffe-b79b-446b-b0de-ed3e445f7acb"
             ],
             "autoHeight": true,
             "components": []
@@ -455,14 +475,13 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "26629aeb-75b8-44a1-9c31-6cdfe2f609b6": {
-            "type": "Bezier",
+        "2220f64a-23a2-478c-a9ec-9901d3b5641f": {
+            "type": "Straight",
             "label": null,
             "theme": "blue",
-            "sourceid": "2d9c25ae-2653-4294-bec8-748b232dbec5",
-            "targetid": "e14fa106-d418-4935-ab44-0de013995605",
-            "sourceType": "elements",
-            "targetFace": "right",
+            "sourceid": "8f0b4bac-f507-4d09-8542-632f5eca0417",
+            "targetid": "0c2e7997-4e64-4d40-abe4-b25a9d372e77",
+            "sourceType": "conditions",
             "targetType": "elements"
         },
         "337c4347-5b21-449c-b556-134e0acec12d": {
@@ -483,16 +502,6 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
-        "3658401e-eb15-4923-8a9c-493a35f509ee": {
-            "type": "Bezier",
-            "label": null,
-            "theme": "blue",
-            "sourceid": "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
-            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
-            "sourceType": "elements",
-            "targetFace": "right",
-            "targetType": "elements"
-        },
         "3b06bb14-876e-49e3-9378-1b8d1a84fcf2": {
             "type": "Bezier",
             "label": "<p>I Like it<\/p><p><\/p>",
@@ -502,14 +511,14 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "5af1a235-dcc9-4825-8938-7f6b08b3cfd1": {
-            "type": "Bezier",
-            "label": "<p>Back<\/p>",
+        "4e78a9ca-f45f-4b09-8f76-ef9401439453": {
+            "type": "Straight",
+            "label": "<p>No<\/p>",
             "theme": "blue",
             "sourceid": "d852a577-bd1f-44cf-8187-77a86f97baef",
-            "targetid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
+            "targetid": "e14fa106-d418-4935-ab44-0de013995605",
             "sourceType": "elements",
-            "targetFace": "right",
+            "targetFace": "top",
             "targetType": "elements"
         },
         "678e093e-537c-4161-b011-8d6763c4be14": {
@@ -521,6 +530,15 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
+        "6a48477d-0d85-4f0f-8fbb-d9e43f8de13b": {
+            "type": "Straight",
+            "label": "<p>Check health<\/p>",
+            "theme": "blue",
+            "sourceid": "59f416ac-5981-43c8-97ed-e5d8c5107948",
+            "targetid": "3acf84d3-4927-44ff-be54-e31266ecdef2",
+            "sourceType": "elements",
+            "targetType": "branches"
+        },
         "6a929b6d-c6d2-46c4-ab67-b0503e7213af": {
             "type": "Straight",
             "label": "<p>Back to <span class=\"mention mention-component\" data-id=\"11e527ff-9579-412c-ae5c-6ff548ebcfc0\" data-type=\"component\">Castle Courtyard<\/span><\/p>",
@@ -528,6 +546,15 @@
             "sourceid": "81a30674-aa09-4eb8-8484-59298d37f984",
             "targetid": "59370898-e089-46cd-b7cf-072b79a76453",
             "sourceType": "elements",
+            "targetType": "elements"
+        },
+        "6bd2cab9-cacc-4d5e-90dc-749e6a2370ab": {
+            "type": "Straight",
+            "label": null,
+            "theme": "blue",
+            "sourceid": "dc0c34ba-043c-4093-9082-934679e65981",
+            "targetid": "17569443-e7b2-4b59-88c6-7d45d56c1785",
+            "sourceType": "conditions",
             "targetType": "elements"
         },
         "6f0952d7-202a-4978-8d63-3fee4c5dde35": {
@@ -539,9 +566,19 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
+        "74fc93a9-0416-4294-ac88-6e8d7c2e9f62": {
+            "type": "Straight",
+            "label": "<p>No<\/p>",
+            "theme": "blue",
+            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
+            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
+            "sourceType": "elements",
+            "targetFace": "top",
+            "targetType": "elements"
+        },
         "7b8bc552-d160-43c2-a980-09ea33faccdb": {
             "type": "Bezier",
-            "label": "<p>Crusader<\/p>",
+            "label": "<p>Yes<\/p>",
             "theme": "blue",
             "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
             "targetid": "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
@@ -566,31 +603,12 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "b15398c7-cf05-477b-8a92-33d997c3fa9a": {
-            "type": "Bezier",
-            "label": "<p>Back<\/p>",
-            "theme": "blue",
-            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
-            "targetid": "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
-            "sourceType": "elements",
-            "targetFace": "right",
-            "targetType": "elements"
-        },
         "b7f7dfc4-46f9-40ee-a8e9-e8b584cecadf": {
             "type": "Straight",
             "label": "<p>Enter the castle<\/p>",
             "theme": "blue",
             "sourceid": "38375689-9e4d-430e-954c-65205eb622fe",
             "targetid": "59370898-e089-46cd-b7cf-072b79a76453",
-            "sourceType": "elements",
-            "targetType": "elements"
-        },
-        "b80dbcbc-f0ec-4fce-9324-404ec691539f": {
-            "type": "Bezier",
-            "label": "<p>Crusader<\/p>",
-            "theme": "blue",
-            "sourceid": "d852a577-bd1f-44cf-8187-77a86f97baef",
-            "targetid": "2d9c25ae-2653-4294-bec8-748b232dbec5",
             "sourceType": "elements",
             "targetType": "elements"
         },
@@ -603,15 +621,6 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "bcdbbab6-eb4d-4710-92ce-a51ccdf0ab83": {
-            "type": "Bezier",
-            "label": "<p>Knight<\/p>",
-            "theme": "blue",
-            "sourceid": "8b1301ce-9401-4608-ad07-1b48810456e1",
-            "targetid": "4852ef56-b402-49f6-8e18-bfafa81c048d",
-            "sourceType": "elements",
-            "targetType": "elements"
-        },
         "bd5fbb0a-481c-4b6a-8c77-21b153c4bb95": {
             "type": "Straight",
             "label": "<p>Back to the stone passage<\/p>",
@@ -619,16 +628,6 @@
             "sourceid": "188e6385-85e2-496b-82ac-a81696e7bcab",
             "targetid": "81a30674-aa09-4eb8-8484-59298d37f984",
             "sourceType": "elements",
-            "targetType": "elements"
-        },
-        "c0b36f70-a9a3-4546-aaee-fe34173789b2": {
-            "type": "Bezier",
-            "label": "<p>Exit<\/p>",
-            "theme": "blue",
-            "sourceid": "59f416ac-5981-43c8-97ed-e5d8c5107948",
-            "targetid": "e14fa106-d418-4935-ab44-0de013995605",
-            "sourceType": "elements",
-            "targetFace": "right",
             "targetType": "elements"
         },
         "c533d3b5-a790-4831-8e8c-8104e025cad0": {
@@ -639,6 +638,15 @@
             "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
             "sourceType": "elements",
             "targetType": "elements"
+        },
+        "c60cd465-4c3c-40d1-be65-9e747d699f08": {
+            "type": "Straight",
+            "label": "<p>Check crusader health<\/p>",
+            "theme": "blue",
+            "sourceid": "d769d7b9-731e-4b78-a6d4-3f6c7b4a6cbb",
+            "targetid": "0d845415-33d5-4486-9514-32b88e17e6b2",
+            "sourceType": "elements",
+            "targetType": "branches"
         },
         "c903fd63-a07c-4d5f-829e-461eee7ce2b6": {
             "type": "Straight",
@@ -658,27 +666,58 @@
             "sourceType": "elements",
             "targetType": "elements"
         },
+        "ec7dcc23-51da-441e-a2e9-cd26869efe8f": {
+            "type": "Straight",
+            "label": null,
+            "theme": "blue",
+            "sourceid": "bd5953da-0706-4d86-a956-47abf85cae3e",
+            "targetid": "53cf9deb-951c-4655-88d8-634a3b3bd851",
+            "sourceType": "conditions",
+            "targetFace": "left",
+            "targetType": "elements"
+        },
         "ecd3d738-af9b-4b9c-ad04-73c078c77879": {
             "type": "Bezier",
-            "label": "<p>Knight<\/p>",
+            "label": "<p>Yes<\/p>",
             "theme": "blue",
             "sourceid": "d852a577-bd1f-44cf-8187-77a86f97baef",
             "targetid": "59f416ac-5981-43c8-97ed-e5d8c5107948",
             "sourceType": "elements",
             "targetType": "elements"
         },
-        "ed8e1d5c-ff1b-413a-a461-2eae180ff8ee": {
-            "type": "Bezier",
-            "label": "<p>Exit<\/p>",
+        "ff386bdf-b57e-4a2b-a951-895cc415ac25": {
+            "type": "Straight",
+            "label": null,
             "theme": "blue",
-            "sourceid": "4852ef56-b402-49f6-8e18-bfafa81c048d",
-            "targetid": "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
-            "sourceType": "elements",
-            "targetFace": "right",
+            "sourceid": "f8e12e95-43b7-4d42-9844-5402665b24ef",
+            "targetid": "63bee155-1348-4b82-a52d-24c96143c9db",
+            "sourceType": "conditions",
+            "targetFace": "left",
             "targetType": "elements"
         }
     },
-    "branches": {},
+    "branches": {
+        "0d845415-33d5-4486-9514-32b88e17e6b2": {
+            "theme": "blue",
+            "conditions": {
+                "ifCondition": "f8e12e95-43b7-4d42-9844-5402665b24ef",
+                "elseCondition": "bd5953da-0706-4d86-a956-47abf85cae3e"
+            }
+        },
+        "3acf84d3-4927-44ff-be54-e31266ecdef2": {
+            "theme": "blue",
+            "conditions": {
+                "ifCondition": "dc0c34ba-043c-4093-9082-934679e65981",
+                "elseCondition": "8f0b4bac-f507-4d09-8542-632f5eca0417"
+            }
+        },
+        "d9910008-09f8-4775-a0ec-33c7acc35a4a": {
+            "theme": "blue",
+            "conditions": {
+                "ifCondition": "1f084da0-d4d1-4a3d-ae2d-9810b55893a1"
+            }
+        }
+    },
     "components": {
         "036db898-0cb9-4a29-b19d-3e8f3288d9a2": {
             "name": "Characters",
@@ -791,7 +830,7 @@
             "name": "Color",
             "cType": "components",
             "value": {
-                "data": "Yellow",
+                "data": "Blue",
                 "type": "string",
                 "plain": true
             }
@@ -801,7 +840,7 @@
             "name": "Name",
             "cType": "components",
             "value": {
-                "data": "Knight3",
+                "data": "Knight_test",
                 "type": "string",
                 "plain": true
             }
@@ -813,6 +852,16 @@
             "value": {
                 "data": "<p>The courtyard of <span class=\"mention-component mention\" data-id=\"894c2a71-952e-45c9-b55a-340794307a1d\" data-label=\"Castle Monsignor\" data-type=\"component\">Castle Monsignor<\/span><\/p>",
                 "type": "string"
+            }
+        },
+        "da96cffe-b79b-446b-b0de-ed3e445f7acb": {
+            "cId": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
+            "name": "test",
+            "cType": "elements",
+            "value": {
+                "data": "someText",
+                "type": "string",
+                "plain": true
             }
         },
         "dbedf071-8334-4ae1-8646-b23a93299fce": {
@@ -900,25 +949,52 @@
         }
     },
     "variables": {
+        "6e25dd6b-e976-4a80-afc5-5ce2cbcc8228": {
+            "name": "score",
+            "type": "integer",
+            "value": 0
+        },
         "747d0495-341f-42b2-8788-b47dace22bf8": {
             "root": true,
             "children": [
                 "990d6321-43cb-430b-84bd-6b48c574c489",
-                "ddee7af7-0fc3-474d-ad6a-4938a330506a"
+                "ddee7af7-0fc3-474d-ad6a-4938a330506a",
+                "6e25dd6b-e976-4a80-afc5-5ce2cbcc8228"
             ]
         },
         "990d6321-43cb-430b-84bd-6b48c574c489": {
             "name": "knight_health",
             "type": "integer",
-            "value": 75
+            "value": 80
         },
         "ddee7af7-0fc3-474d-ad6a-4938a330506a": {
             "name": "crusader_health",
             "type": "integer",
-            "value": 75
+            "value": 80
         }
     },
-    "conditions": {},
+    "conditions": {
+        "1f084da0-d4d1-4a3d-ae2d-9810b55893a1": {
+            "output": null,
+            "script": null
+        },
+        "8f0b4bac-f507-4d09-8542-632f5eca0417": {
+            "output": "2220f64a-23a2-478c-a9ec-9901d3b5641f",
+            "script": null
+        },
+        "bd5953da-0706-4d86-a956-47abf85cae3e": {
+            "output": "ec7dcc23-51da-441e-a2e9-cd26869efe8f",
+            "script": null
+        },
+        "dc0c34ba-043c-4093-9082-934679e65981": {
+            "output": "6bd2cab9-cacc-4d5e-90dc-749e6a2370ab",
+            "script": "knight_health &lt; 50"
+        },
+        "f8e12e95-43b7-4d42-9844-5402665b24ef": {
+            "output": "ff386bdf-b57e-4a2b-a951-895cc415ac25",
+            "script": "crusader_health &lt; 30"
+        }
+    },
     "name": "The Castle",
     "cover": {
         "file": "cover.jpg",
