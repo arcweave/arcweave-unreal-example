@@ -27,6 +27,6 @@ public:
 	UArcscriptTranspilerWrapper() { };
 
     /** Run Arcscript code using the external library DLL */
-	FArcscriptTranspilerOutput RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits);
+	FArcscriptTranspilerOutput RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable>& initialVars, TMap<FString, int> visits);
 	// Additional helper methods can be added here if needed.
 };

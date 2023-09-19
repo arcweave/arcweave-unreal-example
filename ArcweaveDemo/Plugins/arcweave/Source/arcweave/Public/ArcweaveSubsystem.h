@@ -14,7 +14,7 @@ class UArcscriptTranspilerWrapper;
  * 
  */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArcweaveResponseReceived, const FArcweaveProjectData&, ArcweaveProjectData);
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArcweaveVariableChanged, const TArray<FArcweaveVariable>&, ArcweaveVariables);
 UCLASS()
 class ARCWEAVE_API UArcweaveSubsystem : public UGameInstanceSubsystem
 {
@@ -43,11 +43,17 @@ public:
      * Increase visits counter for the element
      */
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
-    FArcweaveElementData TranspileElement(FString ElementId, bool& Success);
+    FArcweaveElementData TranspileObject(FString ObjectId, bool& Success);
+
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    FArcweaveConditionData TranspileCondition(FString ConditionId, bool& Success);
 
 
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;
+
+    UPROPERTY(BlueprintAssignable, Category = "Arcweave")
+    FOnArcweaveVariableChanged OnArcweaveVariableChanged;
 
 protected:
     //override init function
@@ -63,6 +69,8 @@ private:
     TMap<FString, FArcweaveVariable> ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject);
     TArray<FArcweaveConnectionsData> ParseConnections(const FString& FieldName, const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
+    TArray<FArcweaveBranchData> ParseBranches(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
+    FArcweaveConditionData ParseConditionData(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ConditionsObject, const FString& ConditionName, FArcweaveBoardData& BoardObj);
     TMap<FString, int> InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);

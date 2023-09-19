@@ -108,7 +108,61 @@ void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FSt
     }
 }
 
-FArcweaveElementData UArcweaveSubsystem::TranspileElement(FString ElementId, bool& Success)
+FArcweaveConditionData UArcweaveSubsystem::TranspileCondition(FString ConditionId, bool& Success)
+{
+    Success = false;
+    FArcweaveConditionData ConditionData;
+    //get the element
+    FArcweaveBoardData BoardObj;
+    for (const auto& Board : ProjectData.Boards)
+    {
+        for (const auto& BranchObj : Board.Branches)
+        {
+            if (BranchObj.IfCondition.Id == ConditionId)
+            {
+                BoardObj = Board;
+                ConditionData = BranchObj.IfCondition;
+            }
+            else if (BranchObj.IfCondition.Id == ConditionId)
+            {
+                BoardObj = Board;
+                ConditionData = BranchObj.ElseCondition;
+            }
+            else
+            {
+                for (const auto& ElseIfCondition : BranchObj.ElseIfConditions)
+                {
+                    if (ElseIfCondition.Id == ConditionId)
+                    {
+                        BoardObj = Board;
+                        ConditionData = ElseIfCondition;
+                    }
+                }
+            }
+        }
+    }
+    if (BoardObj.BoardId.IsEmpty() || ConditionData.Id.IsEmpty())
+    {
+        UE_LOG(LogArcwarePlugin, Error, TEXT("Cannot find transpile data for condition id: %s"), *ConditionId);
+        return ConditionData;
+    }
+    //run the transpiler
+    try
+    {
+        FArcscriptTranspilerOutput Output = RunTranspiler(ConditionData.Script, ConditionData.Id, ProjectData.CurrentVars, BoardObj.Visits);
+        //increase the visits counter
+        BoardObj.Visits[ConditionId] += 1;
+        //ConditionData.Content = RemoveHtmlTags(Output.Output);
+        Success = true;
+    }
+    catch (...)
+    {
+    }
+        
+    return ConditionData;
+}
+
+FArcweaveElementData UArcweaveSubsystem::TranspileObject(FString ObjectId, bool& Success)
 {
     Success = false;
     FArcweaveElementData Element;
@@ -118,7 +172,7 @@ FArcweaveElementData UArcweaveSubsystem::TranspileElement(FString ElementId, boo
     {
         for (const auto& ElementObj : Board.Elements)
         {
-            if (ElementObj.Id == ElementId)
+            if (ElementObj.Id == ObjectId)
             {
                 BoardObj = Board;
                 Element = ElementObj;
@@ -128,15 +182,15 @@ FArcweaveElementData UArcweaveSubsystem::TranspileElement(FString ElementId, boo
     }
     if (BoardObj.BoardId.IsEmpty() || Element.Id.IsEmpty())
     {
-        UE_LOG(LogArcwarePlugin, Error, TEXT(" Cannot find transpile data for element id: %s"), *ElementId);
+        UE_LOG(LogArcwarePlugin, Error, TEXT(" Cannot find transpile data for element id: %s"), *ObjectId);
         return Element;
     }
     //run the transpiler
     try
     {
-        FArcscriptTranspilerOutput Output = RunTranspiler(Element.Content, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
+        FArcscriptTranspilerOutput Output = RunTranspiler(Element.Content, Element.Id, ProjectData.CurrentVars, BoardObj.Visits);
         //increase the visits counter
-        BoardObj.Visits[ElementId] += 1;
+        BoardObj.Visits[ObjectId] += 1;
         Element.Content = RemoveHtmlTags(Output.Output);
         Success = true;
     }
@@ -268,6 +322,7 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
            Board.Visits = InitVisist(BoardValueObject, Board);
            Board.Elements = ParseElements(MainJsonObject, BoardValueObject, Board);
            Board.Connections = ParseConnections(FString("connections"), MainJsonObject, BoardValueObject);
+           Board.Branches = ParseBranches(MainJsonObject, BoardValueObject,Board);
            Boards.Add(Board);
         }
     }
@@ -404,6 +459,112 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
     return Elements;
 }
 
+TArray<FArcweaveBranchData> UArcweaveSubsystem::ParseBranches(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj)
+{
+    TArray<FArcweaveBranchData> Branches;
+    TArray<FString> BranchesArrayStrings;
+    if (BoardValueObject->TryGetStringArrayField("branches", BranchesArrayStrings))
+    {
+        for (const FString& BranchId : BranchesArrayStrings)
+        {
+            BoardObj.Visits.Add(BranchId, 0);
+        }
+        //then search for the element pairs
+        for (const FString& BranchId : BranchesArrayStrings)
+        {
+            // Extract branches
+            const TSharedPtr<FJsonObject>* BranchObject;
+            if (MainJsonObject->TryGetObjectField("branches", BranchObject))
+            {
+                // Iterate through the "branches" object
+                for (const auto& BranchPair : BranchObject->Get()->Values)
+                {
+                    if (BranchPair.Key == BranchId)
+                    {
+                        FArcweaveBranchData Branch = FArcweaveBranchData();
+                        Branch.Id = BranchPair.Key;
+                        const TSharedPtr<FJsonObject>& BranchDataObject = BranchPair.Value->AsObject();
+
+                        // Extract "conditions" object
+                        const TSharedPtr<FJsonObject>& ConditionsObject = BranchDataObject->GetObjectField("conditions");
+
+                        // Extract "ifCondition"
+                        Branch.IfCondition = ParseConditionData(MainJsonObject, ConditionsObject, FString("ifCondition"), BoardObj);
+                        Branch.ElseCondition = ParseConditionData(MainJsonObject, ConditionsObject, FString("elseCondition"), BoardObj);
+                        
+                        // Extract "elseIfConditions" array
+                        const TArray<TSharedPtr<FJsonValue>>* ElseIfConditionsArray;
+                        if (ConditionsObject->TryGetArrayField("elseIfConditions", ElseIfConditionsArray))
+                        {
+                            for (const TSharedPtr<FJsonValue>& ElseIfValue : *ElseIfConditionsArray)
+                            {
+                                FArcweaveConditionData ElseIfConditionSingle = ParseConditionData(MainJsonObject, ConditionsObject, FString("elseIfCondition"), BoardObj);
+                                Branch.ElseIfConditions.Add(ElseIfConditionSingle);
+                            }
+                        }
+
+                        // Add the parsed branch data to the map
+                        Branches.Add(Branch); // Add the branch to the array
+                    }
+                }
+            }
+        }
+    }
+    return Branches;            
+}
+
+FArcweaveConditionData UArcweaveSubsystem::ParseConditionData(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ConditionsObject, const FString& ConditionName, FArcweaveBoardData& BoardObj)
+{
+    FArcweaveConditionData ConditionData = FArcweaveConditionData();
+    FString IfConditionOutputId = FString("");
+    if(ConditionsObject->TryGetStringField(ConditionName, IfConditionOutputId))
+    {
+        const TSharedPtr<FJsonObject>* ConditionsObjectField;
+        if (MainJsonObject->TryGetObjectField("conditions", ConditionsObjectField))
+        {
+            // Iterate through the "branches" object
+            for (const auto& ConditionPair : ConditionsObjectField->Get()->Values)
+            {
+                if (ConditionPair.Key == IfConditionOutputId)
+                {
+                    const TSharedPtr<FJsonObject>& ConditionDataObject = ConditionPair.Value->AsObject();
+                    ConditionData.Id = ConditionPair.Key;
+                    BoardObj.Visits.Add(ConditionData.Id, 0);
+                    //output
+                    FString Output = FString("");
+                    if (ConditionDataObject->TryGetStringField("output", Output))
+                    {
+                        if (Output.IsEmpty())
+                        {
+                            ConditionData.Output = FString("empty");
+                        }
+                        else
+                        {
+                            ConditionData.Output = Output;
+                        }
+                        
+                    }
+                    //script
+                    FString Script = FString("");
+                    if (ConditionDataObject->TryGetStringField("script", Script))
+                    {
+                        if (Script.IsEmpty())
+                        {
+                            ConditionData.Script = FString("empty");
+                        }
+                        else
+                        {
+                            ConditionData.Script = Script;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return ConditionData;
+}
+
+
 TMap<FString, int> UArcweaveSubsystem::InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj)
 {
     //add the visits to the board data
@@ -514,9 +675,10 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
             CoverObject->TryGetStringField("type", ProjectData.Cover.Type);
         }        
 
-        ProjectData.InitialVars = ParseVariables(JsonObject);
-        ProjectData.Boards = ParseBoard(JsonObject);
+        ProjectData.CurrentVars = ParseVariables(JsonObject);
         ProjectData.Components = ParseAllComponents(JsonObject);
+        //ProjectData.Branches = ParseBranches(JsonObject, ProjectData);
+        ProjectData.Boards = ParseBoard(JsonObject);
         OnArcweaveResponseReceived.Broadcast(ProjectData);
         //LogStructFieldsRecursive(&ProjectData, FArcweaveProjectData::StaticStruct(),0);
     }
@@ -531,10 +693,60 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
     TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits)
 {
     FArcscriptTranspilerOutput Output;
+    bool IsVariableChanged = false;
     if (ArcscriptWrapper)
     {
+        UE_LOG(LogArcwarePlugin, Display, TEXT("Code=%s"), *Code);
+        UE_LOG(LogArcwarePlugin, Display, TEXT("ElementId=%s"), *ElementId);
         Output = ArcscriptWrapper->RunScript(Code, ElementId, InitialVars, Visits);
         LogTranspilerOutput(Output);
+        // brodacast event if there where any changes
+        TArray<FArcweaveVariable> ChangedVariables;
+        for (const FArcscriptVariableChange& Change : Output.Changes)
+        {
+            if (Change.Value.IsValid())
+            {
+                IsVariableChanged = true;
+                FArcweaveVariable Variable;
+                Variable.Id = Change.Id;
+                Variable.Type = Change.Type;
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Id='%s'"), *Change.Id);
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Type='%s'"), *Change.Type);
+                if (Change.Type == "string") {
+                    Variable.Value = Change.Value->AsString();
+                }
+                else if (Variable.Type == "integer") {
+                    int outInt = 0;
+                    Change.Value->TryGetNumber(outInt);
+                    Variable.Value.AppendInt(outInt);
+                }
+                else if (Variable.Type == "boolean") {
+                    Variable.Value = FString::Printf(TEXT("%s"), Change.Value->AsBool() ? TEXT("true") : TEXT("false"));
+                }
+                else if (Variable.Type == "float")
+                {
+                    float outFloat = 0;
+                    Change.Value->TryGetNumber(outFloat);
+                    Variable.Value = FString::SanitizeFloat(outFloat);
+                }
+                ChangedVariables.Add(Variable);
+
+                //find this variable in project data and update it
+                for (auto& VarPair : ProjectData.CurrentVars)
+                {
+                    if (VarPair.Key == Variable.Id)
+                    {
+                        VarPair.Value.Value = Variable.Value;
+                        UE_LOG(LogArcwarePlugin, Display, TEXT("Update variable id %s, value %s"), *Variable.Id, *VarPair.Value.Value);
+                        break;
+                    }
+                }
+            }
+        }
+        if (IsVariableChanged)
+        {
+            OnArcweaveVariableChanged.Broadcast(ChangedVariables);            
+        }
     }
     
     return Output;
@@ -543,7 +755,6 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
 void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput)
 {
     UE_LOG(LogArcwarePlugin, Display, TEXT("--- TranspilerOutput ------"));
-
 
     // Log individual fields of FArcscriptTranspilerOutput
     UE_LOG(LogArcwarePlugin, Display, TEXT("Output='%s'"), *TranspilerOutput.Output);

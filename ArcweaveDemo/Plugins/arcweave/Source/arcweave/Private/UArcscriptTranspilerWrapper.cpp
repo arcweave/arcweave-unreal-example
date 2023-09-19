@@ -12,7 +12,7 @@ THIRD_PARTY_INCLUDES_END
 
 DEFINE_LOG_CATEGORY(LogArcweavePlugin);
 
-FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable> initialVars, TMap<FString, int> visits) {
+FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable>& initialVars, TMap<FString, int> visits) {
 	size_t varLength = initialVars.Num();
 	size_t visitsLength = visits.Num();
 	const char* dllCode = _strdup(TCHAR_TO_UTF8(*code));
@@ -35,6 +35,9 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 			dllVars[i].type = "integer";
 		    TCHAR* EndPtr = nullptr;
 			dllVars[i].int_val = FCString::Strtoi(*var.Value.Value, &EndPtr, 10);
+		    //log int_val with name
+		    UE_LOG(LogArcweavePlugin, Log, TEXT("int_val: %s, integer_value %d"), *var.Value.Name, dllVars[i].int_val);
+		    // log int_val with name
 		}
 		else if (var.Value.Type.Equals(TEXT("double"))) {
 			dllVars[i].type = "double";

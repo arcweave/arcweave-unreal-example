@@ -46,7 +46,7 @@ void FarcweaveModule::StartupModule()
 		//Antlr4LibraryFunction();
 		if(ArcscriptWrapper)
 		{
-			TestJsonFile();
+			//TestJsonFile();
 		}
 	}
 	else
