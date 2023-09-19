@@ -46,7 +46,7 @@ public:
     FArcweaveElementData TranspileObject(FString ObjectId, bool& Success);
 
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
-    FArcweaveConditionData TranspileCondition(FString ConditionId, bool& Success);
+    FArcscriptTranspilerOutput TranspileCondition(FString ConditionId, bool& Success);
 
 
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")

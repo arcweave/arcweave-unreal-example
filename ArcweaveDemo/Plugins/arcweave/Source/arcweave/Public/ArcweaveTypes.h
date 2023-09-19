@@ -58,16 +58,22 @@ struct FArcweaveVariable
 	}
 };
 
-UENUM()
+UENUM(BlueprintType)
 enum FArcscriptInputType {
 	CONDITION,
 	SCRIPT
 };
 
+USTRUCT(BlueprintType)
 struct FArcscriptVariableChange
 {
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Id;
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Type;
+    
 	TSharedPtr<FJsonValue> Value;
 
 	FArcscriptVariableChange() {
@@ -82,9 +88,16 @@ struct FArcscriptTranspilerOutput
 {
 	GENERATED_BODY()
 
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	FString Output;
-	FArcscriptInputType Type;
+    
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+	TEnumAsByte<FArcscriptInputType> Type;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	TArray<FArcscriptVariableChange> Changes;
+    
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
 	bool ConditionResult;
 
 	FArcscriptTranspilerOutput() {

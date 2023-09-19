@@ -37,7 +37,6 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 			dllVars[i].int_val = FCString::Strtoi(*var.Value.Value, &EndPtr, 10);
 		    //log int_val with name
 		    UE_LOG(LogArcweavePlugin, Log, TEXT("int_val: %s, integer_value %d"), *var.Value.Name, dllVars[i].int_val);
-		    // log int_val with name
 		}
 		else if (var.Value.Type.Equals(TEXT("double"))) {
 			dllVars[i].type = "double";

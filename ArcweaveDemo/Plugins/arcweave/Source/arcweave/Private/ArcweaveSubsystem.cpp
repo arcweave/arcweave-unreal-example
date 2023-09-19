@@ -108,9 +108,10 @@ void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FSt
     }
 }
 
-FArcweaveConditionData UArcweaveSubsystem::TranspileCondition(FString ConditionId, bool& Success)
+FArcscriptTranspilerOutput UArcweaveSubsystem::TranspileCondition(FString ConditionId, bool& Success)
 {
     Success = false;
+    FArcscriptTranspilerOutput Output;
     FArcweaveConditionData ConditionData;
     //get the element
     FArcweaveBoardData BoardObj;
@@ -123,7 +124,7 @@ FArcweaveConditionData UArcweaveSubsystem::TranspileCondition(FString ConditionI
                 BoardObj = Board;
                 ConditionData = BranchObj.IfCondition;
             }
-            else if (BranchObj.IfCondition.Id == ConditionId)
+            else if (BranchObj.ElseCondition.Id == ConditionId)
             {
                 BoardObj = Board;
                 ConditionData = BranchObj.ElseCondition;
@@ -144,12 +145,13 @@ FArcweaveConditionData UArcweaveSubsystem::TranspileCondition(FString ConditionI
     if (BoardObj.BoardId.IsEmpty() || ConditionData.Id.IsEmpty())
     {
         UE_LOG(LogArcwarePlugin, Error, TEXT("Cannot find transpile data for condition id: %s"), *ConditionId);
-        return ConditionData;
+        return Output;
     }
     //run the transpiler
     try
     {
-        FArcscriptTranspilerOutput Output = RunTranspiler(ConditionData.Script, ConditionData.Id, ProjectData.CurrentVars, BoardObj.Visits);
+        FString ScriptModified = FString("<pre><code>") + ConditionData.Script + FString("</code></pre>");
+        Output = RunTranspiler(ScriptModified, ConditionData.Id, ProjectData.CurrentVars, BoardObj.Visits);
         //increase the visits counter
         BoardObj.Visits[ConditionId] += 1;
         //ConditionData.Content = RemoveHtmlTags(Output.Output);
@@ -159,7 +161,7 @@ FArcweaveConditionData UArcweaveSubsystem::TranspileCondition(FString ConditionI
     {
     }
         
-    return ConditionData;
+    return Output;
 }
 
 FArcweaveElementData UArcweaveSubsystem::TranspileObject(FString ObjectId, bool& Success)
