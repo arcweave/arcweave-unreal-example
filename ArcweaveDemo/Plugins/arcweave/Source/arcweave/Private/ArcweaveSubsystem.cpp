@@ -722,7 +722,7 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
                     Change.Value->TryGetNumber(outInt);
                     Variable.Value.AppendInt(outInt);
                 }
-                else if (Variable.Type == "boolean") {
+                else if (Variable.Type == "bool") {
                     Variable.Value = FString::Printf(TEXT("%s"), Change.Value->AsBool() ? TEXT("true") : TEXT("false"));
                 }
                 else if (Variable.Type == "float")
@@ -785,16 +785,17 @@ void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& T
                 Change.Value->TryGetNumber(outInt);
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%d"), outInt);
             }
-            else if (Change.Type == FString("boolean"))
+            else if (Change.Type == FString("bool"))
             {
                 FString result = Change.Value->AsBool() ? TEXT("true") : TEXT("false");
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%s"), *result);
             }
-            else if (Change.Type == FString("float"))
+            //we store float as double
+            else if (Change.Type == FString("double"))
             {
-                float outFloat = 0;
-                Change.Value->TryGetNumber(outFloat);
-                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%f"), outFloat);
+                double outDouble = 0;
+                Change.Value->TryGetNumber(outDouble);
+                UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%f"), outDouble);
             }
         }
         else

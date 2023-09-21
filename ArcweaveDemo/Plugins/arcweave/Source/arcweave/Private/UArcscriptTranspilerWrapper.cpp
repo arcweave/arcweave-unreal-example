@@ -27,6 +27,7 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 		dllVars[i].id = _strdup(TCHAR_TO_UTF8(*var.Value.Id));
 		dllVars[i].name = _strdup(TCHAR_TO_UTF8(*var.Value.Name));
 
+	    UE_LOG(LogArcweavePlugin, Log, TEXT("var_name: %s, var_value %s"), *var.Value.Name, *var.Value.Value);
 		if (var.Value.Type.Equals(TEXT("string"))) {
 			dllVars[i].type = "string";
 			dllVars[i].string_val = _strdup(TCHAR_TO_UTF8(*(var.Value.Value)));
@@ -35,8 +36,10 @@ FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, 
 			dllVars[i].type = "integer";
 		    TCHAR* EndPtr = nullptr;
 			dllVars[i].int_val = FCString::Strtoi(*var.Value.Value, &EndPtr, 10);
-		    //log int_val with name
-		    UE_LOG(LogArcweavePlugin, Log, TEXT("int_val: %s, integer_value %d"), *var.Value.Name, dllVars[i].int_val);
+		}
+		else if (var.Value.Type.Equals(TEXT("float"))) {
+		    dllVars[i].type = "double";
+		    dllVars[i].double_val = FCString::Atod(*var.Value.Value);
 		}
 		else if (var.Value.Type.Equals(TEXT("double"))) {
 			dllVars[i].type = "double";
