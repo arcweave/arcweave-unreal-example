@@ -70,8 +70,8 @@ bool ArcscriptParserBase::assertMention(std::any attrCtxList) {
 bool ArcscriptParserBase::assertFunctionArguments(Token *fname, std::any argumentList) {
   int argListLength = 0;
   std::string functionName = fname->getText();
-  int min = ArcscriptFunctions::functions[functionName].minArgs;
-  int max = ArcscriptFunctions::functions[functionName].maxArgs;
+  int min = Arcweave::ArcscriptFunctions::functions[functionName].minArgs;
+  int max = Arcweave::ArcscriptFunctions::functions[functionName].maxArgs;
   if (argumentList.type() == typeid(Arcweave::ArcscriptParser::Argument_listContext*)) {
     Arcweave::ArcscriptParser::Argument_listContext *argumentListCtx = std::any_cast<Arcweave::ArcscriptParser::Argument_listContext*>(argumentList);
     if (argumentListCtx != NULL) {

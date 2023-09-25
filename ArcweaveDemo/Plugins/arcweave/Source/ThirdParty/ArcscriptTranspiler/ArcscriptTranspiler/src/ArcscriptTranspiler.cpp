@@ -62,10 +62,10 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
   return result;
 }
 
-ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength)
+ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength)
 {
     Arcweave::TranspilerOutput transpilerOutput;
-    transpilerOutput.output = "THIS IS THE RESULT";
+
     transpilerOutput.type = InputType::CONDITION;
 
     std::string sCode(code);
@@ -76,18 +76,18 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
         Variable var;
         var.id = std::string(variables[i].id);
         var.name = std::string(variables[i].name);
-        var.type = std::string(variables[i].type);
+        var.type = variables[i].type;
         
-        if (strcmp(variables[i].type, "string") == 0) {
+        if (var.type == VariableType::AW_STRING) {
             var.value = std::string(variables[i].string_val);
         }
-        else if (strcmp(variables[i].type, "integer") == 0) {
+        else if (var.type == VariableType::AW_INTEGER) {
             var.value = variables[i].int_val;
         }
-        else if (strcmp(variables[i].type, "double") == 0) {
+        else if (var.type == VariableType::AW_DOUBLE) {
             var.value = variables[i].double_val;
         }
-        else if (strcmp(variables[i].type, "bool") == 0) {
+        else if (var.type == VariableType::AW_BOOLEAN) {
             var.value = variables[i].bool_val;
         }
         initVars[variables[i].id] = var;
@@ -101,13 +101,12 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
     Arcweave::ArcscriptTranspiler transpiler(sElId, initVars, initVisits);
     transpilerOutput = transpiler.runScript(sCode);
 
-    UTranspilerOutput uTranspilerOutput;
-    uTranspilerOutput.output = new char[transpilerOutput.output.size() + 1];
-    strcpy_s(uTranspilerOutput.output, transpilerOutput.output.size() + 1, transpilerOutput.output.c_str());
-    uTranspilerOutput.type = transpilerOutput.type;
+    UTranspilerOutput* uTranspilerOutput = new UTranspilerOutput();
+    uTranspilerOutput->output = _strdup(transpilerOutput.output.c_str());
+    uTranspilerOutput->type = transpilerOutput.type;
     
     if (transpilerOutput.type == InputType::CONDITION) {
-        uTranspilerOutput.conditionResult = std::any_cast<bool>(transpilerOutput.result);
+        uTranspilerOutput->conditionResult = std::any_cast<bool>(transpilerOutput.result);
     }
 
     size_t changesLen = transpilerOutput.changes.size();
@@ -119,27 +118,28 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
         uChange.varId = _strdup(change.first.c_str());
 
         if (change.second.type() == typeid(std::string)) {
-            uChange.type = "string";
+            uChange.type = VariableType::AW_STRING;
             std::string string_result = std::any_cast<std::string>(change.second);
             uChange.string_result = _strdup(string_result.c_str());
         }
         else if (change.second.type() == typeid(int)) {
-            uChange.type = "integer";
+            uChange.type = VariableType::AW_INTEGER;
             uChange.int_result = std::any_cast<int>(change.second);
         }
         else if (change.second.type() == typeid(double)) {
-            uChange.type = "double";
+            uChange.type = VariableType::AW_DOUBLE;
             uChange.double_result = std::any_cast<double>(change.second);
         }
         else if (change.second.type() == typeid(bool)) {
-            uChange.type = "bool";
+            uChange.type = VariableType::AW_BOOLEAN;
             uChange.bool_result = std::any_cast<bool>(change.second);
         }
         variableChanges[i] = uChange;
         i++;
     }
-    uTranspilerOutput.changes = variableChanges;
-    uTranspilerOutput.changesLen = changesLen;
+    uTranspilerOutput->changes = variableChanges;
+    uTranspilerOutput->changesLen = changesLen;
+
     return uTranspilerOutput;
     //std::cout << code << std::endl;
     //std::cout << elId << std::endl;
@@ -162,4 +162,16 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, cons
         return false;
     }
     return true;*/
+}
+
+ARCSCRIPTTRANSPILER_API void deallocateOutput(UTranspilerOutput* output) {
+    for (size_t i = 0; i < output->changesLen; i++) {
+        free(output->changes[i].varId);
+        if (output->changes[i].type == VariableType::AW_STRING) {
+            free(output->changes[i].string_result);
+        }
+    }
+    delete[] output->changes;
+    free(output->output);
+    delete output;
 }

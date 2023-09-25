@@ -10,10 +10,20 @@
 #include "ArcscriptExpression.h"
 #include "ArcscriptErrorExceptions.h"
 
+namespace Arcweave {
+
+enum VariableType {
+    AW_STRING,
+    AW_INTEGER,
+    AW_DOUBLE,
+    AW_BOOLEAN,
+    AW_ANY
+};
+
 struct Variable {
   std::string id;
   std::string name;
-  std::string type;
+  VariableType type;
   std::any value;
 };
 
@@ -47,7 +57,7 @@ public:
     }
     return variableValues[varId].value;
   }
-  inline std::string getVarType(std::string name) {
+  inline VariableType getVarType(std::string name) {
     return variableValues[varNameToID[name]].type;
   }
   inline void setVarValue(std::string name, std::any value) {
@@ -95,3 +105,4 @@ public:
     attrs = m.attrs;
   }
 };
+}

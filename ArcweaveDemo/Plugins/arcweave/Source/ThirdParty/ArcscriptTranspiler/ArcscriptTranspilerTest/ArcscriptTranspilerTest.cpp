@@ -6,66 +6,13 @@
 #include <fstream>
 #include <map>
 #include <string>
-#include <windows.h>
 #include <any>
 #include <nlohmann/json.hpp>
+#include "ArcscriptTranspiler.h"
 
 using json = nlohmann::json;
 
-enum InputType {
-    /// @brief A condition (results to bool) code type
-    CONDITION,
-    /// @brief A script code type
-    SCRIPT
-};
-struct UVariableChange {
-    const char* varId;
-    const char* type;
-    int int_result;
-    double double_result;
-    const char* string_result;
-    bool bool_result;
-
-    UVariableChange() {
-        varId = nullptr;
-        type = nullptr;
-        int_result = 0;
-        double_result = 0.0;
-        string_result = nullptr;
-        bool_result = false;
-    }
-};
-
-struct UTranspilerOutput {
-    const char* output;
-    InputType type;
-    UVariableChange* changes;
-    size_t changesLen = 0;
-    bool conditionResult = false;
-};
-
-
-struct UVariable {
-    const char* id;
-    const char* name;
-    const char* type;
-    int int_val;
-    double double_val;
-    const char* string_val;
-    bool bool_val;
-};
-
-struct UVisit {
-    const char* elId;
-    int visits;
-
-    UVisit() {
-        elId = nullptr;
-        visits = 0;
-    }
-};
-
-typedef UTranspilerOutput(__cdecl* MYPROC)(const char*, const char*, UVariable*, size_t, UVisit*, size_t);
+using namespace Arcweave;
 
 UVariable* getInitialVars(json initialVarsJson) {
     UVariable* initVars = new UVariable[initialVarsJson.size()];
@@ -77,18 +24,30 @@ UVariable* getInitialVars(json initialVarsJson) {
 
         initVars[i].id = _strdup(id.c_str());
         initVars[i].name = _strdup(name.c_str());
-        initVars[i].type = _strdup(type.c_str());
+        initVars[i].type = VariableType::AW_ANY;
+        if (type == "string") {
+            initVars[i].type = VariableType::AW_STRING;
+        }
+        else if (type == "integer") {
+            initVars[i].type = VariableType::AW_INTEGER;
+        }
+        else if (type == "double") {
+            initVars[i].type = VariableType::AW_DOUBLE;
+        }
+        else if (type == "boolean") {
+            initVars[i].type = VariableType::AW_BOOLEAN;
+        }
 
-        if (strcmp(initVars[i].type, "string") == 0) {
+        if (initVars[i].type == VariableType::AW_STRING) {
             initVars[i].string_val = _strdup(it.value()["value"].template get<std::string>().c_str());
         }
-        else if (strcmp(initVars[i].type, "integer") == 0) {
+        else if (initVars[i].type == VariableType::AW_INTEGER) {
             initVars[i].int_val = it.value()["value"].template get<int>();
         }
-        else if (strcmp(initVars[i].type, "double") == 0) {
+        else if (initVars[i].type == VariableType::AW_DOUBLE) {
             initVars[i].double_val= it.value()["value"].template get<double>();
         }
-        else if (strcmp(initVars[i].type, "boolean") == 0) {
+        else if (initVars[i].type == VariableType::AW_BOOLEAN) {
             initVars[i].bool_val = it.value()["value"].template get<bool>();
         }
         i += 1;
@@ -108,10 +67,6 @@ UVisit* getVisits(json initVisits) {
     }
     return visits;
 }
-
-HINSTANCE hinstLib;
-MYPROC ProcAdd;
-BOOL fFreeResult, fRunTimeLinkSuccess = false;
 
 int testFile(std::filesystem::path path) {
     std::ifstream f(path);
@@ -140,8 +95,24 @@ int testFile(std::filesystem::path path) {
             hasError = true;
         }
         
-        UTranspilerOutput result = (ProcAdd)(code, currentElement, initVars, initVarLen, visits, visitsLen);
+        UTranspilerOutput* result = runScriptExport(code, currentElement, initVars, initVarLen, visits, visitsLen);
+        deallocateOutput(result);
+        
+        /*for (int i = 0; i < visitsLen; i++) {
+            free((char*)visits[i].elId);
+        }
+        delete visits;
+        free((char*)currentElement);
+        free((char*)code);*/
     }
+    /*for (int j = 0; j < initVarLen; j++) {
+        free((char*)initVars[j].id);
+        free((char*)initVars[j].name);
+        if (initVars[j].type == VariableType::AW_STRING) {
+            free((char*)initVars[j].string_val);
+        }
+    }
+    delete initVars;*/
     return 0;
 }
 
@@ -149,65 +120,8 @@ int testFile(std::filesystem::path path) {
 
 int main()
 {
-
-    UTranspilerOutput result;
-
-
-    hinstLib = LoadLibrary(TEXT("ArcscriptTranspiler.dll"));
-    if (hinstLib != NULL) {
-        printf("Found hinstLib\n");
-        ProcAdd = (MYPROC)GetProcAddress(hinstLib, "runScriptExport");
-
-        if (NULL != ProcAdd) {
-            printf("ProcAdd NOT NULL\n");
-            fRunTimeLinkSuccess = TRUE;
-            //try {
-                const std::filesystem::path path{ "D:\\arcweave\\unreal\\arcweave-unreal-example\\ArcweaveDemo\\Plugins\\arcweave\\Source\\arcweave\\test\\valid.json" };
-                testFile(path);
-                /*result = (ProcAdd)(code.c_str(), elId.c_str(), initVars, 2, visits, 3);
-                std::cout << "CHANGES: " << std::endl;
-                std::string lines = "";
-                for (int i = 0; i < result.changesLen; i++) {
-                    std::string line = result.changes[i].varId + std::string(": ");
-                    if (strcmp(result.changes[i].type, "string") == 0) {
-                        line += result.changes[i].string_result;
-                    }
-                    else if (strcmp(result.changes[i].type, "integer") == 0) {
-                        line += std::to_string(result.changes[i].int_result);
-                    }
-                    else if (strcmp(result.changes[i].type, "double") == 0) {
-                        line += std::to_string(result.changes[i].double_result);
-                    }
-                    else if (strcmp(result.changes[i].type, "bool") == 0) {
-                        line += result.changes[i].bool_result ? "true" : "false";
-                    }
-                    line += "\n";
-
-                    lines += line;
-                }
-                std::cout << lines;*/
-            /*}
-            catch (std::exception& e) {
-                std::cerr << e.what() << std::endl;
-                throw e;
-            }*/
-            printf("ProcAdd finished\n");
-        }
-        else {
-            std::cerr << "Get Last Error: " << GetLastError() << std::endl;
-        }
-
-        fFreeResult = FreeLibrary(hinstLib);
-    }
-    else {
-        std::cerr << "Get Last Error: " << GetLastError() << std::endl;
-    }
-
-    if (!fRunTimeLinkSuccess) {
-        printf("Message printed from executable\n");
-    }
-
-    //ArcscriptTranspiler transpiler(elId, initVars, visits);
-    //TranspilerOutput output = transpiler.runScript("<pre><code>x=5</code></pre>");
+    const std::filesystem::path path{ "D:\\arcweave\\unreal\\arcweave-unreal-example\\ArcweaveDemo\\Plugins\\arcweave\\Source\\arcweave\\test\\valid.json" };
+    testFile(path);
+                
     system("pause");
 }

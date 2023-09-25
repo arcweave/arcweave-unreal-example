@@ -1,5 +1,7 @@
 #include "ArcscriptExpression.h"
 
+namespace Arcweave {
+
 Expression::NumberValues Expression::doubleValues(std::any value1, std::any value2) {
   int intValue1, intValue2;
   double dblValue1, dblValue2;
@@ -260,8 +262,9 @@ bool Expression::operator&& (const Expression &other) {
 bool Expression::operator|| (const Expression &other) {
   return valueToBool(value) || valueToBool(other.value);
 }
+}
 
-std::ostream& operator<< (std::ostream& out, const Expression &e) {
+std::ostream& operator<< (std::ostream& out, const Arcweave::Expression &e) {
   std::any value = e.value;
   if (value.type() == typeid(int)) {
     return out << std::any_cast<int>(value);

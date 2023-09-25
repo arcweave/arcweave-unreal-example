@@ -105,6 +105,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)antlr4-runtime\src;$(SolutionDir)ArcscriptTranspiler\src\Generated\ArcscriptParser;$(SolutionDir)ArcscriptTranspiler\src\Generated\ArcscriptLexer;$(SolutionDir)ArcscriptTranspiler\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +124,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)antlr4-runtime\src;$(SolutionDir)ArcscriptTranspiler\src\Generated\ArcscriptParser;$(SolutionDir)ArcscriptTranspiler\src\Generated\ArcscriptLexer;$(SolutionDir)ArcscriptTranspiler\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

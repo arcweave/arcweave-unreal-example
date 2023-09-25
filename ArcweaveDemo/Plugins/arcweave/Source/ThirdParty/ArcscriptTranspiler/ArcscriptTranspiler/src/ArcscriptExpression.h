@@ -3,6 +3,8 @@
 #include <string>
 #include <cstring>
 
+namespace Arcweave {
+
 class Expression {
 private:
   struct NumberValues {
@@ -74,4 +76,5 @@ public:
   bool operator|| (const Expression &other);
 };
 
-std::ostream& operator<< (std::ostream& out, const Expression &e);
+}
+std::ostream& operator<< (std::ostream& out, const Arcweave::Expression &e);

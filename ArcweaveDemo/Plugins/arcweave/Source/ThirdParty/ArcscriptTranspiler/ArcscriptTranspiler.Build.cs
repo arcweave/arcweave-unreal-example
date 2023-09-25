@@ -15,8 +15,8 @@ public class ArcscriptTranspiler : ModuleRules
             PublicDelayLoadDLLs.Add("antlr4-runtime.dll");
             PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
             // Ensure that the DLL is staged along with the executable
-            RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/antlr4-runtime.dll");
-            RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+            RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/ArcscriptTranspiler/Win64/antlr4-runtime.dll");
+            RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/ArcscriptTranspiler/Win64/ArcscriptTranspiler.dll");
 
             PublicIncludePaths.AddRange(new string[]
             {

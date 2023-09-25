@@ -5,6 +5,7 @@
 #include <iostream>
 #include <functional>
 
+namespace Arcweave {
 class ArcscriptFunctions {
 private:
   ArcscriptState *_state;
@@ -36,3 +37,4 @@ public:
   std::any Sqrt(std::vector<std::any> args);
   std::any Visits(std::vector<std::any> args);
 };
+}

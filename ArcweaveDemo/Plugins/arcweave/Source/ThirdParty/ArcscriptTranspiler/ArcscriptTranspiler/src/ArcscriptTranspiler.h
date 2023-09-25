@@ -49,16 +49,16 @@ namespace Arcweave
   
 
   // The following types starting with a U* are the types that the exported DLL function accepts and returns
-  struct UVariableChange {
-	  const char* varId;
-	  const char* type;
+  extern "C" struct UVariableChange {
+	  char* varId;
+	  VariableType type;
 	  int int_result;
 	  double double_result;
-	  const char* string_result;
+	  char* string_result;
 	  bool bool_result;
 	  UVariableChange() {
 		  varId = nullptr;
-		  type = nullptr;
+		  type = VariableType::AW_ANY;
 		  int_result = 0;
 		  double_result = 0.0;
 		  string_result = nullptr;
@@ -66,23 +66,41 @@ namespace Arcweave
 	  }
   };
   
-  struct UTranspilerOutput {
+  extern "C" struct UTranspilerOutput {
 	  char* output;
 	  InputType type;
 	  UVariableChange* changes;
 	  size_t changesLen = 0;
 	  bool conditionResult = false;
+
+      UTranspilerOutput() {
+          output = nullptr;
+          type = InputType::SCRIPT;
+          changes = nullptr;
+          changesLen = 0;
+          conditionResult = false;
+      }
   };
   
 
 	struct UVariable {
 		const char* id;
 		const char* name;
-		const char* type;
+		VariableType type;
 		int int_val;
 		double double_val;
 		const char* string_val;
 		bool bool_val;
+
+        UVariable() {
+            id = nullptr;
+            name = nullptr;
+            type = VariableType::AW_ANY;
+            int_val = 0;
+            double_val = 0;
+            string_val = nullptr;
+            bool_val = false;
+        }
 	};
   
 	struct UVisit {
@@ -119,4 +137,5 @@ namespace Arcweave
 	//ARCSCRIPTTRANSPILER_API UTranspilerOutput URunScript(char* code);
   };
 };
-extern "C" ARCSCRIPTTRANSPILER_API UTranspilerOutput runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength);
+extern "C" ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength);
+extern "C" ARCSCRIPTTRANSPILER_API void deallocateOutput(UTranspilerOutput* output);
