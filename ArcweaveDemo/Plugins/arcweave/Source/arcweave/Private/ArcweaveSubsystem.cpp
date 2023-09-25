@@ -696,6 +696,9 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
 {
     FArcscriptTranspilerOutput Output;
     bool IsVariableChanged = false;
+
+    FarcweaveModule* arcweaveModule = FModuleManager::GetModulePtr<FarcweaveModule>("Arcweave");
+    UArcscriptTranspilerWrapper* ArcscriptWrapper = arcweaveModule->getArcscriptWrapper();
     if (ArcscriptWrapper)
     {
         UE_LOG(LogArcwarePlugin, Display, TEXT("Code=%s"), *Code);
@@ -749,6 +752,9 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
         {
             OnArcweaveVariableChanged.Broadcast(ChangedVariables);            
         }
+    }
+    else {
+        UE_LOG(LogArcwarePlugin, Error, TEXT("ArcscriptWrapper not initialized"));
     }
     
     return Output;
@@ -809,9 +815,7 @@ void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& T
 void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
-    FarcweaveModule* arcweaveModule = FModuleManager::GetModulePtr<FarcweaveModule>("Arcweave");
 
-    ArcscriptWrapper = arcweaveModule->getArcscriptWrapper();
     // we must read from engine config here
     FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
     FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);

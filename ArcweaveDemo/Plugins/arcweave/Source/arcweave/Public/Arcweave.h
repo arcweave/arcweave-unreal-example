@@ -44,6 +44,6 @@ private:
 	
 
     UPROPERTY()
-    UArcscriptTranspilerWrapper* ArcscriptWrapper;
+    UArcscriptTranspilerWrapper* ArcscriptWrapper = nullptr;
 
 };

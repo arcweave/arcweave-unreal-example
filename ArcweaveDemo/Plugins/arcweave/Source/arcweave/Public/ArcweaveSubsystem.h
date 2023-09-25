@@ -82,9 +82,6 @@ private:
 
     void LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput);
 
-private:
-    UPROPERTY()
-    UArcscriptTranspilerWrapper* ArcscriptWrapper;
-    
+private:    
     FArcweaveProjectData ProjectData = FArcweaveProjectData();
 };

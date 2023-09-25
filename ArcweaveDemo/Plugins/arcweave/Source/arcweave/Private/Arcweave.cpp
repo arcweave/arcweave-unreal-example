@@ -21,9 +21,6 @@ void FarcweaveModule::StartupModule()
 	//FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	UE_LOG(LogArcwarePlugin, Warning, TEXT("Arcware plugin module started!"));
 
-	// Initialize the UArcscriptTranspilerWrapper instance
-	ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
-
 	// Add on the relative location of the third party dll and load it
 	FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	FString ArcscriptTranspilerPath;
@@ -41,6 +38,9 @@ void FarcweaveModule::StartupModule()
 
 	if (ArcscriptTranspilerHandle)
 	{
+        // Initialize the UArcscriptTranspilerWrapper instance
+        ArcscriptWrapper = NewObject<UArcscriptTranspilerWrapper>();
+        UE_LOG(LogArcwarePlugin, Warning, TEXT("Address of ArcscriptWrapper: %p"), (void*)ArcscriptWrapper);
 		//TestJsonFile();
 		// Call the test function in the third party library that opens a message box
 		//Antlr4LibraryFunction();
