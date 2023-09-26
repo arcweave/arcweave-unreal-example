@@ -252,11 +252,11 @@ TArray<FArcweaveAssetData> UArcweaveSubsystem::ParseComponentAsset(const TShared
     return  ComponentAssets;
 }
 
-TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseComponentAttributes(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ComponentValueObject)
+TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseObjectAttributes(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ParentValueObject)
 {
-    TArray<FArcweaveAttributeData> ComponentAttributes;
+    TArray<FArcweaveAttributeData> ObjectAttributes;
     TArray<FString> AttributesStringArray;
-    if (ComponentValueObject->TryGetStringArrayField("attributes", AttributesStringArray))
+    if (ParentValueObject->TryGetStringArrayField("attributes", AttributesStringArray))
     {
         for (const auto& AttributeAssetId : AttributesStringArray)
         {
@@ -287,13 +287,13 @@ TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseComponentAttributes(cons
                                 ParseAttributeValue(*AttributeValueObject, AttributeAsset.Value);
                             }
                         }
-                        ComponentAttributes.Add(AttributeAsset);
+                        ObjectAttributes.Add(AttributeAsset);
                     }
                 }
             }
         }
     }
-    return ComponentAttributes;
+    return ObjectAttributes;
 }
 
 void UArcweaveSubsystem::ParseAttributeValue(const TSharedPtr<FJsonObject>& ValueObject, FArcweaveAttributeValueData& AttributeValue)
@@ -451,6 +451,7 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
                             //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
                             Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject);
                             Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
+                            Element.Attributes = ParseObjectAttributes(MainJsonObject, ElementValueObject);
                         }
                         Elements.Add(Element);
                     }
@@ -610,7 +611,7 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TShared
                             ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
                             ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
                             ElComponent.Assets = ParseComponentAsset(ComponentValueObject);
-                            ElComponent.Attributes = ParseComponentAttributes(MainJsonObject, ComponentValueObject);
+                            ElComponent.Attributes = ParseObjectAttributes(MainJsonObject, ComponentValueObject);
 
                             Components.Add(ElComponent);
                         }
@@ -643,7 +644,7 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseAllComponents(const TSha
                 ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
                 ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
                 ElComponent.Assets = ParseComponentAsset(ComponentValueObject);
-                ElComponent.Attributes = ParseComponentAttributes(MainJsonObject, ComponentValueObject);
+                ElComponent.Attributes = ParseObjectAttributes(MainJsonObject, ComponentValueObject);
 
                 Components.Add(ElComponent);
             }

@@ -358,6 +358,9 @@ struct FArcweaveElementData
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TMap<FString, FArcweaveAssetData> Assets;
 
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveAttributeData> Attributes = TArray<FArcweaveAttributeData>();
+
     FArcweaveElementData()
         : Id(FString(""))
         , Theme(FString(""))
@@ -366,6 +369,7 @@ struct FArcweaveElementData
         , Outputs(TArray<FArcweaveConnectionsData>())
         , Components(TArray<FArcweaveComponentData>())
         , Assets(TMap<FString, FArcweaveAssetData>())
+        , Attributes(TArray<FArcweaveAttributeData>())
     {}
 };
 
