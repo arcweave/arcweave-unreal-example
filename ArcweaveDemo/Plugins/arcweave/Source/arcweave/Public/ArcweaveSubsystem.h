@@ -74,6 +74,7 @@ private:
     TMap<FString, int> InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& BoardObj);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);
+    FArcweaveCoverData ParseCoverData(const TSharedPtr<FJsonObject>& CoverValueObject);
     void ParseResponse(const FString& ResponseString);
     FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);
 

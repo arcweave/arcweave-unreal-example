@@ -239,15 +239,16 @@ TArray<FArcweaveAssetData> UArcweaveSubsystem::ParseComponentAsset(const TShared
     const TSharedPtr<FJsonObject>* ComponentAssetsObject;
     if (ComponentValueObject->TryGetObjectField("assets", ComponentAssetsObject))
     {
-        for (const auto& ComponentAssetPair : ComponentAssetsObject->Get()->Values)
+        FArcweaveAssetData ComponentAsset;
+        ComponentAsset.Cover = ParseCoverData(*ComponentAssetsObject);
+        /*for (const auto& ComponentAssetPair : ComponentAssetsObject->Get()->Values)
         {
             const TSharedPtr<FJsonObject> AssetValueObject = ComponentAssetPair.Value->AsObject();
-            FArcweaveAssetData ComponentAsset;
             AssetValueObject->TryGetStringField("mode", ComponentAsset.Mode);
             AssetValueObject->TryGetStringField("asset", ComponentAsset.Asset);
             AssetValueObject->TryGetStringField("delay", ComponentAsset.Delay);
-            ComponentAssets.Add(ComponentAsset);
-        }
+        }*/
+        ComponentAssets.Add(ComponentAsset);
     }
     return  ComponentAssets;
 }
@@ -653,6 +654,21 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseAllComponents(const TSha
     return Components;
 }
 
+FArcweaveCoverData UArcweaveSubsystem::ParseCoverData(const TSharedPtr<FJsonObject>& CoverValueObject)
+{
+    FArcweaveCoverData CoverData;
+    if (CoverValueObject->HasField("cover"))
+    {
+        TSharedPtr<FJsonObject> CoverObject = CoverValueObject->GetObjectField("cover");
+
+        // Extract cover data
+        CoverObject->TryGetStringField("id", CoverData.Id);
+        CoverObject->TryGetStringField("file", CoverData.File);
+        CoverObject->TryGetStringField("type", CoverData.Type);
+    }        
+    return CoverData;
+}
+
 void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
 {
     // Convert the response to a JSON object
@@ -669,15 +685,7 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
     // Extract project name and cover data     
     if (JsonObject->TryGetStringField("name", ProjectData.Name))
     {
-        if (JsonObject->HasField("cover"))
-        {
-            TSharedPtr<FJsonObject> CoverObject = JsonObject->GetObjectField("cover");
-
-            // Extract cover data
-            CoverObject->TryGetStringField("file", ProjectData.Cover.File);
-            CoverObject->TryGetStringField("type", ProjectData.Cover.Type);
-        }        
-
+        ProjectData.Cover = ParseCoverData(JsonObject);        
         ProjectData.CurrentVars = ParseVariables(JsonObject);
         ProjectData.Components = ParseAllComponents(JsonObject);
         //ProjectData.Branches = ParseBranches(JsonObject, ProjectData);

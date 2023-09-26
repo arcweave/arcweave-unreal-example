@@ -439,8 +439,6 @@ struct FArcweaveProjectData
     TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
     
     //project branches
-    //UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
-    //TArray<FArcweaveBranchData> Branches = TArray<FArcweaveBranchData>();
 
     //constructor
     FArcweaveProjectData()
