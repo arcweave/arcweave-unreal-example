@@ -5,7 +5,8 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
+x64/*
+!x64/Release/
 x86/
 bld/
 [Bb]in/
@@ -29,3 +30,4 @@ antlr4-runtime/libantlr4-runtime.a
 antlr4-runtime/libantlr4-runtime.dylib
 antlr4-runtime/libantlr4-runtime.4.12.0.dylib
 antlr4-runtime/libantlr4-runtime.4.13.0.dylib
+antlr4-runtime/x64/
