@@ -32,9 +32,15 @@ public:
     UFUNCTION(BlueprintPure, Category = "Arcweave")
     FArcweaveAPISettings LoadArcweaveSettings() const;
 
+    /*
+     * Save Arcweave API token to settings
+     */
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
     void SaveArcweaveSettings(const FString& APIToken, const FString& ProjectHash);
 
+    /*
+     * Get Arcweave project data
+     */
     UFUNCTION(BlueprintPure, Category = "Arcweave")
     FArcweaveProjectData GetArcweaveProjectData() const {return ProjectData;};
 
@@ -45,10 +51,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
     FArcweaveElementData TranspileObject(FString ObjectId, bool& Success);
 
+    /*
+     * Run transpiler for the condition
+     */
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
     FArcscriptTranspilerOutput TranspileCondition(FString ConditionId, bool& Success);
 
-
+public:
+    
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
 	FOnArcweaveResponseReceived OnArcweaveResponseReceived;
 

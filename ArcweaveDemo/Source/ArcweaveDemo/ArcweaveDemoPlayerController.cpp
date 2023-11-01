@@ -109,7 +109,7 @@ void AArcweaveDemoPlayerController::OnSetDestinationReleased()
 	}
 
 	FollowTime = 0.f;
-	InteractionActor = nullptr;
+	//InteractionActor = nullptr;
 
 }
 

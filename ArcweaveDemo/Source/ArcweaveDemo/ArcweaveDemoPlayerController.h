@@ -40,9 +40,6 @@ public:
 	class UInputAction* SetDestinationTouchAction;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool InteractibleClicked = false;
-
-	UPROPERTY(BlueprintReadWrite)
 	AActor* InteractionActor = nullptr;
 
 protected:
