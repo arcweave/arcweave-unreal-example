@@ -836,7 +836,7 @@ void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
     // we must read from engine config here
     FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
-    FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);
+    //FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
