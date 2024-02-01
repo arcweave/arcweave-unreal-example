@@ -1,4 +1,4 @@
-# Arcweave Plugin for Unreal Engine example project
+# Arcweave Plugin example project
 Example demo project which demonstrates the Arcweave > Unreal integration
 
 ## Project setup
