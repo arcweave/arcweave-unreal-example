@@ -59,13 +59,6 @@ void UArcweaveSubsystem::SaveArcweaveSettings(const FString& APIToken, const FSt
         return;
     }
 
-    //GConfig->EmptySection(TEXT("TargetDeviceServices"), GGameIni);
-
-    // save configuration
-    //GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), *APIToken, GGameIni);
-    //GConfig->SetString(ARCWEAVE_SETTINGS_SECTION, TEXT("Hash"), *ProjectHash, GGameIni);
-    //GConfig->Flush(false, GGameIni);
-
     UArcweaveSettings* ArcweaveSettings = GetMutableDefault<UArcweaveSettings>();
     if (ArcweaveSettings)
     {
@@ -119,9 +112,7 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::TranspileCondition(FString Condit
     {
         FString ScriptModified = FString("<pre><code>") + ConditionData.Script + FString("</code></pre>");
         Output = RunTranspiler(ScriptModified, ConditionData.Id, ProjectData.CurrentVars, BoardObj.Visits);
-        //increase the visits counter
         BoardObj.Visits[ConditionId] += 1;
-        //ConditionData.Content = RemoveHtmlTags(Output.Output);
         Success = true;
     }
     catch (...)
@@ -354,7 +345,6 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
                             FString DirtyLabel = FString("");
                             ConObject->TryGetStringField("label", DirtyLabel);
                             Connection.Label = RemoveHtmlTags(DirtyLabel);                            
-                            //UE_LOG(LogArcwarePlugin, Log, TEXT(" --- Connection object name: %s, label %s"), *ConnectionPair.Key, *Connection.Label);
                             ConObject->TryGetStringField("type", Connection.Type);
                             ConObject->TryGetStringField("theme", Connection.Theme);
                             ConObject->TryGetStringField("sourceid", Connection.Sourceid);
@@ -697,7 +687,6 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
         ProjectData.Cover = ParseCoverData(JsonObject);        
         ProjectData.CurrentVars = ParseVariables(JsonObject);
         ProjectData.Components = ParseAllComponents(JsonObject);
-        //ProjectData.Branches = ParseBranches(JsonObject, ProjectData);
         ProjectData.Boards = ParseBoard(JsonObject);
         OnArcweaveResponseReceived.Broadcast(ProjectData);
         //LogStructFieldsRecursive(&ProjectData, FArcweaveProjectData::StaticStruct(),0);
@@ -836,7 +825,6 @@ void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
     // we must read from engine config here
     FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
-    //FetchData(FString(ArcweaveAPISettings.APIToken), ArcweaveAPISettings.Hash);
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
@@ -844,8 +832,6 @@ void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr R
     if (bWasSuccessful && Response.IsValid())
     {
         FString ResponseString = Response->GetContentAsString();
-        //UE_LOG(LogArcwarePlugin, Log, TEXT("HTTP Response: %s"), *ResponseString);
-
         ParseResponse(ResponseString);
     }
     else
@@ -854,68 +840,3 @@ void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr R
         UE_LOG(LogArcwarePlugin, Error, TEXT("HTTP Request failed!"));
     }
 }
-
-// possible helpers for structs logging KEEP
-/*void  UArcweaveSubsystem::LogStructFields(const void* StructPtr, UStruct* StructDefinition)
-{
-    if (!StructPtr || !StructDefinition)
-    {
-        UE_LOG(LogArcwarePlugin, Warning, TEXT("Invalid struct or struct definition provided!"));
-        return;
-    }
-
-    // Iterate through all fields of the struct
-    for (TFieldIterator<FProperty> PropertyIt(StructDefinition); PropertyIt; ++PropertyIt)
-    {
-        FProperty* Property = *PropertyIt;
-        FString PropertyName = Property->GetName();
-
-        // Use the Property's accessors to get the value as a string
-        FString PropertyValue;
-        Property->ExportText_InContainer(0, PropertyValue, StructPtr, StructPtr, nullptr, PPF_None);
-
-        // Log the property name and value
-        UE_LOG(LogArcwarePlugin, Log, TEXT("%s: %s"), *PropertyName, *PropertyValue);
-    }
-}*/
-
-/*void UArcweaveSubsystem::LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel)
-{
-    if (!StructPtr || !StructDefinition)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Invalid struct or struct definition provided!"));
-        return;
-    }
-
-    // Create a string for indentation based on the current level
-    FString Indentation = FString::ChrN(IndentationLevel, TEXT('\t'));
-
-    // Iterate through all fields of the struct
-    for (TFieldIterator<FProperty> PropertyIt(StructDefinition); PropertyIt; ++PropertyIt)
-    {
-        FProperty* Property = *PropertyIt;
-        FString PropertyName = Property->GetName();
-
-        // Use the Property's accessors to get the value as a string
-        FString PropertyValue;
-        Property->ExportText_InContainer(0, PropertyValue, StructPtr, StructPtr, nullptr, PPF_None);
-
-        // Log the property name and value with indentation on a new line
-        FString LogMessage = FString::Printf(TEXT("%s%s: %s\n"), *Indentation, *PropertyName, *PropertyValue);
-        UE_LOG(LogTemp, Warning, TEXT("%s"), *LogMessage);
-
-        // If the property is a nested struct, recursively log its fields with increased indentation
-        if (Property->IsA(FStructProperty::StaticClass()))
-        {
-            FStructProperty* StructProperty = Cast<FStructProperty>(Property);
-            if (StructProperty)
-            {
-                const void* NestedStructPtr = StructProperty->ContainerPtrToValuePtr<void>(StructPtr);
-                UStruct* NestedStructDefinition = StructProperty->Struct;
-
-                // Recursively log the fields of the nested struct with increased indentation
-                LogStructFieldsRecursive(NestedStructPtr, NestedStructDefinition, IndentationLevel + 1);
-            }
-        }
-    }
-}*/

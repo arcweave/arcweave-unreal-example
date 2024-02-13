@@ -90,10 +90,6 @@ private:
     FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);
     FArcweaveElementData ExtractElementData(const TSharedPtr<FJsonObject>& MainJsonObject, const FString& ElementId);
 
-    //KEEP possible future use
-    //void LogStructFields(const void* StructPtr, UStruct* StructDefinition);
-    //void LogStructFieldsRecursive(const void* StructPtr, UStruct* StructDefinition, int32 IndentationLevel);
-
     void LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput);
 
 private:    

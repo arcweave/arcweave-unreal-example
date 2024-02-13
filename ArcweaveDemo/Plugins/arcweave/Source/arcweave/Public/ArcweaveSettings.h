@@ -33,8 +33,3 @@ public:
     //override post init properties to check if the settings are valid
     virtual void PostInitProperties() override;
 };
-
-// vsvIOEPSAorYs8qTlPvsHeKQ4MksRyAVOC6m09DB1xwgqEaMpV3ppmLnCNOs
-// omE79ga0RN //moj
-//https://arcweave.com/app/project/kM6NgWn0m3?board=ef8116b9-c38d-473d-9c0a-600bc37a010d&scale=0.826446&coords=-9976.2,-10029.6
-//kM6NgWn0m3  //demo

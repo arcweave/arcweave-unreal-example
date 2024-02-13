@@ -455,8 +455,6 @@ struct FArcweaveProjectData
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
     
-    //project branches
-
     //constructor
     FArcweaveProjectData()
         : Name(FString(""))
@@ -464,7 +462,6 @@ struct FArcweaveProjectData
         , CurrentVars(TMap<FString, FArcweaveVariable>())
         , Boards(TArray<FArcweaveBoardData>())
         , Components(TArray<FArcweaveComponentData>())
-        //, Branches(TArray<FArcweaveBranchData>())
     {}
 };
 
