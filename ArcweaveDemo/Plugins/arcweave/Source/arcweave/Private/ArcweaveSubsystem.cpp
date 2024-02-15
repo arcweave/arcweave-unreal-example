@@ -42,7 +42,7 @@ void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 bool UArcweaveSubsystem::LoadJsonFile()
 {
 	FString JsonRaw;
-    FString DirectoryPath = FPaths::ProjectDir() + TEXT("ArcweaveExport/");
+    FString DirectoryPath = FPaths::ProjectDir() + TEXT("Content/ArcweaveExport/");
     // Normalize the directory path
     FPaths::NormalizeDirectoryName(DirectoryPath);
     // Get the file manager instance
@@ -60,14 +60,18 @@ bool UArcweaveSubsystem::LoadJsonFile()
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Found file: %s"), *File));
     }
     //always get the 0 one if there are mutiple ones
+    if (Files.IsValidIndex(0) == false)
+    {
+        UE_LOG(LogArcwarePlugin, Log, TEXT("There is no JSON folder in the ArcweaveExport directory"));
+        return false;
+    }
     if (!FFileHelper::LoadFileToString(JsonRaw, *Files[0]))
     {
         UE_LOG(LogArcwarePlugin, Log, TEXT("Failed to load JSON file!"));
         return false;
     }
     ParseResponse(JsonRaw);
-
-    return false;
+    return true;
 }
 
 FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
