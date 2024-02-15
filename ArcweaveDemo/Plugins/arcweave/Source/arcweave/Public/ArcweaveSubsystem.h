@@ -21,12 +21,14 @@ class ARCWEAVE_API UArcweaveSubsystem : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
+    void FetchDataFromAPI(FString APIToken, FString ProjectHash);
 	/*
 	 * Fetch the data from Arcweave API
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Arcweave")
 	void FetchData(FString APIToken, FString ProjectHash);
-	/*
+    bool LoadJsonFile();
+    /*
 	 * Get Arcweave API token from settings
 	 */
     UFUNCTION(BlueprintPure, Category = "Arcweave")
@@ -96,8 +98,12 @@ private:
     bool GetBoardObjectForElement(FString ConditionId, FArcweaveConditionData& OutConditionData, FArcweaveBoardData*& OutBoardObj);
     bool IsScriptVisitsPositive(const FString& ConditionScript);
 
-private:    
+private:
+    UPROPERTY()
     FArcweaveProjectData ProjectData = FArcweaveProjectData();
+    UPROPERTY()
     FArcweaveBoardData BoardObj = FArcweaveBoardData();
+    UPROPERTY()
+    FArcweaveAPISettings ArcweaveAPISettings = FArcweaveAPISettings();
 
 };

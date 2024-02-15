@@ -22,6 +22,12 @@ public:
      * API token that you can find in your Arcweave account settings.
      */
     UPROPERTY(Config, EditAnywhere, Category = ArcweaveSettings)
+    bool EnableRecieveMethodFromLocalJSON = false;
+
+    /*
+     * API token that you can find in your Arcweave account settings.
+     */
+    UPROPERTY(Config, EditAnywhere, Category = ArcweaveSettings)
     FString APIToken = FString("");
 
     /*

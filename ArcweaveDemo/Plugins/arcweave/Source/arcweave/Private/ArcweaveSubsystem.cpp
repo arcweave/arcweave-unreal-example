@@ -8,22 +8,66 @@
 #include "ArcweaveTypes.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Interfaces/IPluginManager.h"
+
+void UArcweaveSubsystem::FetchDataFromAPI(FString APIToken, FString ProjectHash)
+{
+    FString ApiUrl = FString::Printf(TEXT("https://arcweave.com/api/%s/json"), *ProjectHash);
+
+    TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
+    Request->SetVerb("GET");
+    Request->SetURL(ApiUrl);
+    Request->SetHeader(TEXT("Authorization"), FString::Printf(TEXT("Bearer %s"), *APIToken));
+    Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
+
+    // Set the request complete callback
+    Request->OnProcessRequestComplete().BindUObject(this, &UArcweaveSubsystem::HandleFetch);
+
+    // Execute the request
+    Request->ProcessRequest();
+}
 
 void UArcweaveSubsystem::FetchData(FString APIToken, FString ProjectHash)
 {
-	FString ApiUrl = FString::Printf(TEXT("https://arcweave.com/api/%s/json"), *ProjectHash);
+    if (ArcweaveAPISettings.EnableRecieveMethodFromLocalJSON)
+    {
+        LoadJsonFile();
+    }
+    else
+    {
+        FetchDataFromAPI(APIToken, ProjectHash);
+    }   
+}
 
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
-	Request->SetVerb("GET");
-	Request->SetURL(ApiUrl);
-	Request->SetHeader(TEXT("Authorization"), FString::Printf(TEXT("Bearer %s"), *APIToken));
-	Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
+bool UArcweaveSubsystem::LoadJsonFile()
+{
+	FString JsonRaw;
+    FString DirectoryPath = FPaths::ProjectDir() + TEXT("ArcweaveExport/");
+    // Normalize the directory path
+    FPaths::NormalizeDirectoryName(DirectoryPath);
+    // Get the file manager instance
+    IFileManager& FileManager = IFileManager::Get();
+    // Find all files in the directory (assuming you want to include files in subdirectories as well)
+    TArray<FString> Files;
+    FileManager.FindFilesRecursive(Files, *DirectoryPath, TEXT("*.json*"), true, false, false);
+    // Log the found files
+    for (FString& File : Files)
+    {
+        // Convert the relative path to an absolute path
+        File = FPaths::ConvertRelativePathToFull(File);
+        UE_LOG(LogArcwarePlugin, Log, TEXT("Found file: %s"), *File);
+        // Add on-screen message
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Found file: %s"), *File));
+    }
+    //always get the 0 one if there are mutiple ones
+    if (!FFileHelper::LoadFileToString(JsonRaw, *Files[0]))
+    {
+        UE_LOG(LogArcwarePlugin, Log, TEXT("Failed to load JSON file!"));
+        return false;
+    }
+    ParseResponse(JsonRaw);
 
-	// Set the request complete callback
-	Request->OnProcessRequestComplete().BindUObject(this, &UArcweaveSubsystem::HandleFetch);
-
-	// Execute the request
-	Request->ProcessRequest();
+    return false;
 }
 
 FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
@@ -35,6 +79,11 @@ FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
         ArcweaveSettings->ReloadConfig();
         if (GConfig)
         {
+            if(GConfig->GetBool(ARCWEAVE_SETTINGS_SECTION, TEXT("EnableRecieveMethodFromLocalJSON"), OutSetttings.EnableRecieveMethodFromLocalJSON, GGameIni))
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Read EnableRecieveMethodFromLocalJSON: %d"), OutSetttings.EnableRecieveMethodFromLocalJSON);
+            }
+            
             if(GConfig->GetString(ARCWEAVE_SETTINGS_SECTION, TEXT("APIToken"), OutSetttings.APIToken, GGameIni))
             {
                 UE_LOG(LogTemp, Warning, TEXT("Read APIToken: %s"), *OutSetttings.APIToken);
@@ -46,9 +95,6 @@ FArcweaveAPISettings UArcweaveSubsystem::LoadArcweaveSettings() const
             }
         }
     }
-
-
-
 	return OutSetttings;
 }
 
@@ -903,7 +949,7 @@ void UArcweaveSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     Super::Initialize(Collection);
 
     // we must read from engine config here
-    FArcweaveAPISettings ArcweaveAPISettings = LoadArcweaveSettings();
+    ArcweaveAPISettings = LoadArcweaveSettings();
 }
 
 void UArcweaveSubsystem::HandleFetch(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
