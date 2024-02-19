@@ -26,3 +26,9 @@ Shows how to extract and process the data once it has been fetched.
 Provides examples and guidance on how to transpile various elements, objects, and conditions as required.
 
 By exploring the **WBP_HUD_New** class and its implementations, you will gain valuable insights into the project's logic and workflow, serving as a practical guide for your own implementations.
+
+## Data Collection Methods
+There are two primary methods for collecting data:
+
+**Web API:** This involves fetching data directly from the Arcweave Web API.
+**JSON Import:** For this method, you'll need to import a JSON file from your Arcweave project. Ensure that the JSON file, along with all required assets, is placed in the **Content->ArcweaveExport directory**. If this directory does not exist, you will need to create it.
