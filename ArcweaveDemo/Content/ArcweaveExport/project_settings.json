@@ -93,6 +93,7 @@
                 "c995129b-2d4e-4c01-8f3d-ad66914ee2a1"
             ],
             "elements": [
+                "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
                 "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
                 "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
                 "63bee155-1348-4b82-a52d-24c96143c9db",
@@ -108,7 +109,9 @@
                 "6cb7b540-1bb4-4eac-88ae-bfd8e7703013",
                 "62a9e84c-9652-4636-a796-73a75488bb79",
                 "2b9d43d7-6eee-42d0-82ae-dcd08a897130",
+                "9327955d-269b-4c52-8c93-3172f7b4f721",
                 "325f3cda-c786-4259-b95b-e09a399c58fd",
+                "55f77cc3-8c0f-4ff5-b020-2098736aef4d",
                 "3b190ec6-1525-484f-aa4f-5422ff176288",
                 "02dfbe78-ae86-4525-8af9-51a54d58193b",
                 "b7c621dc-9c04-4e58-b59a-395521ecb171",
@@ -119,8 +122,7 @@
                 "4fd2cc78-c8ff-48fd-bcbc-b0e8c42f857d",
                 "60df4786-8a65-46ee-a3e9-1df36a5e1f39",
                 "d334c938-ed9e-4869-8307-1dc3a2a1149f",
-                "542a8cf5-54fe-42ea-8b23-694dee1106da",
-                "155ee197-bef1-4a8d-93c3-a39f727b0abf"
+                "542a8cf5-54fe-42ea-8b23-694dee1106da"
             ]
         }
     },
@@ -137,7 +139,7 @@
         },
         "43cf8efd-f69f-421b-b65e-227b0b29a37f": {
             "theme": "pink",
-            "content": "<p>These are the elements that the game engine must look for:<\/p><p>1. They are in the <strong>Starting Board<\/strong> (which has custom id: <strong>starting_dialogue_elements<\/strong>—see board's properties).<strong><br><\/strong>2. They have the relevant NPC's <strong>character component<\/strong> attached.<\/p><p><em>We are using this solution in the Godot &amp; Unity demo games.<\/em><\/p>",
+            "content": "<p>These are the elements that the game engine must look for:<\/p><p>1. They are in the <strong>Starting Board<\/strong> (which has custom id: <strong>starting_dialogue_elements<\/strong>\u2014see board's properties).<strong><br><\/strong>2. They have the relevant NPC's <strong>character component<\/strong> attached.<\/p><p><em>We are using this solution in the Godot &amp; Unity demo games.<\/em><\/p>",
             "autoHeight": false
         },
         "94049948-836b-436d-9105-61a87595fb35": {
@@ -162,10 +164,7 @@
             "title": "<p>Giving healing potion<\/p>",
             "content": "<pre><code>wanda_health += 50<\/code><\/pre><pre><code>have_potion = false<\/code><\/pre><p><em>[Wanda gulps down the potion.]<\/em><\/p>",
             "outputs": [
-                "155ee197-bef1-4a8d-93c3-a39f727b0abf"
-            ],
-            "attributes": [
-                "9417b2e9-a0fe-433d-8e25-87b0d45d88c4"
+                "9327955d-269b-4c52-8c93-3172f7b4f721"
             ],
             "autoHeight": true,
             "components": [
@@ -246,7 +245,7 @@
         "5bb43181-eebd-40b8-9561-2e58223c6016": {
             "theme": "blue",
             "title": "<p>Play Mode Start<\/p>",
-            "content": "<p><strong>Setting<\/strong>:<br>• a forest<\/p><p><strong>Player<\/strong>:<br>• <span class=\"mention-component mention\" data-id=\"3846c37c-07a1-4c04-98e2-26cd026295d1\" data-label=\"Drake Miles\" data-type=\"component\">Drake Miles<\/span><\/p><p><strong>NPCs<\/strong>:<br>• <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Wanda Elandor\" data-type=\"component\">Wanda Elandor<\/span><br>• <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Healer\" data-type=\"component\">Healer<\/span><\/p>",
+            "content": "<p><strong>Setting<\/strong>:<br>\u2022 a forest<\/p><p><strong>Player<\/strong>:<br>\u2022 <span class=\"mention-component mention\" data-id=\"3846c37c-07a1-4c04-98e2-26cd026295d1\" data-label=\"Drake Miles\" data-type=\"component\">Drake Miles<\/span><\/p><p><strong>NPCs<\/strong>:<br>\u2022 <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Wanda Elandor\" data-type=\"component\">Wanda Elandor<\/span><br>\u2022 <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Healer\" data-type=\"component\">Healer<\/span><\/p>",
             "outputs": [
                 "d6934b95-7e92-4323-bdd5-35d6a70683fa",
                 "a89eea4c-0498-419e-9b21-1ce8ddd706bf"
@@ -373,6 +372,21 @@
                 "82820a96-708d-4a05-b2aa-21e8d582d5de"
             ]
         },
+        "dbbbec36-4a9c-4cad-8533-c9f421a5093d": {
+            "theme": "moss",
+            "title": "<p>Got healing potion<\/p>",
+            "content": "<p>Thank you, stranger! I feel better already.<\/p>",
+            "outputs": [
+                "55f77cc3-8c0f-4ff5-b020-2098736aef4d"
+            ],
+            "attributes": [
+                "9cd31ce5-e6b2-4723-9b67-7c2a051b6a6a"
+            ],
+            "autoHeight": true,
+            "components": [
+                "647349ca-9ebb-4d5f-b81e-500761ec1c5a"
+            ]
+        },
         "ddc209cc-7832-4ff6-ae1f-4eea592d07d4": {
             "theme": "cyan",
             "title": "<p>Start<\/p>",
@@ -468,15 +482,6 @@
             "sourceType": "elements",
             "targetType": "branches"
         },
-        "155ee197-bef1-4a8d-93c3-a39f727b0abf": {
-            "type": "Bezier",
-            "label": null,
-            "theme": "default",
-            "sourceid": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
-            "targetid": "d7f26011-d6d6-4c92-aa3b-3a074ff647aa",
-            "sourceType": "elements",
-            "targetType": "jumpers"
-        },
         "27fb996a-efe4-45fd-adae-7e63827b2ce5": {
             "type": "Straight",
             "label": null,
@@ -539,6 +544,15 @@
             "theme": "gold",
             "sourceid": "4d7d2516-68e0-450c-a580-65c0b2616965",
             "targetid": "895bcae0-a11a-4d57-8cdc-82d8f95f75a6",
+            "sourceType": "elements",
+            "targetType": "jumpers"
+        },
+        "55f77cc3-8c0f-4ff5-b020-2098736aef4d": {
+            "type": "Straight",
+            "label": "<p>[Back]<\/p>",
+            "theme": "moss",
+            "sourceid": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
+            "targetid": "d7f26011-d6d6-4c92-aa3b-3a074ff647aa",
             "sourceType": "elements",
             "targetType": "jumpers"
         },
@@ -609,6 +623,15 @@
             "targetid": "28e3009a-e164-4679-92c3-977615b1eb4b",
             "sourceType": "elements",
             "targetType": "jumpers"
+        },
+        "9327955d-269b-4c52-8c93-3172f7b4f721": {
+            "type": "Straight",
+            "label": null,
+            "theme": "moss",
+            "sourceid": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
+            "targetid": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
+            "sourceType": "elements",
+            "targetType": "elements"
         },
         "993d8d9a-ff84-48eb-b531-7b9b2d37cb91": {
             "type": "Straight",
@@ -945,7 +968,7 @@
             "name": "Time",
             "cType": "components",
             "value": {
-                "data": "Day",
+                "data": "Night",
                 "type": "string",
                 "plain": true
             }
@@ -953,16 +976,6 @@
         "8db5417a-26ff-4c99-b8de-f7e3f911608b": {
             "cId": "a690068b-49db-44ee-94ca-ebf4627c8141",
             "name": "tag",
-            "cType": "elements",
-            "value": {
-                "data": "dialogue_end",
-                "type": "string",
-                "plain": true
-            }
-        },
-        "9417b2e9-a0fe-433d-8e25-87b0d45d88c4": {
-            "cId": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
-            "name": "",
             "cType": "elements",
             "value": {
                 "data": "dialogue_end",
@@ -992,6 +1005,16 @@
         },
         "978e009a-3a8d-4c7a-b669-d2a3b50c1fa8": {
             "cId": "62d0eaea-ccd4-4020-8bf9-7b00c7397684",
+            "name": "tag",
+            "cType": "elements",
+            "value": {
+                "data": "dialogue_end",
+                "type": "string",
+                "plain": true
+            }
+        },
+        "9cd31ce5-e6b2-4723-9b67-7c2a051b6a6a": {
+            "cId": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
             "name": "tag",
             "cType": "elements",
             "value": {
@@ -1053,11 +1076,11 @@
     "assets": {
         "190e9e72-32e9-4c51-adbb-dbad343134fc": {
             "name": "player.png",
-            "type": "image"
+            "type": "template-image"
         },
         "4de16200-4175-4aff-b753-3d40ff849289": {
             "name": "healer.png",
-            "type": "image"
+            "type": "template-image"
         },
         "647d0495-341f-42b2-8788-b47dace22bf8": {
             "root": true,
@@ -1069,7 +1092,7 @@
         },
         "fd70f4a4-578f-442f-9e5c-78872289818f": {
             "name": "wanda.png",
-            "type": "image"
+            "type": "template-image"
         }
     },
     "variables": {
@@ -1127,9 +1150,9 @@
             "script": "visits(<span class=\"mention-element mention\" data-id=\"045ab2b6-6d77-43f7-a7b4-e275f41667c3\" data-label=\"Giving healing potion\" data-type=\"element\">giving_healing_potion<\/span>)"
         }
     },
-    "name": "Restored - Game Engine Demo",
+    "name": "Game Engine Example",
     "cover": {
-        "file": "1707394413_65c4c56d6ac4f.png",
-        "type": "cover-image"
+        "file": "game-engine-cover.png",
+        "type": "template-image"
     }
 }
