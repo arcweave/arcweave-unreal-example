@@ -9,7 +9,11 @@ public class ArcweaveDemoEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 		ExtraModuleNames.Add("ArcweaveDemo");
+         #if UE_5_5_OR_LATER
+             DefaultBuildSettings = BuildSettingsVersion.V5;
+             CppStandard = CppStandardVersion.Cpp20;
+         #endif
 	}
 }
