@@ -291,6 +291,19 @@ void UArcweaveSubsystem::EvaluateCondition(const FArcweaveConditionData& Conditi
     }
 }
 
+FArcweaveConnectionsData UArcweaveSubsystem::TryGetNExtConnectionData(const FArcweaveBoardData& BoardData,
+    const FArcweaveBranchData& Branch, const FArcweaveConditionData* FiredConditionData)
+{
+    FArcweaveConnectionsData Next = GetConnectionsData(BoardData, FiredConditionData->Output);
+    if (Next.Id.IsEmpty())
+    {
+        UE_LOG(LogArcwarePlugin, Error,
+               TEXT("No connection found for branch %s → output %s"),
+               *Branch.Id, *FiredConditionData->Output);
+    }
+    return Next;
+}
+
 FGetIsTargetBranchOutput UArcweaveSubsystem::GetIsTargetBranch(
     const FArcweaveBoardData& BoardData,
     const FArcweaveConnectionsData& TargetConnection)
@@ -314,14 +327,8 @@ FGetIsTargetBranchOutput UArcweaveSubsystem::GetIsTargetBranch(
         if (Result.BranchConditionResult)
         {
             FiredConditionData = &Branch.IfCondition;
-            FArcweaveConnectionsData Next = GetConnectionsData(BoardData, FiredConditionData->Output);
-            if (Next.Id.IsEmpty())
-            {
-                UE_LOG(LogArcwarePlugin, Error,
-                    TEXT("No connection found for branch %s → output %s"),
-                    *Branch.Id, *FiredConditionData->Output);
-            }
-            else
+            FArcweaveConnectionsData Next = TryGetNExtConnectionData(BoardData, Branch, FiredConditionData);
+            if (!Next.Id.IsEmpty())
             {
                 Result.BranchConnections.Add(MoveTemp(Next));
             }
@@ -349,14 +356,8 @@ FGetIsTargetBranchOutput UArcweaveSubsystem::GetIsTargetBranch(
 
             if (FiredConditionData)
             {
-                FArcweaveConnectionsData Next = GetConnectionsData(BoardData, FiredConditionData->Output);
-                if (Next.Id.IsEmpty())
-                {
-                    UE_LOG(LogArcwarePlugin, Error,
-                        TEXT("No connection found for branch %s → output %s"),
-                        *Branch.Id, *FiredConditionData->Output);
-                }
-                else
+                FArcweaveConnectionsData Next = TryGetNExtConnectionData(BoardData, Branch, FiredConditionData);
+                if (!Next.Id.IsEmpty())
                 {
                     Result.BranchConnections.Add(MoveTemp(Next));
                 }

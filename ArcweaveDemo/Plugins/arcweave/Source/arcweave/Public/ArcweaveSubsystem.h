@@ -117,6 +117,7 @@ private:
     FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);
     FArcweaveElementData ExtractElementData(const TSharedPtr<FJsonObject>& MainJsonObject, const FString& ElementId);
     void EvaluateCondition(const FArcweaveConditionData& Condition, FArcscriptTranspilerOutput& TranspilerOutput);
+    FArcweaveConnectionsData TryGetNExtConnectionData(const FArcweaveBoardData& BoardData, const FArcweaveBranchData& Branch, const FArcweaveConditionData* FiredConditionData);
 
     FString ExtractDataIdFromConditionScriptString(const FString& ConditionScript);
     void LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput);
