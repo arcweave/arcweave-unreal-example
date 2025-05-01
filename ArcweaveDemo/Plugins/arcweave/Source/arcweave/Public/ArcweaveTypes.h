@@ -461,6 +461,10 @@ struct FArcweaveProjectData
     //project components
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveComponentData> Components = TArray<FArcweaveComponentData>();
+
+    //project conditions
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveConditionData> Conditions = TArray<FArcweaveConditionData>();
     
     //constructor
     FArcweaveProjectData()
@@ -469,6 +473,31 @@ struct FArcweaveProjectData
         , CurrentVars(TMap<FString, FArcweaveVariable>())
         , Boards(TArray<FArcweaveBoardData>())
         , Components(TArray<FArcweaveComponentData>())
+    {}
+};
+
+USTRUCT(BlueprintType)
+struct FGetIsTargetBranchOutput
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    bool IsBranch = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveConnectionsData> BranchConnections = TArray<FArcweaveConnectionsData>();
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    bool BranchConditionResult = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FArcweaveBranchData BranchData = FArcweaveBranchData();
+
+    FGetIsTargetBranchOutput()
+        : IsBranch(false)
+        , BranchConnections(TArray<FArcweaveConnectionsData>())
+        , BranchConditionResult(false)
+        , BranchData(FArcweaveBranchData())
     {}
 };
 

@@ -68,6 +68,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
     void SetVariable(FString Id, FString NewValue);
 
+    /*
+     * Check if the target is the branch
+     */    
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    FGetIsTargetBranchOutput GetIsTargetBranch(const FArcweaveBoardData& BoardData,
+    const FArcweaveConnectionsData& TargetConnection);
+
+    /*
+     * Get the connections data for the given connection id
+     */
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")    
+    FArcweaveConnectionsData GetConnectionsData(const FArcweaveBoardData BoardData, const FString& ConnectionId) const;
+
 public:
     
 	UPROPERTY(BlueprintAssignable, Category = "Arcweave")
@@ -94,13 +107,16 @@ private:
     TArray<FArcweaveBranchData> ParseBranches(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
     TArray<FArcweaveJumpersData> ParseJumpers(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
     FArcweaveConditionData ParseConditionData(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ConditionsObject, const FString& ConditionName, FArcweaveBoardData& OutBoardObj);
+    FArcweaveConditionData ParseConditionById(const TSharedPtr<FJsonObject>& MainJsonObject, const FString& ConditionId, FArcweaveBoardData& OutBoardObj);
     TMap<FString, int> InitVisist(const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);
+    TArray<FArcweaveConditionData> ParseAllConditions(const TSharedPtr<FJsonObject>& MainJsonObject);
     FArcweaveCoverData ParseCoverData(const TSharedPtr<FJsonObject>& CoverValueObject);
     void ParseResponse(const FString& ResponseString);
     FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);
     FArcweaveElementData ExtractElementData(const TSharedPtr<FJsonObject>& MainJsonObject, const FString& ElementId);
+    void EvaluateCondition(const FArcweaveConditionData& Condition, FArcscriptTranspilerOutput& TranspilerOutput);
 
     FString ExtractDataIdFromConditionScriptString(const FString& ConditionScript);
     void LogTranspilerOutput(const FArcscriptTranspilerOutput& TranspilerOutput);

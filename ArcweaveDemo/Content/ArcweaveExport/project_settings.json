@@ -11,7 +11,8 @@
                 "49be178c-30a9-4160-b065-1a72e3626a65"
             ],
             "branches": [
-                "bce80b17-0165-41a2-a29d-e814f6e9f110"
+                "bce80b17-0165-41a2-a29d-e814f6e9f110",
+                "e96e8856-380d-41a5-926f-10bf0fbf7004"
             ],
             "elements": [
                 "540d5fc7-aa78-4b1a-8c11-bc2d4dc24ba9",
@@ -20,19 +21,21 @@
                 "e14fa106-d418-4935-ab44-0de013995605",
                 "a8965b1b-4841-427e-8cf5-d8eda2f59bf2",
                 "9c3607e5-4fb7-49db-ac8d-ccd7a1bf6d56",
-                "3893f5e9-d85e-4e5b-9423-e02ac03eb34f"
+                "3893f5e9-d85e-4e5b-9423-e02ac03eb34f",
+                "55418e49-51b8-470f-9df2-f39341a6402b"
             ],
             "connections": [
                 "57572c19-ca11-4223-bdb7-718971ef7951",
                 "90872a7c-0f63-472b-8330-a6b14d824aeb",
                 "9b1224a4-5546-4f81-96c7-a1865c618291",
                 "cb3312b7-33b5-43fa-97c9-4f0b7eced680",
-                "0879ddb5-e1a2-4b95-a28c-d4df8df845e9",
-                "bc517d71-2899-4d3c-9c92-e72ca2b00174",
                 "cff4ab38-b38b-4aca-981e-c1e04561421b",
                 "993d8d9a-ff84-48eb-b531-7b9b2d37cb91",
                 "c6932ce2-0e49-4f25-8595-6432208338c2",
-                "008e74f9-5c23-4111-838e-44b4121db526"
+                "008e74f9-5c23-4111-838e-44b4121db526",
+                "f7971921-7b41-41d6-b2ac-3e53310b1d0a",
+                "76322cad-40aa-40d8-bac2-9ecfa3fc249f",
+                "51b2d788-aa62-4609-81a7-b459f8b77a04"
             ]
         },
         "2ad15ff6-f2ba-4f1d-9d9d-68938c683d7e": {
@@ -93,7 +96,6 @@
                 "c995129b-2d4e-4c01-8f3d-ad66914ee2a1"
             ],
             "elements": [
-                "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
                 "5265ceac-f13f-47fc-a02c-6eda7eea6b90",
                 "50ba3de5-f14b-4703-9e2e-c0b2ccb9d407",
                 "63bee155-1348-4b82-a52d-24c96143c9db",
@@ -109,9 +111,7 @@
                 "6cb7b540-1bb4-4eac-88ae-bfd8e7703013",
                 "62a9e84c-9652-4636-a796-73a75488bb79",
                 "2b9d43d7-6eee-42d0-82ae-dcd08a897130",
-                "9327955d-269b-4c52-8c93-3172f7b4f721",
                 "325f3cda-c786-4259-b95b-e09a399c58fd",
-                "55f77cc3-8c0f-4ff5-b020-2098736aef4d",
                 "3b190ec6-1525-484f-aa4f-5422ff176288",
                 "02dfbe78-ae86-4525-8af9-51a54d58193b",
                 "b7c621dc-9c04-4e58-b59a-395521ecb171",
@@ -122,7 +122,8 @@
                 "4fd2cc78-c8ff-48fd-bcbc-b0e8c42f857d",
                 "60df4786-8a65-46ee-a3e9-1df36a5e1f39",
                 "d334c938-ed9e-4869-8307-1dc3a2a1149f",
-                "542a8cf5-54fe-42ea-8b23-694dee1106da"
+                "542a8cf5-54fe-42ea-8b23-694dee1106da",
+                "155ee197-bef1-4a8d-93c3-a39f727b0abf"
             ]
         }
     },
@@ -164,7 +165,10 @@
             "title": "<p>Giving healing potion<\/p>",
             "content": "<pre><code>wanda_health += 50<\/code><\/pre><pre><code>have_potion = false<\/code><\/pre><p><em>[Wanda gulps down the potion.]<\/em><\/p>",
             "outputs": [
-                "9327955d-269b-4c52-8c93-3172f7b4f721"
+                "155ee197-bef1-4a8d-93c3-a39f727b0abf"
+            ],
+            "attributes": [
+                "9417b2e9-a0fe-433d-8e25-87b0d45d88c4"
             ],
             "autoHeight": true,
             "components": [
@@ -372,28 +376,13 @@
                 "82820a96-708d-4a05-b2aa-21e8d582d5de"
             ]
         },
-        "dbbbec36-4a9c-4cad-8533-c9f421a5093d": {
-            "theme": "moss",
-            "title": "<p>Got healing potion<\/p>",
-            "content": "<p>Thank you, stranger! I feel better already.<\/p>",
-            "outputs": [
-                "55f77cc3-8c0f-4ff5-b020-2098736aef4d"
-            ],
-            "attributes": [
-                "9cd31ce5-e6b2-4723-9b67-7c2a051b6a6a"
-            ],
-            "autoHeight": true,
-            "components": [
-                "647349ca-9ebb-4d5f-b81e-500761ec1c5a"
-            ]
-        },
         "ddc209cc-7832-4ff6-ae1f-4eea592d07d4": {
             "theme": "cyan",
             "title": "<p>Start<\/p>",
             "content": "<p>Greetings traveller, may I help you?<\/p>",
             "outputs": [
-                "0879ddb5-e1a2-4b95-a28c-d4df8df845e9",
-                "993d8d9a-ff84-48eb-b531-7b9b2d37cb91"
+                "993d8d9a-ff84-48eb-b531-7b9b2d37cb91",
+                "f7971921-7b41-41d6-b2ac-3e53310b1d0a"
             ],
             "attributes": [
                 "955b9b0d-372a-45d9-a68f-33ddfebf2bf6"
@@ -429,6 +418,16 @@
             "components": [
                 "647349ca-9ebb-4d5f-b81e-500761ec1c5a"
             ]
+        },
+        "55418e49-51b8-470f-9df2-f39341a6402b": {
+            "components": [
+                "3846c37c-07a1-4c04-98e2-26cd026295d1"
+            ],
+            "title": "<p>Ask for help (successfully)<\/p>",
+            "autoHeight": true,
+            "content": "<p>RADI ELSE IF<\/p>",
+            "theme": "brown",
+            "outputs": []
         }
     },
     "jumpers": {
@@ -473,14 +472,23 @@
             "sourceType": "elements",
             "targetType": "branches"
         },
-        "0879ddb5-e1a2-4b95-a28c-d4df8df845e9": {
-            "type": "Straight",
+        "76322cad-40aa-40d8-bac2-9ecfa3fc249f": {
+            "targetType": "elements",
+            "type": "Bezier",
+            "targetid": "a8965b1b-4841-427e-8cf5-d8eda2f59bf2",
+            "label": null,
+            "sourceid": "693dc4ef-e71f-47ee-abc0-9c8840086afb",
+            "theme": "default",
+            "sourceType": "conditions"
+        },
+        "155ee197-bef1-4a8d-93c3-a39f727b0abf": {
+            "type": "Bezier",
             "label": null,
             "theme": "default",
-            "sourceid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
-            "targetid": "bce80b17-0165-41a2-a29d-e814f6e9f110",
+            "sourceid": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
+            "targetid": "d7f26011-d6d6-4c92-aa3b-3a074ff647aa",
             "sourceType": "elements",
-            "targetType": "branches"
+            "targetType": "jumpers"
         },
         "27fb996a-efe4-45fd-adae-7e63827b2ce5": {
             "type": "Straight",
@@ -544,15 +552,6 @@
             "theme": "gold",
             "sourceid": "4d7d2516-68e0-450c-a580-65c0b2616965",
             "targetid": "895bcae0-a11a-4d57-8cdc-82d8f95f75a6",
-            "sourceType": "elements",
-            "targetType": "jumpers"
-        },
-        "55f77cc3-8c0f-4ff5-b020-2098736aef4d": {
-            "type": "Straight",
-            "label": "<p>[Back]<\/p>",
-            "theme": "moss",
-            "sourceid": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
-            "targetid": "d7f26011-d6d6-4c92-aa3b-3a074ff647aa",
             "sourceType": "elements",
             "targetType": "jumpers"
         },
@@ -624,15 +623,6 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
-        "9327955d-269b-4c52-8c93-3172f7b4f721": {
-            "type": "Straight",
-            "label": null,
-            "theme": "moss",
-            "sourceid": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
-            "targetid": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
-            "sourceType": "elements",
-            "targetType": "elements"
-        },
         "993d8d9a-ff84-48eb-b531-7b9b2d37cb91": {
             "type": "Straight",
             "label": "<p>\"I'm sorry, wrong turn.\"<\/p>",
@@ -679,12 +669,12 @@
             "targetFace": "left",
             "targetType": "elements"
         },
-        "bc517d71-2899-4d3c-9c92-e72ca2b00174": {
+        "e2c7e296-ab05-49f8-9247-e9a3b33dd6e9": {
             "type": "Straight",
-            "label": "<p>\"Can you give me another potion?\"<\/p>",
-            "theme": "brown",
-            "sourceid": "d24a6cbe-85fb-4059-8867-fa8ba0af6aa0",
-            "targetid": "a8965b1b-4841-427e-8cf5-d8eda2f59bf2",
+            "label": null,
+            "theme": "moss",
+            "sourceid": "d9854a9f-617f-4d0f-8ccf-42f2e0419c36",
+            "targetid": "a690068b-49db-44ee-94ca-ebf4627c8141",
             "sourceType": "conditions",
             "targetType": "elements"
         },
@@ -742,14 +732,25 @@
             "sourceType": "elements",
             "targetType": "jumpers"
         },
-        "e2c7e296-ab05-49f8-9247-e9a3b33dd6e9": {
-            "type": "Straight",
+        "f7971921-7b41-41d6-b2ac-3e53310b1d0a": {
+            "sourceType": "elements",
             "label": null,
-            "theme": "moss",
-            "sourceid": "d9854a9f-617f-4d0f-8ccf-42f2e0419c36",
-            "targetid": "a690068b-49db-44ee-94ca-ebf4627c8141",
+            "sourceid": "ddc209cc-7832-4ff6-ae1f-4eea592d07d4",
+            "targetid": "e96e8856-380d-41a5-926f-10bf0fbf7004",
+            "targetFace": "left",
+            "targetType": "branches",
+            "theme": "default",
+            "type": "Straight"
+        },
+        "51b2d788-aa62-4609-81a7-b459f8b77a04": {
             "sourceType": "conditions",
-            "targetType": "elements"
+            "label": null,
+            "sourceid": "b0d8a00b-79f0-4070-a879-6061b6f3103a",
+            "targetid": "540d5fc7-aa78-4b1a-8c11-bc2d4dc24ba9",
+            "targetFace": "left",
+            "targetType": "elements",
+            "theme": "default",
+            "type": "Bezier"
         }
     },
     "branches": {
@@ -776,7 +777,10 @@
             "theme": "default",
             "conditions": {
                 "ifCondition": "66acc3a7-454a-43db-a923-1b0d3cb17805",
-                "elseCondition": "d24a6cbe-85fb-4059-8867-fa8ba0af6aa0"
+                "elseIfConditions": [
+                    "4492c450-0262-4f2d-8fce-c9ee9ba50c08"
+                ],
+                "elseCondition": "38f8b8e1-fa6e-4162-81ce-4d1846adcf21"
             }
         },
         "c995129b-2d4e-4c01-8f3d-ad66914ee2a1": {
@@ -784,6 +788,13 @@
             "conditions": {
                 "ifCondition": "462433eb-bc14-49df-af13-91c19e63b65c"
             }
+        },
+        "e96e8856-380d-41a5-926f-10bf0fbf7004": {
+            "conditions": {
+                "ifCondition": "b0d8a00b-79f0-4070-a879-6061b6f3103a",
+                "elseCondition": "693dc4ef-e71f-47ee-abc0-9c8840086afb"
+            },
+            "theme": "default"
         }
     },
     "components": {
@@ -968,7 +979,7 @@
             "name": "Time",
             "cType": "components",
             "value": {
-                "data": "Night",
+                "data": "Day",
                 "type": "string",
                 "plain": true
             }
@@ -976,6 +987,16 @@
         "8db5417a-26ff-4c99-b8de-f7e3f911608b": {
             "cId": "a690068b-49db-44ee-94ca-ebf4627c8141",
             "name": "tag",
+            "cType": "elements",
+            "value": {
+                "data": "dialogue_end",
+                "type": "string",
+                "plain": true
+            }
+        },
+        "9417b2e9-a0fe-433d-8e25-87b0d45d88c4": {
+            "cId": "045ab2b6-6d77-43f7-a7b4-e275f41667c3",
+            "name": "",
             "cType": "elements",
             "value": {
                 "data": "dialogue_end",
@@ -1005,16 +1026,6 @@
         },
         "978e009a-3a8d-4c7a-b669-d2a3b50c1fa8": {
             "cId": "62d0eaea-ccd4-4020-8bf9-7b00c7397684",
-            "name": "tag",
-            "cType": "elements",
-            "value": {
-                "data": "dialogue_end",
-                "type": "string",
-                "plain": true
-            }
-        },
-        "9cd31ce5-e6b2-4723-9b67-7c2a051b6a6a": {
-            "cId": "dbbbec36-4a9c-4cad-8533-c9f421a5093d",
             "name": "tag",
             "cType": "elements",
             "value": {
@@ -1076,11 +1087,11 @@
     "assets": {
         "190e9e72-32e9-4c51-adbb-dbad343134fc": {
             "name": "player.png",
-            "type": "template-image"
+            "type": "image"
         },
         "4de16200-4175-4aff-b753-3d40ff849289": {
             "name": "healer.png",
-            "type": "template-image"
+            "type": "image"
         },
         "647d0495-341f-42b2-8788-b47dace22bf8": {
             "root": true,
@@ -1092,7 +1103,7 @@
         },
         "fd70f4a4-578f-442f-9e5c-78872289818f": {
             "name": "wanda.png",
-            "type": "template-image"
+            "type": "image"
         }
     },
     "variables": {
@@ -1135,11 +1146,11 @@
         },
         "66acc3a7-454a-43db-a923-1b0d3cb17805": {
             "output": "57572c19-ca11-4223-bdb7-718971ef7951",
-            "script": "not visits(<span class=\"mention-element mention\" data-id=\"d852a577-bd1f-44cf-8187-77a86f97baef\" data-label=\"Get potion\" data-type=\"element\">get_potion<\/span>)"
+            "script": "visits(<span class=\"mention-element mention\" data-id=\"d852a577-bd1f-44cf-8187-77a86f97baef\" data-label=\"Get potion\" data-type=\"element\">get_potion<\/span>)"
         },
-        "d24a6cbe-85fb-4059-8867-fa8ba0af6aa0": {
-            "output": "bc517d71-2899-4d3c-9c92-e72ca2b00174",
-            "script": null
+        "693dc4ef-e71f-47ee-abc0-9c8840086afb": {
+            "script": null,
+            "output": "76322cad-40aa-40d8-bac2-9ecfa3fc249f"
         },
         "d9854a9f-617f-4d0f-8ccf-42f2e0419c36": {
             "output": "e2c7e296-ab05-49f8-9247-e9a3b33dd6e9",
@@ -1148,11 +1159,23 @@
         "f8e12e95-43b7-4d42-9844-5402665b24ef": {
             "output": "2b9d43d7-6eee-42d0-82ae-dcd08a897130",
             "script": "visits(<span class=\"mention-element mention\" data-id=\"045ab2b6-6d77-43f7-a7b4-e275f41667c3\" data-label=\"Giving healing potion\" data-type=\"element\">giving_healing_potion<\/span>)"
+        },
+        "b0d8a00b-79f0-4070-a879-6061b6f3103a": {
+            "script": "not visits(<span class=\"mention-element mention\" data-id=\"d852a577-bd1f-44cf-8187-77a86f97baef\" data-label=\"Get potion\" data-type=\"element\">get_potion<\/span>)",
+            "output": "51b2d788-aa62-4609-81a7-b459f8b77a04"
+        },
+        "4492c450-0262-4f2d-8fce-c9ee9ba50c08": {
+            "script": "wanda_health == 20",
+            "output": null
+        },
+        "38f8b8e1-fa6e-4162-81ce-4d1846adcf21": {
+            "script": null,
+            "output": null
         }
     },
-    "name": "Game Engine Example",
+    "name": "Restored - Game Engine Demo",
     "cover": {
-        "file": "game-engine-cover.png",
-        "type": "template-image"
+        "file": "1707394413_65c4c56d6ac4f.png",
+        "type": "cover-image"
     }
 }
