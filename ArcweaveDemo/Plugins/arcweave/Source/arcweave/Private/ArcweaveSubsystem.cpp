@@ -423,19 +423,17 @@ FArcweaveElementData UArcweaveSubsystem::TranspileObject(FString ObjectId, bool&
     return Element;
 }
 
-FArcscriptTranspilerOutput UArcweaveSubsystem::TranspileConnection(FString ConnectionId, bool& Success, bool bStripHtmlTags)
+FArcscriptTranspilerOutput UArcweaveSubsystem::TranspileConnection(
+    FString ConnectionId,
+    const FString ScriptData,
+    bool& Success,
+    bool bStripHtmlTags,
+    FArcweaveBoardData& BoardObjRef)
 {
     Success = false;
     FArcscriptTranspilerOutput Output;
     FArcweaveConnectionsData Connection;
-    //get the element
-    FArcweaveBoardData* NewBoardObj = nullptr;
-    if(GetBoardForConnection(ConnectionId, Connection, NewBoardObj) == false)
-    {
-        UE_LOG(LogArcwarePlugin, Error, TEXT("Cannot find transpile data for connection id: %s"), *ConnectionId);
-        return Output;
-    }
-    if (NewBoardObj->BoardId.IsEmpty() || Connection.Id.IsEmpty())
+    if (BoardObjRef.BoardId.IsEmpty() || ConnectionId.IsEmpty())
     {
         UE_LOG(LogArcwarePlugin, Error, TEXT(" Cannot find transpile data for connection id: %s"), *ConnectionId);
         return Output;
@@ -443,17 +441,21 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::TranspileConnection(FString Conne
     //run the transpiler
     try
     {
-        Output = RunTranspiler(Connection.Label, Connection.Id, ProjectData.CurrentVars, NewBoardObj->Visits);
-        NewBoardObj->Visits[Connection.Id] += 1;
-        //UE_LOG(LogArcwarePlugin, Log, TEXT("Visits counter for id: %s is: %d"), *ObjectId, NewBoardObj->Visits[ObjectId]);
-        if (bStripHtmlTags)
+        //FString ScriptModified = FString("<pre><code>") + ConditionData.Script + FString("</code></pre>");
+        Output = RunTranspiler(ScriptData, ConnectionId, ProjectData.CurrentVars, BoardObjRef.Visits);
+        if (BoardObjRef.Visits.Contains(ConnectionId))
         {
-            Connection.Label = RemoveHtmlTags(Output.Output);            
+            BoardObjRef.Visits[ConnectionId] += 1;
         }
         else
         {
-            Connection.Label = Output.Output;
+            BoardObjRef.Visits.Add(ConnectionId, 1);
         }
+        if (bStripHtmlTags)
+        {
+            Output.Output = RemoveHtmlTags(Output.Output);
+        }
+        //UE_LOG(LogArcwarePlugin, Log, TEXT("Visits counter for id: %s is: %d"), *ObjectId, NewBoardObj->Visits[ObjectId]);
         Success = true;
     }
     catch (...)
@@ -611,9 +613,9 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
             
            Board.Visits = InitVisist(BoardValueObject, Board);
            Board.Elements = ParseElements(MainJsonObject, BoardValueObject, Board);
-           Board.Connections = ParseConnections(FString("connections"), false, MainJsonObject, BoardValueObject);
            Board.Branches = ParseBranches(MainJsonObject, BoardValueObject,Board);
            Board.Jumpers = ParseJumpers(MainJsonObject, BoardValueObject, Board);
+           Board.Connections = ParseConnections(FString("connections"), MainJsonObject, BoardValueObject, Board);
            Boards.Add(Board);
         }
     }
@@ -656,11 +658,11 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
 }
 
 TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FString& FieldName,
-    bool TranspileLabels,
     const TSharedPtr<FJsonObject>& MainJsonObject,
-    const TSharedPtr<FJsonObject>& ParentValueObject)
+    const TSharedPtr<FJsonObject>& ParentValueObject,
+    FArcweaveBoardData& BoardObjRef)
 {
-      // Parse "connections" as an array of connection data structs
+    // Parse "connections" as an array of connection data structs
     TArray<FArcweaveConnectionsData> Connections;
     TArray<FString> ConnectionsArrayStrings;
     if (ParentValueObject->TryGetStringArrayField(FieldName, ConnectionsArrayStrings))
@@ -683,52 +685,33 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
                         {
                             FString RawLabel = FString("");
 
-                            if (TranspileLabels)
-                            {
                                 if (ConObject->TryGetStringField("label", RawLabel))
                                 {
-                                    bool bTranspileSucceeded = false;
-                                    FArcscriptTranspilerOutput TranspilerOutput = TranspileConnection(Connection.Id, bTranspileSucceeded, true);
-
-                                    if (!bTranspileSucceeded)
-                                    {
-                                        UE_LOG(LogArcwarePlugin, Error,
-                                            TEXT("Transpile failed for condition %s"), *Connection.Id);
-                                    }
-
-                                    //log the result
-                                    if (TranspilerOutput.ConditionResult)
-                                    {
-                                        UE_LOG(LogArcwarePlugin, Log,
-                                            TEXT("Condition %s is true"), *Connection.Id);
-                                    }
-                                    else
-                                    {
-                                        UE_LOG(LogArcwarePlugin, Log,
-                                            TEXT("Condition %s is false"), *Connection.Id);
-                                    }
-
-                                    
-                                    /*// Regex to detect a <pre><code>…</code></pre> block anywhere
                                     const FRegexPattern CodeBlockPattern(TEXT(R"(<pre><code>[\s\S]*?</code></pre>)"));
                                     FRegexMatcher Matcher(CodeBlockPattern, RawLabel);
                                     if (Matcher.FindNext())
                                     {
-                                        FArcscriptTranspilerOutput Output = RunTranspiler(RawLabel, Connection.Id, ProjectData.CurrentVars, NewBoardObj->Visits);
-                                        //log the result
-                                        UE_LOG(LogTemp, Display, TEXT("Label condition result %s"), Output.ConditionResult);
-                                        /*if (Output.ConditionResult)
+                                        bool bTranspileSucceeded = false;
+                                        FArcscriptTranspilerOutput TranspilerOutput = TranspileConnection(
+                                            Connection.Id,
+                                            RawLabel,
+                                            bTranspileSucceeded,
+                                            true,
+                                            BoardObjRef);
+
+                                        if (!bTranspileSucceeded)
                                         {
-                                            Output.
-                                        }#1#
+                                            UE_LOG(LogArcwarePlugin, Error,
+                                                TEXT("Transpile failed for connection %s"), *Connection.Id);
+                                            //Connection.Label = RemoveHtmlTags(RawLabel);
+                                        }
+                                        Connection.Label = TranspilerOutput.Output;
                                     }
                                     else
                                     {
-                                        Connection.Label = RemoveHtmlTags(DirtyLabel);
-                                    }*/
+                                        Connection.Label = RemoveHtmlTags(RawLabel);
+                                    }
                                 }
-                            }
-
                             ConObject->TryGetStringField("type", Connection.Type);
                             ConObject->TryGetStringField("theme", Connection.Theme);
                             ConObject->TryGetStringField("sourceid", Connection.Sourceid);
@@ -737,7 +720,6 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
                             ConObject->TryGetStringField("targetType", Connection.TargetType);
                             //LogStructFields(&Connection, FArcweaveConnectionsData::StaticStruct());
                         }
-
                         Connections.Add(Connection);
                     }
                 }
@@ -747,7 +729,10 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
     return Connections;
 }
 
-TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj)
+TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(
+    const TSharedPtr<FJsonObject>& MainJsonObject,
+    const TSharedPtr<FJsonObject>& BoardValueObject,
+    FArcweaveBoardData& BoardObjRef)
 {
     TArray<FArcweaveElementData> Elements;
      // Parse "elements" as an array of element data structs
@@ -756,12 +741,12 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(const TSharedPtr<
     {
         for (const FString& ElementId : ElementArrayStrings)
         {
-            OutBoardObj.Visits.Add(ElementId, 0);
+            BoardObjRef.Visits.Add(ElementId, 0);
         }
         //then search for the element pairs
         for (const FString& ElementId : ElementArrayStrings)
         {
-            FArcweaveElementData Element = ExtractElementData(MainJsonObject, ElementId);
+            FArcweaveElementData Element = ExtractElementData(MainJsonObject, ElementId, BoardObjRef);
             Elements.Add(Element);
         }        
     }
@@ -888,7 +873,7 @@ TArray<FArcweaveJumpersData> UArcweaveSubsystem::ParseJumpers(const TSharedPtr<F
                         {
                             FString ElementId = FString("");
                             JumperDataObject->TryGetStringField("elementId", ElementId);
-                            FArcweaveElementData Element = ExtractElementData(MainJsonObject, ElementId);
+                            FArcweaveElementData Element = ExtractElementData(MainJsonObject, ElementId, OutBoardObj);
                             Jumper.ElementData = Element;
                         }
                         Jumpers.Add(Jumper); 
@@ -900,7 +885,10 @@ TArray<FArcweaveJumpersData> UArcweaveSubsystem::ParseJumpers(const TSharedPtr<F
     return Jumpers;            
 }
 
-FArcweaveElementData UArcweaveSubsystem::ExtractElementData(const TSharedPtr<FJsonObject>& MainJsonObject, const FString& ElementId)
+FArcweaveElementData UArcweaveSubsystem::ExtractElementData(
+    const TSharedPtr<FJsonObject>& MainJsonObject,
+    const FString& ElementId,
+    FArcweaveBoardData& BoardObjRef)
 {
     FArcweaveElementData Element;
     const TSharedPtr<FJsonObject>* ElementsObject;
@@ -925,7 +913,7 @@ FArcweaveElementData UArcweaveSubsystem::ExtractElementData(const TSharedPtr<FJs
                     FString DirtyContent = FString("");
                     ElementValueObject->TryGetStringField("content", Element.Content);
                     //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
-                    Element.Outputs = ParseConnections(FString("outputs"), true, MainJsonObject, ElementValueObject);
+                    Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject, BoardObjRef);
                     Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
                     Element.Attributes = ParseObjectAttributes(MainJsonObject, ElementValueObject);
                 }
@@ -992,11 +980,19 @@ TMap<FString, int> UArcweaveSubsystem::InitVisist(const TSharedPtr<FJsonObject>&
     //add the visits to the board data
     TMap<FString, int> AllVisits;
     TArray<FString> ElementArrayStrings;
+    TArray<FString> ConnectionsArrayStrings;
     if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
     {
         for (const FString& ElementId : ElementArrayStrings)
         {
            AllVisits.Add(ElementId, 0);
+        }
+    }
+    if (BoardValueObject->TryGetStringArrayField("connections", ConnectionsArrayStrings))
+    {
+        for (const FString& ConnectionId : ConnectionsArrayStrings)
+        {
+            AllVisits.Add(ConnectionId, 0);
         }
     }
     return AllVisits;
