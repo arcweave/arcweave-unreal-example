@@ -51,7 +51,15 @@ public:
      * Increase visits counter for the element
      */
     UFUNCTION(BlueprintCallable, Category = "Arcweave")
-    FArcweaveElementData TranspileObject(FString ObjectId, bool& Success);
+    FArcweaveElementData TranspileObject(FString ObjectId, bool& Success, bool bStripHtmlTags = true);
+
+    /*
+     * Run transpiler for the connection, labels only for now
+     * Increase visits counter for the element
+     */
+    UFUNCTION(BlueprintCallable, Category = "Arcweave")
+    FArcscriptTranspilerOutput TranspileConnection(FString ConnectionId, bool& Success, bool bStripHtmlTags = true);
+    bool GetBoardForConnection(FString ConnectionId, FArcweaveConnectionsData& OutConnection, FArcweaveBoardData*& OutBoardObj);
 
     /*
      * Run transpiler for the condition
@@ -102,7 +110,11 @@ private:
     void ParseAttributeValue(const TSharedPtr<FJsonObject>& ValueObject, FArcweaveAttributeValueData& AttributeValue);
     TArray<FArcweaveBoardData> ParseBoard(const TSharedPtr<FJsonObject>& MainJsonObject);
     TMap<FString, FArcweaveVariable> ParseVariables(const TSharedPtr<FJsonObject>& MainJsonObject);
-    TArray<FArcweaveConnectionsData> ParseConnections(const FString& FieldName, const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject);
+    TArray<FArcweaveConnectionsData> ParseConnections(
+        const FString& FieldName,
+        bool TranspileLabels,
+        const TSharedPtr<FJsonObject>& MainJsonObject,
+        const TSharedPtr<FJsonObject>& BoardValueObject);
     TArray<FArcweaveElementData> ParseElements(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
     TArray<FArcweaveBranchData> ParseBranches(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
     TArray<FArcweaveJumpersData> ParseJumpers(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& BoardValueObject, FArcweaveBoardData& OutBoardObj);
@@ -112,6 +124,7 @@ private:
     TArray<FArcweaveComponentData> ParseComponents(const TSharedPtr<FJsonObject>& MainJsonObject, const TSharedPtr<FJsonObject>& ElementValueObject);
     TArray<FArcweaveComponentData> ParseAllComponents(const TSharedPtr<FJsonObject>& MainJsonObject);
     TArray<FArcweaveConditionData> ParseAllConditions(const TSharedPtr<FJsonObject>& MainJsonObject);
+    TArray<FArcweaveConnectionsData> ParseAllConnections(const TSharedPtr<FJsonObject>& MainJsonObject);
     FArcweaveCoverData ParseCoverData(const TSharedPtr<FJsonObject>& CoverValueObject);
     void ParseResponse(const FString& ResponseString);
     FArcscriptTranspilerOutput RunTranspiler(FString Code, FString ElementId, TMap<FString, FArcweaveVariable> InitialVars, TMap<FString, int> Visits);

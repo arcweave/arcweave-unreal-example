@@ -465,6 +465,10 @@ struct FArcweaveProjectData
     //project conditions
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveConditionData> Conditions = TArray<FArcweaveConditionData>();
+
+    //project connections
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    TArray<FArcweaveConnectionsData> Connections = TArray<FArcweaveConnectionsData>();
     
     //constructor
     FArcweaveProjectData()
