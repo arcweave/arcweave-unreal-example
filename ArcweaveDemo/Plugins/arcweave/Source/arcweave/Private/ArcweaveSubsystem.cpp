@@ -605,10 +605,13 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
             FArcweaveBoardData Board;
             Board.BoardId = BoardPair.Key;
 
-            FString BoardName;
-            if (BoardValueObject->TryGetStringField("name", BoardName))
+            if (!BoardValueObject->TryGetStringField("name",  Board.Name))
             {
-                Board.Name = BoardName;
+                UE_LOG(LogArcwarePlugin, Error, TEXT("Board name not found for board %s"), *Board.BoardId);
+            }
+            if (BoardValueObject->TryGetStringField("customId", Board.CustomId))
+            {
+                UE_LOG(LogArcwarePlugin, Log, TEXT("Custom id for board %s is: %s"), *Board.BoardId, *Board.CustomId);
             }
             
            Board.Visits = InitVisist(BoardValueObject, Board);

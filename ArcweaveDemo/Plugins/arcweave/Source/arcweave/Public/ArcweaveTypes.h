@@ -406,6 +406,9 @@ struct FArcweaveBoardData
     FString BoardId = FString("");
 
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
+    FString CustomId = FString("");
+
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     FString Name = FString("");
 
     UPROPERTY(BlueprintReadWrite)
