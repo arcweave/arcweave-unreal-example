@@ -649,6 +649,10 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
                 else if (Variable.Type == "boolean") {
                     Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
                 }
+                else if (Variable.Type == "double")
+                {
+                    Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
+                }
                 else if (Variable.Type == "float")
                 {
                     Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
@@ -1202,6 +1206,7 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
                 FArcweaveVariable Variable;
                 Variable.Id = Change.Id;
                 Variable.Type = Change.Type;
+                Variable.Name = ProjectData.CurrentVars.Contains(Change.Id) ? ProjectData.CurrentVars[Change.Id].Name : "Unknown";
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Id='%s'"), *Change.Id);
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Type='%s'"), *Change.Type);
                 if (Change.Type == "string") {
@@ -1214,6 +1219,12 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
                 }
                 else if (Variable.Type == "bool") {
                     Variable.Value = FString::Printf(TEXT("%s"), Change.Value->AsBool() ? TEXT("true") : TEXT("false"));
+                }
+                else if (Variable.Type == "double")
+                {
+                    double outDouble = 0;
+                    Change.Value->TryGetNumber(outDouble);
+                    Variable.Value = FString::SanitizeFloat(outDouble);
                 }
                 else if (Variable.Type == "float")
                 {
