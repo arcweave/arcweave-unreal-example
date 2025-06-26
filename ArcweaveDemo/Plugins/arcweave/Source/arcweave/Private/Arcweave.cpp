@@ -24,8 +24,8 @@ void FarcweaveModule::StartupModule()
 	FString BaseDir = IPluginManager::Get().FindPlugin("arcweave")->GetBaseDir();
 	FString ArcscriptTranspilerPath;
 #if PLATFORM_WINDOWS
-    FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release")));
-    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll"));
+    FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib")));
+    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib/ArcscriptTranspiler.dll"));
 #elif PLATFORM_MAC
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/arcweaveLibrary/Mac/Release/libExampleLibrary.dylib"));
 	#elif PLATFORM_LINUX
