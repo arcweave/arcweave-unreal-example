@@ -12,9 +12,7 @@ public class arcweave : ModuleRules
 		bUseRTTI = true;
 		// we are using exceptions so we have to enable that
 		bEnableExceptions = true;
-		PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
-		//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
-		RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+		
 		PublicIncludePaths.AddRange(
 			new string[] {
 				// ... add public include paths required here ...

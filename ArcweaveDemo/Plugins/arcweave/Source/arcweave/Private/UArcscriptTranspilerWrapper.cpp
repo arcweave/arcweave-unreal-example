@@ -11,6 +11,7 @@ THIRD_PARTY_INCLUDES_START
 THIRD_PARTY_INCLUDES_END
 
 DEFINE_LOG_CATEGORY(LogArcweavePlugin);
+using namespace Arcweave;
 
 FArcscriptTranspilerOutput UArcscriptTranspilerWrapper::RunScript(FString code, FString elementId, TMap<FString, FArcweaveVariable>& initialVars, TMap<FString, int> visits) {
 	size_t varLength = initialVars.Num();
