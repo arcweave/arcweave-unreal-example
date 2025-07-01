@@ -9,7 +9,11 @@ public class arcweave : ModuleRules
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		// for windows only? check this afterwards?
-		bUseRTTI = true;
+        if (Target.Platform == UnrealTargetPlatform.Win64)
+        {
+            bUseRTTI = true; 
+        }
+
 		// we are using exceptions so we have to enable that
 		bEnableExceptions = true;
 		

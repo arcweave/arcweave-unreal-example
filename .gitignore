@@ -52,3 +52,4 @@ node_modules/
 #ignore generated pixelstraming stuff
 /ArcweaveDemo/Samples/**/*
 
+.DS_Store
