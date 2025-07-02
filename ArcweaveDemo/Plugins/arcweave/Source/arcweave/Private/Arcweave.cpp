@@ -27,7 +27,7 @@ void FarcweaveModule::StartupModule()
     FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib")));
     ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib/ArcscriptTranspiler.dll"));
 #elif PLATFORM_MAC
-    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib/ArcscriptTranspiler.dylib"));
+    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/lib/libArcscriptTranspiler.dylib"));
 	#elif PLATFORM_LINUX
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/arcweaveLibrary/Linux/x86_64-unknown-linux-gnu/libExampleLibrary.so"));
 	#endif // PLATFORM_WINDOWS
@@ -64,7 +64,10 @@ void FarcweaveModule::ShutdownModule()
 	// we call this function before unloading the module.
 	UE_LOG(LogArcwarePlugin, Warning, TEXT("Arcware plugin module shutdown!"));
 	// Free the dll handle
-	FPlatformProcess::FreeDllHandle(ArcscriptTranspilerHandle);
+    if (ArcscriptTranspilerHandle)
+    {
+	    FPlatformProcess::FreeDllHandle(ArcscriptTranspilerHandle);
+    }
 	ArcscriptTranspilerHandle = nullptr;
 #if WITH_EDITOR
 	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
