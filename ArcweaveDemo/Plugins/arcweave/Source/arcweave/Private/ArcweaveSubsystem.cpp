@@ -1202,6 +1202,7 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
                 FArcweaveVariable Variable;
                 Variable.Id = Change.Id;
                 Variable.Type = Change.Type;
+                Variable.Name = ProjectData.CurrentVars.Contains(Change.Id) ? ProjectData.CurrentVars[Change.Id].Name : "Unknown";
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Id='%s'"), *Change.Id);
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Type='%s'"), *Change.Type);
                 if (Change.Type == "string") {
@@ -1284,7 +1285,10 @@ void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& T
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%s"), *result);
             }
             //we store float as double
-            else if (Change.Type == FString("double"))
+            // because in UVariableChange there id no float possibility
+            // we will consider every float from the Arweave plaform as double from now on
+            // but we will write it as float in the platform
+            else if (Change.Type == FString("float"))
             {
                 double outDouble = 0;
                 Change.Value->TryGetNumber(outDouble);
