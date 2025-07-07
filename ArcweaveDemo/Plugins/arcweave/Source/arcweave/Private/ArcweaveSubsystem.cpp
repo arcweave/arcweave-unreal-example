@@ -649,10 +649,6 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
                 else if (Variable.Type == "boolean") {
                     Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
                 }
-                else if (Variable.Type == "double")
-                {
-                    Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
-                }
                 else if (Variable.Type == "float")
                 {
                     Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
@@ -1220,12 +1216,6 @@ FArcscriptTranspilerOutput UArcweaveSubsystem::RunTranspiler(FString Code, FStri
                 else if (Variable.Type == "bool") {
                     Variable.Value = FString::Printf(TEXT("%s"), Change.Value->AsBool() ? TEXT("true") : TEXT("false"));
                 }
-                else if (Variable.Type == "double")
-                {
-                    double outDouble = 0;
-                    Change.Value->TryGetNumber(outDouble);
-                    Variable.Value = FString::SanitizeFloat(outDouble);
-                }
                 else if (Variable.Type == "float")
                 {
                     float outFloat = 0;
@@ -1295,7 +1285,10 @@ void UArcweaveSubsystem::LogTranspilerOutput(const FArcscriptTranspilerOutput& T
                 UE_LOG(LogArcwarePlugin, Display, TEXT("Value=%s"), *result);
             }
             //we store float as double
-            else if (Change.Type == FString("double"))
+            // because in UVariableChange there id no float possibility
+            // we will consider every float from the Arweave plaform as double from now on
+            // but we will write it as float in the platform
+            else if (Change.Type == FString("float"))
             {
                 double outDouble = 0;
                 Change.Value->TryGetNumber(outDouble);
