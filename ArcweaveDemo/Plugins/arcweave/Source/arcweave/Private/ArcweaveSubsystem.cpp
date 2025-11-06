@@ -1,12 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "..\Public\ArcweaveSubsystem.h"
+#include "ArcweaveSubsystem.h"
 
 #include "Arcweave.h"
 #include "ArcweaveSettings.h"
 #include "ArcweaveTypes.h"
 #include "HttpModule.h"
+#include "Engine/Engine.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Interfaces/IPluginManager.h"
 
@@ -497,7 +498,7 @@ FString UArcweaveSubsystem::RemoveHtmlTags(const FString& InputString)
         // If both '<' and '>' are found, remove the tag
         if (TagEndIndex != INDEX_NONE)
         {
-            CleanedString.RemoveAt(TagStartIndex, TagEndIndex - TagStartIndex + 1, /*bAllowShrinking*/ true);
+            CleanedString.RemoveAt(TagStartIndex, TagEndIndex - TagStartIndex + 1, EAllowShrinking::Yes);
             // No need to adjust the TagStartIndex since we've just removed a segment
         }
         else
@@ -533,7 +534,7 @@ TArray<FArcweaveAssetData> UArcweaveSubsystem::ParseComponentAsset(const TShared
     // Parse "assets" for components as an array of asset data structs
     TArray<FArcweaveAssetData> ComponentAssets;
     const TSharedPtr<FJsonObject>* ComponentAssetsObject;
-    if (ComponentValueObject->TryGetObjectField("assets", ComponentAssetsObject))
+    if (ComponentValueObject->TryGetObjectField(TEXT("assets"), ComponentAssetsObject))
     {
         FArcweaveAssetData ComponentAsset;
         ComponentAsset.Cover = ParseCoverData(*ComponentAssetsObject);
@@ -546,14 +547,14 @@ TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseObjectAttributes(const T
 {
     TArray<FArcweaveAttributeData> ObjectAttributes;
     TArray<FString> AttributesStringArray;
-    if (ParentValueObject->TryGetStringArrayField("attributes", AttributesStringArray))
+    if (ParentValueObject->TryGetStringArrayField(TEXT("attributes"), AttributesStringArray))
     {
         for (const auto& AttributeAssetId : AttributesStringArray)
         {
             FArcweaveAttributeData AttributeAsset;
             // Iterate through the array of attributes and find with this id
             const TSharedPtr<FJsonObject>* AttributesObject;
-            if (MainJsonObject->TryGetObjectField("attributes", AttributesObject))
+            if (MainJsonObject->TryGetObjectField(TEXT("attributes"), AttributesObject))
             {
                 for (const auto& AttrPair : AttributesObject->Get()->Values)
                 {
@@ -566,13 +567,13 @@ TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseObjectAttributes(const T
                         if (AttributeAssetValueObject.IsValid())
                         {
                             // Extract the "cId", "name", and "cType"
-                            AttributeAssetValueObject->TryGetStringField("cId", AttributeAsset.cId);
-                            AttributeAssetValueObject->TryGetStringField("name", AttributeAsset.Name);
-                            AttributeAssetValueObject->TryGetStringField("cType", AttributeAsset.cType);
+                            AttributeAssetValueObject->TryGetStringField(TEXT("cId"), AttributeAsset.cId);
+                            AttributeAssetValueObject->TryGetStringField(TEXT("name"), AttributeAsset.Name);
+                            AttributeAssetValueObject->TryGetStringField(TEXT("cType"), AttributeAsset.cType);
 
                             // Parse "value" as FArcweaveAttributeValueData
                             const TSharedPtr<FJsonObject>* AttributeValueObject;
-                            if (AttributeAssetValueObject->TryGetObjectField("value", AttributeValueObject))
+                            if (AttributeAssetValueObject->TryGetObjectField(TEXT("value"), AttributeValueObject))
                             {
                                 ParseAttributeValue(*AttributeValueObject, AttributeAsset.Value);
                             }
@@ -588,16 +589,16 @@ TArray<FArcweaveAttributeData> UArcweaveSubsystem::ParseObjectAttributes(const T
 
 void UArcweaveSubsystem::ParseAttributeValue(const TSharedPtr<FJsonObject>& ValueObject, FArcweaveAttributeValueData& AttributeValue)
 {
-    ValueObject->TryGetStringField("data", AttributeValue.Data);
-    ValueObject->TryGetStringField("type", AttributeValue.Type);
-    ValueObject->TryGetBoolField("plain", AttributeValue.Plain);
+    ValueObject->TryGetStringField(TEXT("data"), AttributeValue.Data);
+    ValueObject->TryGetStringField(TEXT("type"), AttributeValue.Type);
+    ValueObject->TryGetBoolField(TEXT("plain"), AttributeValue.Plain);
 }
 
 TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJsonObject>& MainJsonObject)
 {
     TArray<FArcweaveBoardData> Boards;
     const TSharedPtr<FJsonObject>* BoardsObject;
-    if (MainJsonObject->TryGetObjectField("boards", BoardsObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("boards"), BoardsObject))
     {
         for (const auto& BoardPair : BoardsObject->Get()->Values)
         {
@@ -605,11 +606,11 @@ TArray<FArcweaveBoardData> UArcweaveSubsystem::ParseBoard(const TSharedPtr<FJson
             FArcweaveBoardData Board;
             Board.BoardId = BoardPair.Key;
 
-            if (!BoardValueObject->TryGetStringField("name",  Board.Name))
+            if (!BoardValueObject->TryGetStringField(TEXT("name"),  Board.Name))
             {
                 UE_LOG(LogArcwarePlugin, Error, TEXT("Board name not found for board %s"), *Board.BoardId);
             }
-            if (BoardValueObject->TryGetStringField("customId", Board.CustomId))
+            if (BoardValueObject->TryGetStringField(TEXT("customId"), Board.CustomId))
             {
                 UE_LOG(LogArcwarePlugin, Log, TEXT("Custom id for board %s is: %s"), *Board.BoardId, *Board.CustomId);
             }
@@ -629,29 +630,29 @@ TMap<FString, FArcweaveVariable> UArcweaveSubsystem::ParseVariables(const TShare
 {
     TMap<FString, FArcweaveVariable> InitialVars;
     const TSharedPtr<FJsonObject>* VariablesObject;
-    if (MainJsonObject->TryGetObjectField("variables", VariablesObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("variables"), VariablesObject))
     {
         for (const auto& VariablePair : VariablesObject->Get()->Values)
         {
             const TSharedPtr<FJsonObject> VarObject = VariablePair.Value->AsObject();
             bool isRoot = false;
-            if (!(VarObject->TryGetBoolField("root", isRoot) && isRoot)) {
+            if (!(VarObject->TryGetBoolField(TEXT("root"), isRoot) && isRoot)) {
                 FArcweaveVariable Variable;
                 Variable.Id = VariablePair.Key;
-                VarObject->TryGetStringField("name", Variable.Name);
-                VarObject->TryGetStringField("type", Variable.Type);
+                VarObject->TryGetStringField(TEXT("name"), Variable.Name);
+                VarObject->TryGetStringField(TEXT("type"), Variable.Type);
                 if (Variable.Type == "string") {
-                    Variable.Value = VarObject->GetStringField("value");
+                    Variable.Value = VarObject->GetStringField(TEXT("value"));
                 }
                 else if (Variable.Type == "integer") {
-                    Variable.Value.AppendInt(VarObject->GetIntegerField("value"));
+                    Variable.Value.AppendInt(VarObject->GetIntegerField(TEXT("value")));
                 }
                 else if (Variable.Type == "boolean") {
-                    Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField("value") ? TEXT("true") : TEXT("false"));
+                    Variable.Value = FString::Printf(TEXT("%s"), VarObject->GetBoolField(TEXT("value")) ? TEXT("true") : TEXT("false"));
                 }
                 else if (Variable.Type == "float")
                 {
-                    Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField("value"));
+                    Variable.Value = FString::SanitizeFloat(VarObject->GetNumberField(TEXT("value")));
                 }
                 InitialVars.Add(Variable.Id, Variable);
             }
@@ -674,7 +675,7 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
         {
             // Extract connections
             const TSharedPtr<FJsonObject>* ConnectionsObject;
-            if (MainJsonObject->TryGetObjectField("connections", ConnectionsObject))
+            if (MainJsonObject->TryGetObjectField(TEXT("connections"), ConnectionsObject))
             {
                 for (const auto& ConnectionPair : ConnectionsObject->Get()->Values)
                 {
@@ -688,7 +689,7 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
                         {
                             FString RawLabel = FString("");
 
-                                if (ConObject->TryGetStringField("label", RawLabel))
+                                if (ConObject->TryGetStringField(TEXT("label"), RawLabel))
                                 {
                                     const FRegexPattern CodeBlockPattern(TEXT(R"(<pre><code>[\s\S]*?</code></pre>)"));
                                     FRegexMatcher Matcher(CodeBlockPattern, RawLabel);
@@ -715,12 +716,12 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseConnections(const FStr
                                         Connection.Label = RemoveHtmlTags(RawLabel);
                                     }
                                 }
-                            ConObject->TryGetStringField("type", Connection.Type);
-                            ConObject->TryGetStringField("theme", Connection.Theme);
-                            ConObject->TryGetStringField("sourceid", Connection.Sourceid);
-                            ConObject->TryGetStringField("targetid", Connection.Targetid);
-                            ConObject->TryGetStringField("sourceType", Connection.SourceType);
-                            ConObject->TryGetStringField("targetType", Connection.TargetType);
+                            ConObject->TryGetStringField(TEXT("type"), Connection.Type);
+                            ConObject->TryGetStringField(TEXT("theme"), Connection.Theme);
+                            ConObject->TryGetStringField(TEXT("sourceid"), Connection.Sourceid);
+                            ConObject->TryGetStringField(TEXT("targetid"), Connection.Targetid);
+                            ConObject->TryGetStringField(TEXT("sourceType"), Connection.SourceType);
+                            ConObject->TryGetStringField(TEXT("targetType"), Connection.TargetType);
                             //LogStructFields(&Connection, FArcweaveConnectionsData::StaticStruct());
                         }
                         Connections.Add(Connection);
@@ -740,7 +741,7 @@ TArray<FArcweaveElementData> UArcweaveSubsystem::ParseElements(
     TArray<FArcweaveElementData> Elements;
      // Parse "elements" as an array of element data structs
     TArray<FString> ElementArrayStrings;
-    if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField(TEXT("elements"), ElementArrayStrings))
     {
         for (const FString& ElementId : ElementArrayStrings)
         {
@@ -760,7 +761,7 @@ TArray<FArcweaveBranchData> UArcweaveSubsystem::ParseBranches(const TSharedPtr<F
 {
     TArray<FArcweaveBranchData> Branches;
     TArray<FString> BranchesArrayStrings;
-    if (BoardValueObject->TryGetStringArrayField("branches", BranchesArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField(TEXT("branches"), BranchesArrayStrings))
     {
         for (const FString& BranchId : BranchesArrayStrings)
         {
@@ -771,7 +772,7 @@ TArray<FArcweaveBranchData> UArcweaveSubsystem::ParseBranches(const TSharedPtr<F
         {
             // Extract branches
             const TSharedPtr<FJsonObject>* BranchObject;
-            if (MainJsonObject->TryGetObjectField("branches", BranchObject))
+            if (MainJsonObject->TryGetObjectField(TEXT("branches"), BranchObject))
             {
                 // Iterate through the "branches" object
                 for (const auto& BranchPair : BranchObject->Get()->Values)
@@ -783,7 +784,7 @@ TArray<FArcweaveBranchData> UArcweaveSubsystem::ParseBranches(const TSharedPtr<F
                         const TSharedPtr<FJsonObject>& BranchDataObject = BranchPair.Value->AsObject();
 
                         // Extract "conditions" object
-                        const TSharedPtr<FJsonObject>& ConditionsObject = BranchDataObject->GetObjectField("conditions");
+                        const TSharedPtr<FJsonObject>& ConditionsObject = BranchDataObject->GetObjectField(TEXT("conditions"));
 
                         // Extract "ifCondition"
                         Branch.IfCondition = ParseConditionData(MainJsonObject, ConditionsObject, FString("ifCondition"), OutBoardObj);
@@ -791,7 +792,7 @@ TArray<FArcweaveBranchData> UArcweaveSubsystem::ParseBranches(const TSharedPtr<F
                         
                         // Extract "elseIfConditions" array
                         const TArray<TSharedPtr<FJsonValue>>* ElseIfConditionsArray = nullptr;
-                        if (ConditionsObject->TryGetArrayField("elseIfConditions", ElseIfConditionsArray))
+                        if (ConditionsObject->TryGetArrayField(TEXT("elseIfConditions"), ElseIfConditionsArray))
                         {
                             for (const auto& ElseIfValue : *ElseIfConditionsArray)
                             {
@@ -823,7 +824,7 @@ FArcweaveConditionData UArcweaveSubsystem::ParseConditionById(
 
     // Pull out the "conditions" block from the root
     const TSharedPtr<FJsonObject>* ConditionsRoot = nullptr;
-    if (!MainJsonObject->TryGetObjectField("conditions", ConditionsRoot))
+    if (!MainJsonObject->TryGetObjectField(TEXT("conditions"), ConditionsRoot))
     {
         return ConditionData;
     }
@@ -833,11 +834,11 @@ FArcweaveConditionData UArcweaveSubsystem::ParseConditionById(
         const TSharedPtr<FJsonObject>& Obj = (*Found)->AsObject();
 
         FString Output;
-        if (Obj->TryGetStringField("output", Output))
+        if (Obj->TryGetStringField(TEXT("output"), Output))
             ConditionData.Output = Output.IsEmpty() ? TEXT("empty") : Output;
 
         FString Script;
-        if (Obj->TryGetStringField("script", Script))
+        if (Obj->TryGetStringField(TEXT("script"), Script))
             ConditionData.Script = Script.IsEmpty() ? TEXT("empty") : Script;
     }
 
@@ -850,7 +851,7 @@ TArray<FArcweaveJumpersData> UArcweaveSubsystem::ParseJumpers(const TSharedPtr<F
 {
      TArray<FArcweaveJumpersData> Jumpers;
     TArray<FString> JumpersArrayStrings;
-    if (BoardValueObject->TryGetStringArrayField("jumpers", JumpersArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField(TEXT("jumpers"), JumpersArrayStrings))
     {
         for (const FString& JumperId : JumpersArrayStrings)
         {
@@ -861,7 +862,7 @@ TArray<FArcweaveJumpersData> UArcweaveSubsystem::ParseJumpers(const TSharedPtr<F
         {
             // Extract jumpers
             const TSharedPtr<FJsonObject>* JumperObject;
-            if (MainJsonObject->TryGetObjectField("jumpers", JumperObject))
+            if (MainJsonObject->TryGetObjectField(TEXT("jumpers"), JumperObject))
             {
                 // Iterate through the "jumpers" object
                 for (const auto& JumperPair : JumperObject->Get()->Values)
@@ -875,7 +876,7 @@ TArray<FArcweaveJumpersData> UArcweaveSubsystem::ParseJumpers(const TSharedPtr<F
                         if (JumperDataObject.IsValid())
                         {
                             FString ElementId = FString("");
-                            JumperDataObject->TryGetStringField("elementId", ElementId);
+                            JumperDataObject->TryGetStringField(TEXT("elementId"), ElementId);
                             FArcweaveElementData Element = ExtractElementData(MainJsonObject, ElementId, OutBoardObj);
                             Jumper.ElementData = Element;
                         }
@@ -895,7 +896,7 @@ FArcweaveElementData UArcweaveSubsystem::ExtractElementData(
 {
     FArcweaveElementData Element;
     const TSharedPtr<FJsonObject>* ElementsObject;
-    if (MainJsonObject->TryGetObjectField("elements", ElementsObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("elements"), ElementsObject))
     {
         for (const auto& ElementPair : ElementsObject->Get()->Values)
         {
@@ -909,12 +910,12 @@ FArcweaveElementData UArcweaveSubsystem::ExtractElementData(
                     //inti visits object for the transpiler
                             
                     //get the values from the json object
-                    ElementValueObject->TryGetStringField("theme", Element.Theme);
+                    ElementValueObject->TryGetStringField(TEXT("theme"), Element.Theme);
                     FString DirtyTitle = FString("");
-                    ElementValueObject->TryGetStringField("title", DirtyTitle);
+                    ElementValueObject->TryGetStringField(TEXT("title"), DirtyTitle);
                     Element.Title = RemoveHtmlTags(DirtyTitle);
                     FString DirtyContent = FString("");
-                    ElementValueObject->TryGetStringField("content", Element.Content);
+                    ElementValueObject->TryGetStringField(TEXT("content"), Element.Content);
                     //FArcscriptTranspilerOutput Output = RunTranspiler(DirtyContent, Element.Id, ProjectData.InitialVars, BoardObj.Visits);
                     Element.Outputs = ParseConnections(FString("outputs"), MainJsonObject, ElementValueObject, BoardObjRef);
                     Element.Components = ParseComponents(MainJsonObject, ElementValueObject);
@@ -933,7 +934,7 @@ FArcweaveConditionData UArcweaveSubsystem::ParseConditionData(const TSharedPtr<F
     if(ConditionsObject->TryGetStringField(ConditionName, IfConditionOutputId))
     {
         const TSharedPtr<FJsonObject>* ConditionsObjectField;
-        if (MainJsonObject->TryGetObjectField("conditions", ConditionsObjectField))
+        if (MainJsonObject->TryGetObjectField(TEXT("conditions"), ConditionsObjectField))
         {
             // Iterate through the "branches" object
             for (const auto& ConditionPair : ConditionsObjectField->Get()->Values)
@@ -945,7 +946,7 @@ FArcweaveConditionData UArcweaveSubsystem::ParseConditionData(const TSharedPtr<F
                     OutBoardObj.Visits.Add(ConditionData.Id, 0);
                     //output
                     FString Output = FString("");
-                    if (ConditionDataObject->TryGetStringField("output", Output))
+                    if (ConditionDataObject->TryGetStringField(TEXT("output"), Output))
                     {
                         if (Output.IsEmpty())
                         {
@@ -959,7 +960,7 @@ FArcweaveConditionData UArcweaveSubsystem::ParseConditionData(const TSharedPtr<F
                     }
                     //script
                     FString Script = FString("");
-                    if (ConditionDataObject->TryGetStringField("script", Script))
+                    if (ConditionDataObject->TryGetStringField(TEXT("script"), Script))
                     {
                         if (Script.IsEmpty())
                         {
@@ -984,14 +985,14 @@ TMap<FString, int> UArcweaveSubsystem::InitVisist(const TSharedPtr<FJsonObject>&
     TMap<FString, int> AllVisits;
     TArray<FString> ElementArrayStrings;
     TArray<FString> ConnectionsArrayStrings;
-    if (BoardValueObject->TryGetStringArrayField("elements", ElementArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField(TEXT("elements"), ElementArrayStrings))
     {
         for (const FString& ElementId : ElementArrayStrings)
         {
            AllVisits.Add(ElementId, 0);
         }
     }
-    if (BoardValueObject->TryGetStringArrayField("connections", ConnectionsArrayStrings))
+    if (BoardValueObject->TryGetStringArrayField(TEXT("connections"), ConnectionsArrayStrings))
     {
         for (const FString& ConnectionId : ConnectionsArrayStrings)
         {
@@ -1006,13 +1007,13 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TShared
     // Parse "components" as an array of component data structs
     TArray<FArcweaveComponentData> Components;
     TArray<FString> ComponentsStringArray;
-    if (ElementValueObject->TryGetStringArrayField("components", ComponentsStringArray))
+    if (ElementValueObject->TryGetStringArrayField(TEXT("components"), ComponentsStringArray))
     {
         for (const auto& ComponentId : ComponentsStringArray)
         {
             // Iterate through the array of components and find with this id
             const TSharedPtr<FJsonObject>* CompObject;
-            if (MainJsonObject->TryGetObjectField("components", CompObject))
+            if (MainJsonObject->TryGetObjectField(TEXT("components"), CompObject))
             {
                 for (const auto& CompPair : CompObject->Get()->Values)
                 {
@@ -1025,9 +1026,9 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseComponents(const TShared
                         if (ComponentValueObject.IsValid())
                         {
                             // Extract the "name" and "root"
-                            ComponentValueObject->TryGetStringField("name", ElComponent.Name);
-                            ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
-                            ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
+                            ComponentValueObject->TryGetStringField(TEXT("name"), ElComponent.Name);
+                            ComponentValueObject->TryGetBoolField(TEXT("root"), ElComponent.Root);
+                            ComponentValueObject->TryGetStringArrayField(TEXT("children"), ElComponent.Children);
                             ElComponent.Assets = ParseComponentAsset(ComponentValueObject);
                             ElComponent.Attributes = ParseObjectAttributes(MainJsonObject, ComponentValueObject);
 
@@ -1047,7 +1048,7 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseAllComponents(const TSha
     TArray<FArcweaveComponentData> Components;
     // Iterate through the array of components and find with this id
     const TSharedPtr<FJsonObject>* CompObject;
-    if (MainJsonObject->TryGetObjectField("components", CompObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("components"), CompObject))
     {
         for (const auto& CompPair : CompObject->Get()->Values)
         {
@@ -1058,9 +1059,9 @@ TArray<FArcweaveComponentData> UArcweaveSubsystem::ParseAllComponents(const TSha
             if (ComponentValueObject.IsValid())
             {
                 // Extract the "name" and "root"
-                ComponentValueObject->TryGetStringField("name", ElComponent.Name);
-                ComponentValueObject->TryGetBoolField("root", ElComponent.Root);
-                ComponentValueObject->TryGetStringArrayField("children", ElComponent.Children);
+                ComponentValueObject->TryGetStringField(TEXT("name"), ElComponent.Name);
+                ComponentValueObject->TryGetBoolField(TEXT("root"), ElComponent.Root);
+                ComponentValueObject->TryGetStringArrayField(TEXT("children"), ElComponent.Children);
                 ElComponent.Assets = ParseComponentAsset(ComponentValueObject);
                 ElComponent.Attributes = ParseObjectAttributes(MainJsonObject, ComponentValueObject);
 
@@ -1075,7 +1076,7 @@ TArray<FArcweaveConditionData> UArcweaveSubsystem::ParseAllConditions(const TSha
 {
     TArray<FArcweaveConditionData> Conditions;
     const TSharedPtr<FJsonObject>* CondObject;
-    if (MainJsonObject->TryGetObjectField("conditions", CondObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("conditions"), CondObject))
     {
         for (const auto& CompPair : CondObject->Get()->Values)
         {
@@ -1085,8 +1086,8 @@ TArray<FArcweaveConditionData> UArcweaveSubsystem::ParseAllConditions(const TSha
 
             if (ComponentValueObject.IsValid())
             {
-                ComponentValueObject->TryGetStringField("output", ConditionData.Output);
-                ComponentValueObject->TryGetStringField("script", ConditionData.Script);
+                ComponentValueObject->TryGetStringField(TEXT("output"), ConditionData.Output);
+                ComponentValueObject->TryGetStringField(TEXT("script"), ConditionData.Script);
                 Conditions.Add(ConditionData);
             }
         }
@@ -1098,7 +1099,7 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseAllConnections(const T
 {
     TArray<FArcweaveConnectionsData> Connections;
     const TSharedPtr<FJsonObject>* CondObject;
-    if (MainJsonObject->TryGetObjectField("connections", CondObject))
+    if (MainJsonObject->TryGetObjectField(TEXT("connections"), CondObject))
     {
         for (const auto& CompPair : CondObject->Get()->Values)
         {
@@ -1108,13 +1109,13 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseAllConnections(const T
 
             if (ComponentValueObject.IsValid())
             {
-                ComponentValueObject->TryGetStringField("type", ConditionData.Type);
-                ComponentValueObject->TryGetStringField("label", ConditionData.Label);
-                ComponentValueObject->TryGetStringField("theme", ConditionData.Theme);
-                ComponentValueObject->TryGetStringField("sourceid", ConditionData.Sourceid);
-                ComponentValueObject->TryGetStringField("targetid", ConditionData.Targetid);
-                ComponentValueObject->TryGetStringField("sourceType", ConditionData.SourceType);
-                ComponentValueObject->TryGetStringField("targetType", ConditionData.TargetType);
+                ComponentValueObject->TryGetStringField(TEXT("type"), ConditionData.Type);
+                ComponentValueObject->TryGetStringField(TEXT("label"), ConditionData.Label);
+                ComponentValueObject->TryGetStringField(TEXT("theme"), ConditionData.Theme);
+                ComponentValueObject->TryGetStringField(TEXT("sourceid"), ConditionData.Sourceid);
+                ComponentValueObject->TryGetStringField(TEXT("targetid"), ConditionData.Targetid);
+                ComponentValueObject->TryGetStringField(TEXT("sourceType"), ConditionData.SourceType);
+                ComponentValueObject->TryGetStringField(TEXT("targetType"), ConditionData.TargetType);
                 Connections.Add(ConditionData);
             }
         }
@@ -1125,14 +1126,14 @@ TArray<FArcweaveConnectionsData> UArcweaveSubsystem::ParseAllConnections(const T
 FArcweaveCoverData UArcweaveSubsystem::ParseCoverData(const TSharedPtr<FJsonObject>& CoverValueObject)
 {
     FArcweaveCoverData CoverData;
-    if (CoverValueObject->HasField("cover"))
+    if (CoverValueObject->HasField(TEXT("cover")))
     {
-        TSharedPtr<FJsonObject> CoverObject = CoverValueObject->GetObjectField("cover");
+        TSharedPtr<FJsonObject> CoverObject = CoverValueObject->GetObjectField(TEXT("cover"));
 
         // Extract cover data
-        CoverObject->TryGetStringField("id", CoverData.Id);
-        CoverObject->TryGetStringField("file", CoverData.File);
-        CoverObject->TryGetStringField("type", CoverData.Type);
+        CoverObject->TryGetStringField(TEXT("id"), CoverData.Id);
+        CoverObject->TryGetStringField(TEXT("file"), CoverData.File);
+        CoverObject->TryGetStringField(TEXT("type"), CoverData.Type);
     }        
     return CoverData;
 }
@@ -1154,13 +1155,13 @@ void UArcweaveSubsystem::ParseResponse(const FString& ResponseString)
     RootObject = JsonObject;
     const TSharedPtr<FJsonObject>* OutObject;
     // this should be true when retriving from the web API
-    if (JsonObject->TryGetObjectField("project", OutObject))
+    if (JsonObject->TryGetObjectField(TEXT("project"), OutObject))
     {
         RootObject = *OutObject;
     }
 
     // Extract project name and cover data     
-    if (RootObject->TryGetStringField("name", ProjectData.Name))
+    if (RootObject->TryGetStringField(TEXT("name"), ProjectData.Name))
     {
         ProjectData.Cover = ParseCoverData(RootObject);        
         ProjectData.CurrentVars = ParseVariables(RootObject);

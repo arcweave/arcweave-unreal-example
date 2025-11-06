@@ -9,12 +9,14 @@ public class arcweave : ModuleRules
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		// for windows only? check this afterwards?
-		bUseRTTI = true;
+        if (Target.Platform == UnrealTargetPlatform.Win64)
+        {
+            bUseRTTI = true; 
+        }
+
 		// we are using exceptions so we have to enable that
 		bEnableExceptions = true;
-		PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
-		//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
-		RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+		
 		PublicIncludePaths.AddRange(
 			new string[] {
 				// ... add public include paths required here ...

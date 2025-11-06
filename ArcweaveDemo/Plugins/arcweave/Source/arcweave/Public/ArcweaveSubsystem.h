@@ -3,8 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Misc/Paths.h"
+#include "Internationalization/Regex.h"
 #include "Interfaces/IHttpRequest.h"
+#include "HAL/FileManager.h"
+#include "Misc/FileHelper.h"
+#include "Misc/ConfigCacheIni.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "EngineGlobals.h"
+#include "Serialization/JsonSerializer.h"
 #include "ArcweaveTypes.h"
 #include "ArcweaveSubsystem.generated.h"
 
