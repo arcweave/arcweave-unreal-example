@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dom/JsonValue.h"
 #include "UObject/Object.h"
 #include "ArcweaveTypes.generated.h"
 
@@ -411,10 +412,10 @@ struct FArcweaveBoardData
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     FString Name = FString("");
 
-    UPROPERTY(BlueprintReadWrite)
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FString> Notes;
 
-    UPROPERTY(BlueprintReadWrite)
+    UPROPERTY(BlueprintReadWrite, Category = "Arcweave")
     TArray<FArcweaveJumpersData> Jumpers;
 
     UPROPERTY(BlueprintReadWrite, Category = "Arcweave")

@@ -3,7 +3,6 @@
 
 #include "UArcscriptTranspilerWrapper.h"
 
-#include "Core.h"
 #include <string>
 
 THIRD_PARTY_INCLUDES_START
