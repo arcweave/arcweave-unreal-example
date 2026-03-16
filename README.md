@@ -2,12 +2,18 @@
 Example demo project which demonstrates the Arcweave > Unreal integration
 
 ## Project setup
-1. Download the project to your local computer
-2. Unzip the file
-3. **Right-click -> ArcweaveDemo.uproject -> Generate visual studio files**
-4. Make sure you have installed Visual Studio 2022 and all the dependencies [Tutorial](https://www.youtube.com/watch?v=8xJRr6Yr_LU).
-5. Inside the Visual Studio solution right-click Games -> ArcweaveDemo -> Build solution
-6. When the build is finished, close the Visual Studio and double-click the **ArcweaveDemo.uproject**
+1. Clone the project using the command ```git clone --recurse-submodules https://github.com/arcweave/arcweave-unreal-example```
+2. **Right-click -> ArcweaveDemo.uproject -> Generate visual studio files**
+3. Make sure you have installed Visual Studio 2022 and all the dependencies [Tutorial](https://www.youtube.com/watch?v=8xJRr6Yr_LU).
+4. Inside the Visual Studio solution right-click Games -> ArcweaveDemo -> Build solution
+5. When the build is finished, close the Visual Studio and double-click the **ArcweaveDemo.uproject**
+
+## Git submodule tips
+This repo contains the submodule of the unreal arcweave plugin
+
+    Initialization: If you don't see anything in the Plugins folder or it is missing run ```git submodule update --init --recursive``` to actually see the files inside Plugin.
+
+    Detached HEAD: When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like main) before committing.
 
 ## Important classes
 The entire logic, assets, and implementation of this demo are organized and stored in the **Content->ArcweaveDemo** directory. Within this directory, the most crucial class to understand is **WBP_HUD_New**, which is located in **Content\ArcweaveDemo\Widgets**. 

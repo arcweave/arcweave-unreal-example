@@ -1,0 +1,3 @@
+[submodule "ArcweaveDemo/Plugins"]
+	path = ArcweaveDemo/Plugins
+	url = https://github.com/arcweave/arcweave-unreal-plugin.git
