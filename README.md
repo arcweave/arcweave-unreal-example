@@ -39,7 +39,7 @@ If you prefer not to use Git, you must download the project and the plugin separ
 ## Git submodule tips
 The arcweave plugin is stored in the project as a git submodule
 
-1. Initialization: If you don't see anything in ArcweaveDemo/Plugins/ArcweaveRepository folder run ```git submodule update --init --recursive``` to download the plugin files.
+1. Initialization: If you don't see the plugin folder in ArcweaveDemo/Plugins/ folder run ```git submodule update --init --recursive``` to download the plugin files.
 2. Detached HEAD: When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like main) before committing.
 
 ## Important classes
