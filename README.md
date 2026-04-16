@@ -10,7 +10,7 @@ Choose **one** of the two methods below to get the project files.
 This is the fastest method as it automatically includes the necessary plugin as a submodule. Run the following command in your terminal:
 
 ```bash
-git clone --recurse-submodules [https://github.com/arcweave/arcweave-unreal-example](https://github.com/arcweave/arcweave-unreal-example)
+git clone --recurse-submodules https://github.com/arcweave/arcweave-unreal-example.git
 ```
 </details>
 
