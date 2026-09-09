@@ -1,6 +1,8 @@
 # Arcweave Plugin example project
 Example demo project which demonstrates the Arcweave > Unreal integration
 
+The plugin is pinned to v2.0.0 plus a compilation fix (`fc7a06e`). Both installation methods below use this tested revision.
+
 ## Project setup
 ### 1. Clone or Download the Project
 Choose **one** of the two methods below to get the project files.
@@ -19,7 +21,7 @@ git clone --recurse-submodules https://github.com/arcweave/arcweave-unreal-examp
 If you prefer not to use Git, you must download the project and the plugin separately:
 
 1. **Download the Project:** [Download Project ZIP](https://github.com/arcweave/arcweave-unreal-example/archive/refs/heads/main.zip) and unzip it.
-2. **Download the Plugin:** [Download Plugin ZIP](https://github.com/arcweave/arcweave-unreal-plugin/archive/refs/heads/main.zip) and unzip it.
+2. **Download the Plugin:** [Download Plugin ZIP](https://github.com/arcweave/arcweave-unreal-plugin/archive/fc7a06e4c1458b9dda5cd979ff28cdb705dfad37.zip) and unzip it.
 3. **Install the Plugin:** Create and move the unzipped plugin folder into the project directory at:  
    `ArcweaveDemo/Plugins/Arcweave`
 
@@ -38,6 +40,8 @@ If you prefer not to use Git, you must download the project and the plugin separ
 
 ## Git submodule tips
 The arcweave plugin is stored in the project as a git submodule
+
+After pulling an update to this example, run `git submodule update --init --recursive` to check out the plugin revision required by the project.
 
 1. Initialization: If you don't see the plugin folder in ArcweaveDemo/Plugins/ folder run ```git submodule update --init --recursive``` to download the plugin files.
 2. Detached HEAD: When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like main) before committing.
@@ -67,3 +71,7 @@ There are two primary methods for collecting data:
 
 **JSON Import:** For this method, you'll need to import a JSON file from your Arcweave project. Ensure that the JSON file, along with all required assets, is placed in the **Content->ArcweaveExport directory**. If this directory does not exist, you will need to create it.
 Also make sure you have enabled to receive data from local JSON in UE Settings > Project Settings > Plugins > Arcweave and you have restarted your UE for the setting to take effect.
+
+## Validation
+
+See [integration validation](docs/validation.md) for Blueprint compilation, the plugin's variable tests, and a repeatable check of the bundled potion/healing dialogue.
