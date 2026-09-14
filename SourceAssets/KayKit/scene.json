@@ -1,0 +1,3239 @@
+{
+  "source_commit": "ff909af",
+  "meshes": [
+    {
+      "name": "wall_corner_scaffold",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": -10.479999542236328,
+        "y": 0.0,
+        "z": -7.940000534057617
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "wall_corner_scaffold (5)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": -2.4300003051757812,
+        "y": 0.0,
+        "z": -7.939593315124512
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold (5)",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "wall_corner_scaffold (4)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": -2.430034637451172,
+        "y": 0.0,
+        "z": -11.939592361450195
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold (4)",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "wall_corner_scaffold (3)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": 9.569965362548828,
+        "y": 0.0,
+        "z": -11.939620971679688
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": -0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold (3)",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "wall_corner_scaffold (2)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": 9.569999694824219,
+        "y": 0.0,
+        "z": 8.060379028320312
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold (2)",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "wall_corner_scaffold (1)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "mesh": "wall_corner_scaffold",
+      "position": {
+        "x": -10.479999542236328,
+        "y": 0.0,
+        "z": 8.0600004196167
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.75,
+        "y": 2.000000238418579,
+        "z": 0.7500302195549011
+      },
+      "meshSize": {
+        "x": 2.5,
+        "y": 4.000000476837158,
+        "z": 2.500061511993408
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_corner_scaffold (1)",
+      "asset_name": "wall_corner_scaffold"
+    },
+    {
+      "name": "default",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/wall_doorway_door.obj",
+      "mesh": "default",
+      "position": {
+        "x": 1.2100000381469727,
+        "y": 0.0,
+        "z": -11.520000457763672
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 1.375,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 2.0,
+        "y": 2.75,
+        "z": 0.7735459804534912
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_doorway_door/default",
+      "asset_name": "wall_doorway_door"
+    },
+    {
+      "name": "wall_scaffold (3)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": -10.47996711730957,
+        "y": 0.0,
+        "z": 4.14000129699707
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (3)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (7)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 9.569968223571777,
+        "y": 0.0,
+        "z": 0.0603790283203125
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (7)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (4)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": -2.4200010299682617,
+        "y": 0.0,
+        "z": 8.060001373291016
+      },
+      "scale": {
+        "x": 1.0299999713897705,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (4)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (5)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 1.5699996948242188,
+        "y": 0.0,
+        "z": 8.060379028320312
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (5)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (10)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 5.569965362548828,
+        "y": 0.0,
+        "z": -11.939590454101562
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (10)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (11)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 1.5699653625488281,
+        "y": 0.0,
+        "z": -11.939590454101562
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (11)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (12)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": -6.430000305175781,
+        "y": 0.0,
+        "z": -7.939592361450195
+      },
+      "scale": {
+        "x": 1.0499999523162842,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (12)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (6)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 5.569999694824219,
+        "y": 0.0,
+        "z": 8.060379028320312
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (6)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (1)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": -10.479969024658203,
+        "y": 0.0,
+        "z": 0.10000085830688477
+      },
+      "scale": {
+        "x": 1.0200002193450928,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (1)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (8)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 9.569967269897461,
+        "y": 0.0,
+        "z": -3.9396209716796875
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (8)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (2)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": -10.479969024658203,
+        "y": 0.0,
+        "z": -3.939999580383301
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (2)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "wall_scaffold (9)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "mesh": "wall_scaffold",
+      "position": {
+        "x": 9.569966316223145,
+        "y": 0.0,
+        "z": -7.9396209716796875
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_scaffold (9)",
+      "asset_name": "wall_scaffold"
+    },
+    {
+      "name": "default",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/wall_shelves.obj",
+      "mesh": "default",
+      "position": {
+        "x": -6.4800004959106445,
+        "y": 0.0,
+        "z": 8.0600004196167
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.18380001187324524
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.3675999641418457
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_shelves/default",
+      "asset_name": "wall_shelves"
+    },
+    {
+      "name": "wall_window_open_scaffold",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_window_open_scaffold.fbx",
+      "mesh": "wall_window_open_scaffold",
+      "position": {
+        "x": 9.569969177246094,
+        "y": 0.0,
+        "z": 4.0603790283203125
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -3.129243850708008e-07
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0000005960464478
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Walls/wall_window_open_scaffold",
+      "asset_name": "wall_window_open_scaffold"
+    },
+    {
+      "name": "floor_tile_large (1)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -10.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (1)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (49)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (49)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (17)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -10.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (17)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (50)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (50)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (9)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (9)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (18)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (18)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (114)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -4.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (114)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (119)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -4.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (119)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (61)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (61)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (62)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (62)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (11)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (11)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (22)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 4.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (22)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (138)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -4.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (138)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (143)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -4.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (143)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (2)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -10.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (2)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (73)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (73)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (25)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -10.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (25)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (74)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (74)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (150)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -8.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (150)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (13)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (13)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (26)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (26)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (155)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -8.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (155)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (161)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -10.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (161)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (162)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (162)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (167)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (167)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (85)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (85)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (86)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (86)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (174)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -8.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (174)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (15)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (15)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (30)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 8.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (30)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (179)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": -8.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (179)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (186)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (186)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "floor_tile_large (191)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "mesh": "floor_tile_large",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -6.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": -0.02500000409781933,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 4.0,
+        "y": 0.150000661611557,
+        "z": 4.0
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Floor/floor_tile_large (191)",
+      "asset_name": "floor_tile_large"
+    },
+    {
+      "name": "bottle_A_labeled_green",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/bottle_A_labeled_green.fbx",
+      "mesh": "bottle_A_labeled_green",
+      "position": {
+        "x": 2.18400239944458,
+        "y": 0.0,
+        "z": -4.199999809265137
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 7.450580596923828e-09,
+        "y": 0.4428579807281494,
+        "z": 2.7567148208618164e-07
+      },
+      "meshSize": {
+        "x": 0.36841005086898804,
+        "y": 0.8857132196426392,
+        "z": 0.3684101104736328
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Characters/Healer/bottle_A_labeled_green",
+      "asset_name": "bottle_A_labeled_green"
+    },
+    {
+      "name": "crates_stacked",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/crates_stacked.fbx",
+      "mesh": "crates_stacked",
+      "position": {
+        "x": 7.709999084472656,
+        "y": 0.0,
+        "z": -9.529999732971191
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.045412272214889526,
+        "y": 1.0711437463760376,
+        "z": -0.0325472354888916
+      },
+      "meshSize": {
+        "x": 2.0891835689544678,
+        "y": 2.142296075820923,
+        "z": 2.249401330947876
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/crates_stacked",
+      "asset_name": "crates_stacked"
+    },
+    {
+      "name": "torch_lit (1)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "mesh": "torch_lit",
+      "position": {
+        "x": -10.0,
+        "y": 2.5,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 100.00001525878906,
+        "y": 100.0,
+        "z": 100.00001525878906
+      },
+      "meshCenter": {
+        "x": -1.1641532182693481e-10,
+        "y": 4.656612873077393e-10,
+        "z": 0.0016785061452537775
+      },
+      "meshSize": {
+        "x": 0.005502833053469658,
+        "y": 0.005502832587808371,
+        "z": 0.011257926002144814
+      },
+      "rotation": {
+        "x": -0.6532816290855408,
+        "y": 0.270597904920578,
+        "z": -0.2705979347229004,
+        "w": 0.6532815098762512
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/torch_lit (1)",
+      "asset_name": "torch_lit"
+    },
+    {
+      "name": "torch_lit (4)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "mesh": "torch_lit",
+      "position": {
+        "x": 9.006996154785156,
+        "y": 2.5,
+        "z": -2.0
+      },
+      "scale": {
+        "x": 100.00003051757812,
+        "y": 100.00003051757812,
+        "z": 100.00001525878906
+      },
+      "meshCenter": {
+        "x": -1.1641532182693481e-10,
+        "y": 4.656612873077393e-10,
+        "z": 0.0016785061452537775
+      },
+      "meshSize": {
+        "x": 0.005502833053469658,
+        "y": 0.005502832587808371,
+        "z": 0.011257926002144814
+      },
+      "rotation": {
+        "x": -0.27059805393218994,
+        "y": 0.6532815098762512,
+        "z": 0.6532815098762512,
+        "w": -0.27059805393218994
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/torch_lit (4)",
+      "asset_name": "torch_lit"
+    },
+    {
+      "name": "torch_lit (5)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "mesh": "torch_lit",
+      "position": {
+        "x": 3.4800033569335938,
+        "y": 2.5,
+        "z": -11.40200138092041
+      },
+      "scale": {
+        "x": 100.00001525878906,
+        "y": 100.00003051757812,
+        "z": 100.00000762939453
+      },
+      "meshCenter": {
+        "x": -1.1641532182693481e-10,
+        "y": 4.656612873077393e-10,
+        "z": 0.0016785061452537775
+      },
+      "meshSize": {
+        "x": 0.005502833053469658,
+        "y": 0.005502832587808371,
+        "z": 0.011257926002144814
+      },
+      "rotation": {
+        "x": -0.27059805393218994,
+        "y": -0.27059805393218994,
+        "z": -0.6532815098762512,
+        "w": 0.6532815098762512
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/torch_lit (5)",
+      "asset_name": "torch_lit"
+    },
+    {
+      "name": "torch_lit (2)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "mesh": "torch_lit",
+      "position": {
+        "x": -8.845001220703125,
+        "y": 2.5,
+        "z": 7.60099983215332
+      },
+      "scale": {
+        "x": 100.00001525878906,
+        "y": 100.00003051757812,
+        "z": 100.00003051757812
+      },
+      "meshCenter": {
+        "x": -1.1641532182693481e-10,
+        "y": 4.656612873077393e-10,
+        "z": 0.0016785061452537775
+      },
+      "meshSize": {
+        "x": 0.005502833053469658,
+        "y": 0.005502832587808371,
+        "z": 0.011257926002144814
+      },
+      "rotation": {
+        "x": -0.6532815098762512,
+        "y": 0.6532815098762512,
+        "z": 0.27059805393218994,
+        "w": 0.27059805393218994
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/torch_lit (2)",
+      "asset_name": "torch_lit"
+    },
+    {
+      "name": "torch_lit (3)",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "mesh": "torch_lit",
+      "position": {
+        "x": 3.5630035400390625,
+        "y": 2.5,
+        "z": 7.539000034332275
+      },
+      "scale": {
+        "x": 100.00001525878906,
+        "y": 100.00003051757812,
+        "z": 100.00003051757812
+      },
+      "meshCenter": {
+        "x": -1.1641532182693481e-10,
+        "y": 4.656612873077393e-10,
+        "z": 0.0016785061452537775
+      },
+      "meshSize": {
+        "x": 0.005502833053469658,
+        "y": 0.005502832587808371,
+        "z": 0.011257926002144814
+      },
+      "rotation": {
+        "x": -0.6532815098762512,
+        "y": 0.6532815098762512,
+        "z": 0.27059805393218994,
+        "w": 0.27059805393218994
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/torch_lit (3)",
+      "asset_name": "torch_lit"
+    },
+    {
+      "name": "banner_shield_white",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/banner_shield_white.fbx",
+      "mesh": "banner_shield_white",
+      "position": {
+        "x": -10.480003356933594,
+        "y": 0.0,
+        "z": 4.369999885559082
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": -1.9073486328125e-06,
+        "y": 2.1294314861297607,
+        "z": 0.5024764537811279
+      },
+      "meshSize": {
+        "x": 2.2320024967193604,
+        "y": 3.1960768699645996,
+        "z": 0.37410101294517517
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/banner_shield_white",
+      "asset_name": "banner_shield_white"
+    },
+    {
+      "name": "banner_triple_white",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/banner_triple_white.fbx",
+      "mesh": "banner_triple_white",
+      "position": {
+        "x": 9.540000915527344,
+        "y": 0.0,
+        "z": -5.409999847412109
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": -7.3909759521484375e-06,
+        "y": 2.1294314861297607,
+        "z": 0.5344580411911011
+      },
+      "meshSize": {
+        "x": 3.6999881267547607,
+        "y": 3.1960768699645996,
+        "z": 0.36231085658073425
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": -0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/banner_triple_white",
+      "asset_name": "banner_triple_white"
+    },
+    {
+      "name": "barrel_large_decorated",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/barrel_large_decorated.fbx",
+      "mesh": "barrel_large_decorated",
+      "position": {
+        "x": 7.769996643066406,
+        "y": 0.0,
+        "z": 6.519999980926514
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": -0.05028367042541504,
+        "y": 1.276235818862915,
+        "z": 0.009027928113937378
+      },
+      "meshSize": {
+        "x": 1.9379570484161377,
+        "y": 2.556453227996826,
+        "z": 1.8554446697235107
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/barrel_large_decorated",
+      "asset_name": "barrel_large_decorated"
+    },
+    {
+      "name": "bed_decorated",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/bed_decorated.fbx",
+      "mesh": "bed_decorated",
+      "position": {
+        "x": -7.8000030517578125,
+        "y": 0.020000457763671875,
+        "z": -5.739999771118164
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": -0.5531611442565918,
+        "y": 0.8503974676132202,
+        "z": -0.028623878955841064
+      },
+      "meshSize": {
+        "x": 2.6063222885131836,
+        "y": 1.7007954120635986,
+        "z": 3.0572476387023926
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/bed_decorated",
+      "asset_name": "bed_decorated"
+    },
+    {
+      "name": "chest_gold",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/chest_gold.fbx",
+      "mesh": "chest_gold",
+      "position": {
+        "x": 5.1100006103515625,
+        "y": 0.0,
+        "z": -10.210000038146973
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 0.5203359723091125,
+        "z": 0.022901058197021484
+      },
+      "meshSize": {
+        "x": 1.600000023841858,
+        "y": 1.0406726598739624,
+        "z": 1.2458029985427856
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/chest_gold",
+      "asset_name": "chest_gold"
+    },
+    {
+      "name": "chest_gold_lid",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/chest_gold.fbx",
+      "mesh": "chest_gold_lid",
+      "position": {
+        "x": 5.1100006103515625,
+        "y": 0.5,
+        "z": -10.774884223937988
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "meshCenter": {
+        "x": 0.0,
+        "y": 0.31749916076660156,
+        "z": 0.5877842903137207
+      },
+      "meshSize": {
+        "x": 1.7000000476837158,
+        "y": 0.965002179145813,
+        "z": 1.4458038806915283
+      },
+      "rotation": {
+        "x": 8.146034247147327e-08,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/chest_gold/chest_gold_lid",
+      "asset_name": "chest_gold"
+    },
+    {
+      "name": "keg_decorated",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/keg_decorated.fbx",
+      "mesh": "keg_decorated",
+      "position": {
+        "x": 7.790000915527344,
+        "y": 0.0,
+        "z": -0.5399999618530273
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.059693872928619385,
+        "y": 1.025362253189087,
+        "z": 0.024391919374465942
+      },
+      "meshSize": {
+        "x": 3.5193920135498047,
+        "y": 2.050724506378174,
+        "z": 2.000000238418579
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/keg_decorated",
+      "asset_name": "keg_decorated"
+    },
+    {
+      "name": "table_long_tablecloth_decorated_A",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/table_long_tablecloth_decorated_A.fbx",
+      "mesh": "table_long_tablecloth_decorated_A",
+      "position": {
+        "x": -1.660003662109375,
+        "y": 0.0,
+        "z": 6.480000019073486
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": 0.0014972686767578125,
+        "y": 0.9428570866584778,
+        "z": 0.0
+      },
+      "meshSize": {
+        "x": 2.058642864227295,
+        "y": 1.8857146501541138,
+        "z": 4.000000476837158
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": true,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/table_long_tablecloth_decorated_A",
+      "asset_name": "table_long_tablecloth_decorated_A"
+    },
+    {
+      "name": "default",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/chair.obj",
+      "mesh": "default",
+      "position": {
+        "x": -2.589996337890625,
+        "y": 0.0,
+        "z": 4.940000057220459
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": -0.0012930035591125488,
+        "y": 0.6132529973983765,
+        "z": 9.98377799987793e-07
+      },
+      "meshSize": {
+        "x": 0.75,
+        "y": 1.226505994796753,
+        "z": 0.7500139474868774
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/chair/default",
+      "asset_name": "chair"
+    },
+    {
+      "name": "default",
+      "asset": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/chair.obj",
+      "mesh": "default",
+      "position": {
+        "x": -0.6660003662109375,
+        "y": 0.0,
+        "z": 4.940000057220459
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "meshCenter": {
+        "x": -0.0012930035591125488,
+        "y": 0.6132529973983765,
+        "z": 9.98377799987793e-07
+      },
+      "meshSize": {
+        "x": 0.75,
+        "y": 1.226505994796753,
+        "z": 0.7500139474868774
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "skinned": false,
+      "active": true,
+      "collider": false,
+      "materials": [
+        "dungeon_texture"
+      ],
+      "parent": "Props/chair (1)/default",
+      "asset_name": "chair"
+    }
+  ],
+  "characters": [
+    {
+      "name": "Healer",
+      "position": {
+        "x": 0.9300000071525574,
+        "y": 0.0,
+        "z": -4.070000171661377
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "asset_name": "RogueHooded",
+      "material": "rogue_texture",
+      "board": "Healer Dialogue",
+      "health": "healer_health"
+    },
+    {
+      "name": "Player",
+      "position": {
+        "x": 3.5799999237060547,
+        "y": 0.0,
+        "z": 1.6100000143051147
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "asset_name": "Knight",
+      "material": "knight_texture",
+      "board": "",
+      "health": ""
+    },
+    {
+      "name": "Wanda Elandor",
+      "position": {
+        "x": -7.699999809265137,
+        "y": 0.0,
+        "z": 0.8199999928474426
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.7071068286895752,
+        "z": 0.0,
+        "w": 0.7071068286895752
+      },
+      "scale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+      },
+      "asset_name": "Mage",
+      "material": "mage_texture",
+      "board": "Wanda Dialogue",
+      "health": "wanda_health"
+    },
+    {
+      "name": "Fighter",
+      "position": {
+        "x": -4.579999923706055,
+        "y": 0.0,
+        "z": -6.849999904632568
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "asset_name": "Barbarian",
+      "material": "barbarian_texture",
+      "board": "Fighter Dialogue",
+      "health": ""
+    }
+  ],
+  "lights": [
+    {
+      "name": "Directional Light",
+      "type": "Directional",
+      "position": {
+        "x": 0.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.4082178771495819,
+        "y": -0.23456968367099762,
+        "z": 0.10938163101673126,
+        "w": 0.8754261136054993
+      },
+      "color": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "intensity": 2.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": false
+    },
+    {
+      "name": "GameObject",
+      "type": "Point",
+      "position": {
+        "x": 2.1680023670196533,
+        "y": 0.5,
+        "z": -4.199999809265137
+      },
+      "rotation": {
+        "x": 0.5341311097145081,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.8454017043113708
+      },
+      "color": {
+        "r": 0.16862745583057404,
+        "g": 0.364705890417099,
+        "b": 0.35686275362968445,
+        "a": 1.0
+      },
+      "intensity": 3.759999990463257,
+      "range": 1.0,
+      "spotAngle": 30.0,
+      "shadows": false,
+      "active": true
+    },
+    {
+      "name": "Point Light",
+      "type": "Point",
+      "position": {
+        "x": -9.536140441894531,
+        "y": 2.9002227783203125,
+        "z": -2.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0000001192092896
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 10.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    },
+    {
+      "name": "Point Light (1)",
+      "type": "Point",
+      "position": {
+        "x": -9.384819030761719,
+        "y": 1.7066268920898438,
+        "z": -6.9079999923706055
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0000001192092896
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 4.0,
+      "range": 1.2000000476837158,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    },
+    {
+      "name": "Point Light",
+      "type": "Point",
+      "position": {
+        "x": 8.543136596679688,
+        "y": 2.9002227783203125,
+        "z": -2.0
+      },
+      "rotation": {
+        "x": -2.086162567138672e-07,
+        "y": 1.0000001192092896,
+        "z": -5.960464477539063e-08,
+        "w": 0.0
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 10.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    },
+    {
+      "name": "Point Light",
+      "type": "Point",
+      "position": {
+        "x": 3.4800033569335938,
+        "y": 2.9002227783203125,
+        "z": -10.938139915466309
+      },
+      "rotation": {
+        "x": 2.086162567138672e-07,
+        "y": -0.7071068286895752,
+        "z": -1.1920928955078125e-07,
+        "w": 0.7071068286895752
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 10.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    },
+    {
+      "name": "Point Light",
+      "type": "Point",
+      "position": {
+        "x": -8.845001220703125,
+        "y": 2.9002227783203125,
+        "z": 7.1371378898620605
+      },
+      "rotation": {
+        "x": -8.940696716308594e-08,
+        "y": 0.7071068286895752,
+        "z": -2.2351741790771484e-07,
+        "w": 0.7071068286895752
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 10.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    },
+    {
+      "name": "Point Light",
+      "type": "Point",
+      "position": {
+        "x": 3.5630035400390625,
+        "y": 2.9002227783203125,
+        "z": 7.075138092041016
+      },
+      "rotation": {
+        "x": -8.940696716308594e-08,
+        "y": 0.7071068286895752,
+        "z": -2.2351741790771484e-07,
+        "w": 0.7071068286895752
+      },
+      "color": {
+        "r": 0.8113207817077637,
+        "g": 0.6202710866928101,
+        "b": 0.17604118585586548,
+        "a": 1.0
+      },
+      "intensity": 10.0,
+      "range": 10.0,
+      "spotAngle": 30.0,
+      "shadows": true,
+      "active": true
+    }
+  ],
+  "assets": [
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_corner_scaffold.fbx",
+      "name": "wall_corner_scaffold",
+      "file": "Models/wall_corner_scaffold.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/wall_doorway_door.obj",
+      "name": "wall_doorway_door",
+      "file": "Models/wall_doorway_door.obj",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_scaffold.fbx",
+      "name": "wall_scaffold",
+      "file": "Models/wall_scaffold.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/wall_shelves.obj",
+      "name": "wall_shelves",
+      "file": "Models/wall_shelves.obj",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/wall_window_open_scaffold.fbx",
+      "name": "wall_window_open_scaffold",
+      "file": "Models/wall_window_open_scaffold.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/floor_tile_large.fbx",
+      "name": "floor_tile_large",
+      "file": "Models/floor_tile_large.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/bottle_A_labeled_green.fbx",
+      "name": "bottle_A_labeled_green",
+      "file": "Models/bottle_A_labeled_green.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/crates_stacked.fbx",
+      "name": "crates_stacked",
+      "file": "Models/crates_stacked.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx/torch_lit.fbx",
+      "name": "torch_lit",
+      "file": "Models/torch_lit.obj",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/banner_shield_white.fbx",
+      "name": "banner_shield_white",
+      "file": "Models/banner_shield_white.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/banner_triple_white.fbx",
+      "name": "banner_triple_white",
+      "file": "Models/banner_triple_white.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/barrel_large_decorated.fbx",
+      "name": "barrel_large_decorated",
+      "file": "Models/barrel_large_decorated.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/bed_decorated.fbx",
+      "name": "bed_decorated",
+      "file": "Models/bed_decorated.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/chest_gold.fbx",
+      "name": "chest_gold",
+      "file": "Models/chest_gold.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/keg_decorated.fbx",
+      "name": "keg_decorated",
+      "file": "Models/keg_decorated.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/fbx(unity)/table_long_tablecloth_decorated_A.fbx",
+      "name": "table_long_tablecloth_decorated_A",
+      "file": "Models/table_long_tablecloth_decorated_A.fbx",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/obj/chair.obj",
+      "name": "chair",
+      "file": "Models/chair.obj",
+      "skeletal": false
+    },
+    {
+      "source": "Assets/KayKit_Adventurers_1.0_FREE/Characters/fbx/RogueHooded.fbx",
+      "name": "RogueHooded",
+      "file": "Models/RogueHooded.fbx",
+      "skeletal": true
+    },
+    {
+      "source": "Assets/KayKit_Adventurers_1.0_FREE/Characters/fbx/Knight.fbx",
+      "name": "Knight",
+      "file": "Models/Knight.fbx",
+      "skeletal": true
+    },
+    {
+      "source": "Assets/KayKit_Adventurers_1.0_FREE/Characters/fbx/Mage.fbx",
+      "name": "Mage",
+      "file": "Models/Mage.fbx",
+      "skeletal": true
+    },
+    {
+      "source": "Assets/KayKit_Adventurers_1.0_FREE/Characters/fbx/Barbarian.fbx",
+      "name": "Barbarian",
+      "file": "Models/Barbarian.fbx",
+      "skeletal": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "dungeon_texture",
+      "file": "Textures/dungeon_texture.png"
+    },
+    {
+      "name": "rogue_texture",
+      "file": "Textures/rogue_texture.png"
+    },
+    {
+      "name": "knight_texture",
+      "file": "Textures/knight_texture.png"
+    },
+    {
+      "name": "mage_texture",
+      "file": "Textures/mage_texture.png"
+    },
+    {
+      "name": "barbarian_texture",
+      "file": "Textures/barbarian_texture.png"
+    }
+  ],
+  "camera": {
+    "distance": 800,
+    "height": 200,
+    "vertical_fov": 60
+  },
+  "ambient": {
+    "r": 0.21199999749660492,
+    "g": 0.22699999809265137,
+    "b": 0.2590000033378601,
+    "a": 1.0
+  }
+}

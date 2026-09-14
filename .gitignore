@@ -45,6 +45,12 @@ node_modules/
 
 # ignore packaged builds
 /ArcweaveDemo/PackagedBuilds/*
+/ArcweaveDemo/Packages/
+/Builds/
+*.exe
+*.pdb
+*.zip
+*.lnk
 
 #ignore python cache
 /ArcweaveDemo/Scripts/py_scripts/__pycache__/*
@@ -53,3 +59,5 @@ node_modules/
 /ArcweaveDemo/Samples/**/*
 
 .DS_Store
+__pycache__/
+*.pyc
