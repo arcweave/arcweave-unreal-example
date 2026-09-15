@@ -1,7 +1,7 @@
 # Arcweave Plugin example project
 Unreal 5.6 example of the Arcweave integration, using the same KayKit dungeon, characters and story as the Unity example.
 
-The plugin submodule is pinned to merged commit `9335a9f`, including v2.0.0 board/component attribute variables and import completion/cancellation callbacks.
+The plugin submodule is pinned to [Arcweave v2.1.0](https://github.com/arcweave/arcweave-unreal-plugin/releases/tag/v2.1.0), including board/component attribute variables and import completion/cancellation callbacks.
 
 ![KayKit dungeon example](Docs/kaykit-example.png)
 
@@ -28,7 +28,7 @@ git clone --recurse-submodules https://github.com/arcweave/arcweave-unreal-examp
 If you prefer not to use Git, you must download the project and the plugin separately:
 
 1. **Download the Project:** [Download Project ZIP](https://github.com/arcweave/arcweave-unreal-example/archive/refs/heads/main.zip) and unzip it.
-2. **Download the Plugin:** Open the [plugin submodule](ArcweaveDemo/Plugins/Arcweave) on GitHub and download the ZIP for the linked commit. Use that commit so the API matches the example.
+2. **Download the Plugin:** Download the [Arcweave v2.1.0 source ZIP](https://github.com/arcweave/arcweave-unreal-plugin/archive/refs/tags/v2.1.0.zip). This is the release used by the example.
 3. **Install the Plugin:** Create and move the unzipped plugin folder into the project directory at:  
    `ArcweaveDemo/Plugins/Arcweave`
 

@@ -28,10 +28,12 @@ the image-quality comparison was measured on 14 September.
   credential retention and Healer potion checks. The live HUD showed
   `faction_relation` and scoped component attributes, and correctly omitted
   the bundled project's `gold` and `sword_locked` variables.
-- The plugin is pinned to merged commit `9335a9f69123da3ef4d3bd37c97553960ec41845`.
-  It includes v2.0.0 attribute variables and the merged API completion,
-  cancellation, timeout and invalid-export fixes from plugin PR #36, including
-  its UE 5.5-compatible test mock. The merged tree matches the tested plugin code.
+- The plugin is pinned to [v2.1.0](https://github.com/arcweave/arcweave-unreal-plugin/releases/tag/v2.1.0),
+  commit `07145997c93a09560ddfcbf1045f0e3c8fc0e1f6`. It includes attribute variables
+  and the API completion, cancellation, timeout and invalid-export fixes from
+  plugin PR #36, including its UE 5.5-compatible test mock. The release changes
+  only the descriptor's version fields from the tested merge `9335a9f`; all source
+  and runtime libraries are identical. A full UE 5.5 build remains unverified.
   The Unity repository remains unchanged.
 - All five automation tests passed after the cleanup. Additional checks cover
   live weather/time/color changes, failed-import recovery, long variable values,
