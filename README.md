@@ -72,3 +72,16 @@ There are two primary methods for collecting data:
 
 **JSON Import:** For this method, you'll need to import a JSON file from your Arcweave project. Ensure that the JSON file, along with all required assets, is placed in the **Content->ArcweaveExport directory**. If this directory does not exist, you will need to create it.
 Also make sure you have enabled to receive data from local JSON in UE Settings > Project Settings > Plugins > Arcweave and you have restarted your UE for the setting to take effect.
+
+## Multiple languages
+The icon on the top right of the HUD opens a menu to switch the language of the project at runtime. It uses the languages (locales) of your Arcweave project, so it depends on how the data is collected:
+
+- **JSON Import:** export the project with **all languages**, so the JSON contains the `locales` and `contents` fields. The language can then be changed at runtime with the menu. If the JSON has a single language, the menu shows a "no locales were found" message.
+- **Web API:** the API returns only one language per request, so the language can't be changed at runtime. Choose it in UE Settings > Project Settings > Plugins > Arcweave: enable **Use Locale**, set the **Locale** (e.g. `en`, `it`, `fr`) and, if you want, **Fallback To Default Locale**. Restart the import to apply it.
+
+A few things to know:
+
+- The language chosen with the menu is only kept until the project is imported again, then the language set in the Project Settings is used. It never changes the Project Settings.
+- A missing translation uses the base language of the locale as defined in Arcweave when **Fallback To Default Locale** is enabled, otherwise the text is empty.
+- Switching to a language the project doesn't have fails and changes nothing: `UpdateContentsWithLocale` returns `false`.
+- To react to a change of language (e.g. to refresh the UI), bind to the `OnArcweaveLanguageChanged` event of the Arcweave subsystem.
