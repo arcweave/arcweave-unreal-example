@@ -37,10 +37,15 @@ If you prefer not to use Git, you must download the project and the plugin separ
 4. **Open:** Once the build finishes, close Visual Studio and double-click `ArcweaveDemo.uproject`.
 
 ## Git submodule tips
-The arcweave plugin is stored in the project as a git submodule
+The Arcweave plugin is stored in the project as a git submodule.
 
-1. Initialization: If you don't see the plugin folder in ArcweaveDemo/Plugins/ folder run ```git submodule update --init --recursive``` to download the plugin files.
-2. Detached HEAD: When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like main) before committing.
+1. **Initialization:** If you don't see the plugin in the `ArcweaveDemo/Plugins` folder, run the following command to download the plugin files:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+2. **Detached HEAD:** When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like `main`) before committing.
 
 ## Important classes
 The entire logic, assets, and implementation of this demo are organized and stored in the **Content->ArcweaveDemo** directory. Within this directory, the most crucial class to understand is **WBP_HUD_New**, which is located in **Content\ArcweaveDemo\Widgets**. 
