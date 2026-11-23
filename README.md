@@ -76,8 +76,8 @@ Also make sure you have enabled to receive data from local JSON in UE Settings >
 ## Multiple languages
 The icon on the top right of the HUD opens a menu to switch the language of the project at runtime. It uses the languages (locales) of your Arcweave project, so it depends on how the data is collected:
 
-- **JSON Import:** export the project with **all languages**, so the JSON contains the `locales` and `contents` fields. The language can then be changed at runtime with the menu. If the JSON has a single language, the menu shows a "no locales were found" message.
-- **Web API:** the API returns only one language per request, so the language can't be changed at runtime. Choose it in UE Settings > Project Settings > Plugins > Arcweave: enable **Use Locale**, set the **Locale** (e.g. `en`, `it`, `fr`) and, if you want, **Fallback To Default Locale**. Restart the import to apply it.
+- **JSON Import:** export the project with **all languages**, so the JSON contains the `locales` and `contents` fields. Keep only **one** JSON file in `Content/ArcweaveExport`: the plugin loads the first one it finds, so replace the existing export instead of adding a second file. The language can then be changed at runtime with the menu. If the JSON has a single language, the menu shows a "No locales available" message.
+- **Web API:** the API returns only one language per request, so the language can't be changed at runtime. Choose it in UE Settings > Project Settings > Plugins > Arcweave: enable **Use Locale**, set the **Locale** (e.g. `en`, `it`, `fr`) and, if you want, **Fallback To Default Locale** (it can only be edited once **Use Locale** is enabled). Restart the import to apply it.
 
 A few things to know:
 
