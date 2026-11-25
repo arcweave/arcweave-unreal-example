@@ -85,3 +85,28 @@ A few things to know:
 - A missing translation uses the base language of the locale as defined in Arcweave when **Fallback To Default Locale** is enabled, otherwise the text is empty.
 - Switching to a language the project doesn't have fails and changes nothing: `UpdateContentsWithLocale` returns `false`.
 - To react to a change of language (e.g. to refresh the UI), bind to the `OnArcweaveLanguageChanged` event of the Arcweave subsystem.
+
+### The languages of the example project
+`Content/ArcweaveExport/project_settings.json` is exported with all languages, so the language menu works out of the box. It contains two languages:
+
+| Language | Code | Notes |
+|---|---|---|
+| English | `en` | The base language, every text is translated. |
+| Greek | `el` | Based on English. Most dialogue lines, choices, titles and component names are translated. |
+
+A few Greek texts are left untranslated on purpose, to show how the fallback works: the dialogue starts that contain script blocks, the "Go to ..." choices that mention a component and some of the notes.
+
+Select the language with the icon on the top right of the HUD, or set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave.
+
+#### What to expect when changing language
+The result for a text that is not translated depends on **Fallback To Default Locale** in the Arcweave settings:
+
+| Fallback To Default Locale | Greek text with a translation | Greek text without a translation |
+|---|---|---|
+| **Off** | Shown in Greek. | Empty: nothing is shown. |
+| **On** | Shown in Greek. | Shown in English, the base language of Greek. |
+
+- With the fallback **on**, switching to Greek gives a mostly Greek dialogue, and the few untranslated lines stay in English.
+- With the fallback **off**, the untranslated lines are blank, so you can see exactly what is missing in a translation.
+- Switching back to English always shows every text.
+- The fallback only follows the base language set in Arcweave. A text is never taken from an unrelated language.
