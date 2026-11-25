@@ -735,11 +735,12 @@
       "content": {
         "en": {
           "text": "<pre spellcheck=\"false\" data-id=\"6d82316b-378a-4d79-92af-b77d1d6db762\"><code class=\"language-arcscript\">wanda_health += 50</code></pre><pre spellcheck=\"false\" data-id=\"574cfb12-2a5a-4b80-bdbc-4a0041e61d97\"><code class=\"language-arcscript\">have_potion = false</code></pre><p><em>[Wanda gulps down the potion.]</em></p>"
+        },
+        "el": {
+          "text": "<pre spellcheck=\"false\" data-id=\"6d82316b-378a-4d79-92af-b77d1d6db762\"><code class=\"language-arcscript\">wanda_health += 50</code></pre><pre spellcheck=\"false\" data-id=\"574cfb12-2a5a-4b80-bdbc-4a0041e61d97\"><code class=\"language-arcscript\">have_potion = false</code></pre><p><em>[Η Γουάντα πίνει μονορούφι το φίλτρο.]</em></p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "325f3cda-c786-4259-b95b-e09a399c58fd": {
       "label": {
@@ -854,11 +855,12 @@
       "content": {
         "en": {
           "text": "<pre spellcheck=\"false\" data-id=\"34d6bad8-7247-4419-8b07-706d884dbe40\"><code class=\"language-arcscript\">if wanda_health &lt; 40</code></pre><p style=\"margin-left: 20px\">Help me, Stranger.... I am wounded...</p><pre spellcheck=\"false\" data-id=\"d365b366-9852-48c5-b54b-5b6874740c80\"><code class=\"language-arcscript\">else</code></pre><p style=\"margin-left: 20px\">Thank you for saving my life!</p><pre spellcheck=\"false\" data-id=\"60520b2e-e4e7-4c8d-b632-783829463c84\"><code class=\"language-arcscript\">endif</code></pre>"
+        },
+        "el": {
+          "text": "<pre spellcheck=\"false\" data-id=\"34d6bad8-7247-4419-8b07-706d884dbe40\"><code class=\"language-arcscript\">if wanda_health &lt; 40</code></pre><p style=\"margin-left: 20px\">Βοήθησέ με, Ξένε.... Είμαι τραυματισμένη...</p><pre spellcheck=\"false\" data-id=\"d365b366-9852-48c5-b54b-5b6874740c80\"><code class=\"language-arcscript\">else</code></pre><p style=\"margin-left: 20px\">Σε ευχαριστώ που μου έσωσες τη ζωή!</p><pre spellcheck=\"false\" data-id=\"60520b2e-e4e7-4c8d-b632-783829463c84\"><code class=\"language-arcscript\">endif</code></pre>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "540d5fc7-aa78-4b1a-8c11-bc2d4dc24ba9": {
       "title": {
@@ -1217,11 +1219,12 @@
       "content": {
         "en": {
           "text": "<pre spellcheck=\"false\" data-id=\"76ed1092-db25-4c61-9510-d26a327de92b\"><code class=\"language-arcscript\">have_potion = true</code></pre><p>Oh my! But of course! Here, take this healing potion.</p>"
+        },
+        "el": {
+          "text": "<pre spellcheck=\"false\" data-id=\"76ed1092-db25-4c61-9510-d26a327de92b\"><code class=\"language-arcscript\">have_potion = true</code></pre><p>Ω Θεέ μου! Μα φυσικά! Ορίστε, πάρε αυτό το θεραπευτικό φίλτρο.</p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "dbbbec36-4a9c-4cad-8533-c9f421a5093d": {
       "title": {

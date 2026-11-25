@@ -94,7 +94,7 @@ A few things to know:
 | English | `en` | The base language, every text is translated. |
 | Greek | `el` | Based on English. Most dialogue lines, choices, titles and component names are translated. |
 
-A few Greek texts are left untranslated on purpose, to show how the fallback works: the dialogue lines that contain script blocks, the "Go to ..." choices that mention a component and the starting elements (which are never shown in the game).
+A few Greek texts are left untranslated on purpose, to show how the fallback works: the "Go to ..." choices that mention a component and the starting elements (which are never shown in the game). They are all plain text. The elements that contain script blocks (for example the one that gives the potion) are translated and keep their script, because with the fallback **off** an untranslated element has an empty text, so its script would never run and the quest would break.
 
 Select the language with the icon on the top right of the HUD, or enable **Use Locale** and set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave (**Locale** and **Fallback To Default Locale** can only be edited once **Use Locale** is enabled).
 
