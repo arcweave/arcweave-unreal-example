@@ -87,16 +87,16 @@ A few things to know:
 - To react to a change of language (e.g. to refresh the UI), bind to the `OnArcweaveLanguageChanged` event of the Arcweave subsystem.
 
 ### The languages of the example project
-`Content/ArcweaveExport/project_settings.json` is exported with all languages, so the language menu works out of the box. It contains two languages:
+`Content/ArcweaveExport/project_settings.json` was exported with all languages option, so it can be used to try the language menu. **To use it you must enable "Receive data from local JSON"** in UE Settings > Project Settings > Plugins > Arcweave (`EnableReceiveMethodFromLocalJSON`) and restart Unreal Editor: by default the demo reads the data from the Web API, which returns only one language and so can't switch language at runtime. It contains two languages:
 
 | Language | Code | Notes |
 |---|---|---|
 | English | `en` | The base language, every text is translated. |
 | Greek | `el` | Based on English. Most dialogue lines, choices, titles and component names are translated. |
 
-A few Greek texts are left untranslated on purpose, to show how the fallback works: the dialogue starts that contain script blocks, the "Go to ..." choices that mention a component and some of the notes.
+A few Greek texts are left untranslated on purpose, to show how the fallback works: the dialogue lines that contain script blocks, the "Go to ..." choices that mention a component and the starting elements (which are never shown in the game).
 
-Select the language with the icon on the top right of the HUD, or set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave.
+Select the language with the icon on the top right of the HUD, or enable **Use Locale** and set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave (**Locale** and **Fallback To Default Locale** can only be edited once **Use Locale** is enabled).
 
 #### What to expect when changing language
 The result for a text that is not translated depends on **Fallback To Default Locale** in the Arcweave settings:
@@ -107,6 +107,6 @@ The result for a text that is not translated depends on **Fallback To Default Lo
 | **On** | Shown in Greek. | Shown in English, the base language of Greek. |
 
 - With the fallback **on**, switching to Greek gives a mostly Greek dialogue, and the few untranslated lines stay in English.
-- With the fallback **off**, the untranslated lines are blank, so you can see exactly what is missing in a translation.
+- With the fallback **off**, the untranslated lines are blank, so you can see exactly what is missing in a translation. A choice with an empty label is replaced by a **Next** button (the demo adds it when no choice has a label), and the log shows a warning for each missing translation.
 - Switching back to English always shows every text.
 - The fallback only follows the base language set in Arcweave. A text is never taken from an unrelated language.
