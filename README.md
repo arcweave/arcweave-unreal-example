@@ -37,10 +37,15 @@ If you prefer not to use Git, you must download the project and the plugin separ
 4. **Open:** Once the build finishes, close Visual Studio and double-click `ArcweaveDemo.uproject`.
 
 ## Git submodule tips
-The arcweave plugin is stored in the project as a git submodule
+The Arcweave plugin is stored in the project as a git submodule.
 
-1. Initialization: If you don't see the plugin folder in ArcweaveDemo/Plugins/ folder run ```git submodule update --init --recursive``` to download the plugin files.
-2. Detached HEAD: When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like main) before committing.
+1. **Initialization:** If you don't see the plugin in the `ArcweaveDemo/Plugins` folder, run the following command to download the plugin files:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+2. **Detached HEAD:** When you enter a submodule, you are usually in a "Detached HEAD" state. If you make changes there, remember to checkout a branch (like `main`) before committing.
 
 ## Important classes
 The entire logic, assets, and implementation of this demo are organized and stored in the **Content->ArcweaveDemo** directory. Within this directory, the most crucial class to understand is **WBP_HUD_New**, which is located in **Content\ArcweaveDemo\Widgets**. 
@@ -67,3 +72,44 @@ There are two primary methods for collecting data:
 
 **JSON Import:** For this method, you'll need to import a JSON file from your Arcweave project. Ensure that the JSON file, along with all required assets, is placed in the **Content->ArcweaveExport directory**. If this directory does not exist, you will need to create it.
 Also make sure you have enabled to receive data from local JSON in UE Settings > Project Settings > Plugins > Arcweave and you have restarted your UE for the setting to take effect.
+
+## Multiple languages
+The icon on the top right of the HUD opens a menu to switch the language of the project at runtime. It uses the languages (locales) of your Arcweave project, so it depends on how the data is collected:
+
+- **JSON Import:** export the project with **all languages**, so the JSON contains the `locales` and `contents` fields. Keep only **one** JSON file in `Content/ArcweaveExport`: the plugin loads the first one it finds, so replace the existing export instead of adding a second file. The language can then be changed at runtime with the menu. If the JSON has a single language, the menu shows a "No locales available" message.
+- **Web API:** the API returns only one language per request, so the language can't be changed at runtime. Choose it in UE Settings > Project Settings > Plugins > Arcweave: enable **Use Locale**, set the **Locale** (e.g. `en`, `it`, `fr`) and, if you want, **Fallback To Default Locale** (it can only be edited once **Use Locale** is enabled). Restart the import to apply it.
+
+A few things to know:
+
+- The language chosen with the menu is only kept until the project is imported again, then the language set in the Project Settings is used. It never changes the Project Settings.
+- A missing translation uses the base language of the locale as defined in Arcweave when **Fallback To Default Locale** is enabled, otherwise the text is empty.
+- Switching to a language the project doesn't have fails and changes nothing: `UpdateContentsWithLocale` returns `false`.
+- To react to a change of language (e.g. to refresh the UI), bind to the `OnArcweaveLanguageChanged` event of the Arcweave subsystem.
+
+### The languages of the example project
+`Content/ArcweaveExport/project_settings.json` was exported with all languages option, so it can be used to try the language menu. **To use it you must enable "Receive data from local JSON"** in UE Settings > Project Settings > Plugins > Arcweave (`EnableReceiveMethodFromLocalJSON`) and restart Unreal Editor: by default the demo reads the data from the Web API, which returns only one language and so can't switch language at runtime. It contains two languages:
+
+| Language | Code | Notes |
+|---|---|---|
+| English | `en` | The base language, every text is translated. |
+| Greek | `el` | Based on English. All the dialogue lines, choices, titles and component names are translated, except the texts listed below. |
+
+A few Greek texts are left untranslated on purpose, to show how the fallback works. They are all plain text:
+
+- The first line of the Healer, "Greetings traveller, may I help you?". It is the only one you can see in the game: talk to the Healer to compare the two settings of the fallback.
+
+Select the language with the icon on the top right of the HUD, or enable **Use Locale** and set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave (**Locale** and **Fallback To Default Locale** can only be edited once **Use Locale** is enabled).
+
+#### What to expect when changing language
+The result for a text that is not translated depends on **Fallback To Default Locale** in the Arcweave settings:
+
+| Fallback To Default Locale | Greek text with a translation | Greek text without a translation |
+|---|---|---|
+| **Off** | Shown in Greek. | Empty: nothing is shown. |
+| **On** | Shown in Greek. | Shown in English, the base language of Greek. |
+
+- With the fallback **on**, switching to Greek gives a Greek dialogue, except the Healer's first line, which stays in English.
+- With the fallback **off**, the untranslated texts are blank, so you can see exactly what is missing in a translation: the Healer's first line is empty, while his choices are still shown in Greek. The log shows a warning for each missing element title or content. Missing choice labels and component names are not reported, because they are optional in Arcweave.
+- With the fallback **off**, a choice whose label is not translated has an empty label and is not shown. A single **Next** button is added only when none of the choices of an element has a label.
+- Switching back to English always shows every text.
+- The fallback only follows the base language set in Arcweave. A text is never taken from an unrelated language.
