@@ -907,16 +907,20 @@
       "title": {
         "en": {
           "text": "<p>Play Mode Start</p>"
+        },
+        "el": {
+          "text": "<p>Έναρξη Play Mode</p>"
         }
       },
       "content": {
         "en": {
           "text": "<p><strong>Setting</strong>:<br>• a forest</p><p><strong>Player</strong>:<br>• <span class=\"mention-component mention\" data-id=\"3846c37c-07a1-4c04-98e2-26cd026295d1\" data-label=\"Drake Miles\" data-type=\"component\">Drake Miles</span></p><p><strong>NPCs</strong>:<br>• <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Wanda Elandor\" data-type=\"component\">Wanda Elandor</span><br>• <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Healer\" data-type=\"component\">Healer</span></p>"
+        },
+        "el": {
+          "text": "<p><strong>Σκηνικό</strong>:<br>• ένα δάσος</p><p><strong>Παίκτης</strong>:<br>• <span class=\"mention-component mention\" data-id=\"3846c37c-07a1-4c04-98e2-26cd026295d1\" data-label=\"Ντρέικ Μάιλς\" data-type=\"component\">Ντρέικ Μάιλς</span></p><p><strong>NPC</strong>:<br>• <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Γουάντα Έλαντορ\" data-type=\"component\">Γουάντα Έλαντορ</span><br>• <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Θεραπευτής\" data-type=\"component\">Θεραπευτής</span></p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "5feea546-dde8-4445-b8a1-29194c6ff0d5": {
       "name": {
@@ -1097,16 +1101,20 @@
       "title": {
         "en": {
           "text": "<p><span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Healer\" data-type=\"component\">Healer</span> starting element</p>"
+        },
+        "el": {
+          "text": "<p><span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Θεραπευτής\" data-type=\"component\">Θεραπευτής</span> – αρχικό στοιχείο</p>"
         }
       },
       "content": {
         "en": {
           "text": "<p><em>This element must not be rendered. It only points to the next element (via jumper), where the dialogue begins.</em></p>"
+        },
+        "el": {
+          "text": "<p><em>Αυτό το στοιχείο δεν πρέπει να εμφανίζεται. Δείχνει μόνο στο επόμενο στοιχείο (μέσω jumper), όπου ξεκινά ο διάλογος.</em></p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "a690068b-49db-44ee-94ca-ebf4627c8141": {
       "title": {
@@ -1150,11 +1158,12 @@
       "label": {
         "en": {
           "text": "<p>Go to <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Healer\" data-type=\"component\">Healer</span>.</p>"
+        },
+        "el": {
+          "text": "<p>Μετάβαση σε: <span class=\"mention-component mention\" data-id=\"82820a96-708d-4a05-b2aa-21e8d582d5de\" data-label=\"Θεραπευτής\" data-type=\"component\">Θεραπευτής</span>.</p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "bc517d71-2899-4d3c-9c92-e72ca2b00174": {
       "label": {
@@ -1201,11 +1210,12 @@
       "label": {
         "en": {
           "text": "<p>Go to <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Wanda Elandor\" data-type=\"component\">Wanda Elandor</span>.</p>"
+        },
+        "el": {
+          "text": "<p>Μετάβαση σε: <span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Γουάντα Έλαντορ\" data-type=\"component\">Γουάντα Έλαντορ</span>.</p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     },
     "d852a577-bd1f-44cf-8187-77a86f97baef": {
       "title": {
@@ -1257,12 +1267,11 @@
       "content": {
         "en": {
           "text": "<p>Greetings traveller, may I help you?</p>"
-        },
-        "el": {
-          "text": "<p>Χαίρε, ταξιδιώτη, μπορώ να σε βοηθήσω;</p>"
         }
       },
-      "_status": {}
+      "_status": {
+        "el": "untranslated"
+      }
     },
     "e14fa106-d418-4935-ab44-0de013995605": {
       "title": {
@@ -1297,16 +1306,20 @@
       "title": {
         "en": {
           "text": "<p><span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Wanda Elandor\" data-type=\"component\">Wanda Elandor</span> starting element</p>"
+        },
+        "el": {
+          "text": "<p><span class=\"mention-component mention\" data-id=\"647349ca-9ebb-4d5f-b81e-500761ec1c5a\" data-label=\"Γουάντα Έλαντορ\" data-type=\"component\">Γουάντα Έλαντορ</span> – αρχικό στοιχείο</p>"
         }
       },
       "content": {
         "en": {
           "text": "<p><em>This element must not be rendered. It only points to the next element (via jumper), where the dialogue begins.</em></p>"
+        },
+        "el": {
+          "text": "<p><em>Αυτό το στοιχείο δεν πρέπει να εμφανίζεται. Δείχνει μόνο στο επόμενο στοιχείο (μέσω jumper), όπου ξεκινά ο διάλογος.</em></p>"
         }
       },
-      "_status": {
-        "el": "untranslated"
-      }
+      "_status": {}
     }
   },
   "components": {

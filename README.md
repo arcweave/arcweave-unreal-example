@@ -92,9 +92,11 @@ A few things to know:
 | Language | Code | Notes |
 |---|---|---|
 | English | `en` | The base language, every text is translated. |
-| Greek | `el` | Based on English. Most dialogue lines, choices, titles and component names are translated. |
+| Greek | `el` | Based on English. All the dialogue lines, choices, titles and component names are translated, except the texts listed below. |
 
-A few Greek texts are left untranslated on purpose, to show how the fallback works: the "Go to ..." choices that mention a component and the starting elements (which are never shown in the game). They are all plain text. The elements that contain script blocks (for example the one that gives the potion) are translated and keep their script, because with the fallback **off** an untranslated element has an empty text, so its script would never run and the quest would break.
+A few Greek texts are left untranslated on purpose, to show how the fallback works. They are all plain text:
+
+- The first line of the Healer, "Greetings traveller, may I help you?". It is the only one you can see in the game: talk to the Healer to compare the two settings of the fallback.
 
 Select the language with the icon on the top right of the HUD, or enable **Use Locale** and set **Locale** to `el` in UE Settings > Project Settings > Plugins > Arcweave (**Locale** and **Fallback To Default Locale** can only be edited once **Use Locale** is enabled).
 
@@ -106,7 +108,8 @@ The result for a text that is not translated depends on **Fallback To Default Lo
 | **Off** | Shown in Greek. | Empty: nothing is shown. |
 | **On** | Shown in Greek. | Shown in English, the base language of Greek. |
 
-- With the fallback **on**, switching to Greek gives a mostly Greek dialogue, and the few untranslated lines stay in English.
-- With the fallback **off**, the untranslated lines are blank, so you can see exactly what is missing in a translation. A choice with an empty label is replaced by a **Next** button (the demo adds it when no choice has a label), and the log shows a warning for each missing translation.
+- With the fallback **on**, switching to Greek gives a Greek dialogue, except the Healer's first line, which stays in English.
+- With the fallback **off**, the untranslated texts are blank, so you can see exactly what is missing in a translation: the Healer's first line is empty, while his choices are still shown in Greek. The log shows a warning for each missing element title or content. Missing choice labels and component names are not reported, because they are optional in Arcweave.
+- With the fallback **off**, a choice whose label is not translated has an empty label and is not shown. A single **Next** button is added only when none of the choices of an element has a label.
 - Switching back to English always shows every text.
 - The fallback only follows the base language set in Arcweave. A text is never taken from an unrelated language.
